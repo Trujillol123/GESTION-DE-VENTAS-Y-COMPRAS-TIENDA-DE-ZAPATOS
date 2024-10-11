@@ -27,11 +27,6 @@
         <artifactId>batik-svg-dom</artifactId>
         <version>1.14</version> <!-- Verifica la última versión -->
     </dependency>
-  <dependency>
-            <groupId>com.utcompany</groupId>
-            <artifactId>dark-light-switch</artifactId>
-            <version>1.0</version> <!-- Puedes ajustar la versión según lo que hayas elegido -->
-        </dependency>
          <dependency>
         <groupId>com.formdev</groupId>
         <artifactId>flatlaf-extras</artifactId>
