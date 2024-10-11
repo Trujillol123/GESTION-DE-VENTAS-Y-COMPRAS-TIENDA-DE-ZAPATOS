@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.utcompany</groupId>
+    <artifactId>ZapatosStyle</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <exec.mainClass>com.utcompany.zapatosstyle.TiendaZapatos</exec.mainClass>
+    </properties>
+    <dependencies>
+        <dependency>
+        <groupId>org.apache.xmlgraphics</groupId>
+        <artifactId>batik-svggen</artifactId>
+        <version>1.14</version> <!-- Verifica la última versión -->
+    </dependency>
+        <dependency>
+    <groupId>org.apache.xmlgraphics</groupId>
+    <artifactId>batik-swing</artifactId>
+    <version>1.14</version> <!-- Verifica si hay una versión más reciente -->
+</dependency>
+   <dependency>
+        <groupId>org.apache.xmlgraphics</groupId>
+        <artifactId>batik-svg-dom</artifactId>
+        <version>1.14</version> <!-- Verifica la última versión -->
+    </dependency>
+  <dependency>
+            <groupId>com.utcompany</groupId>
+            <artifactId>dark-light-switch</artifactId>
+            <version>1.0</version> <!-- Puedes ajustar la versión según lo que hayas elegido -->
+        </dependency>
+         <dependency>
+        <groupId>com.formdev</groupId>
+        <artifactId>flatlaf-extras</artifactId>
+        <version>3.4.1</version>
+        </dependency>
+        <dependency>
+  <groupId>com.formdev</groupId>
+  <artifactId>flatlaf-intellij-themes</artifactId>
+  <version>3.5.1</version>
+</dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf</artifactId>
+            <version>3.5.1</version>
+            <type>jar</type>
+        </dependency>
+        
+    <!-- Otras dependencias de tu proyecto -->
+    
+    <dependency>
+        <groupId>org.apache.xmlgraphics</groupId>
+        <artifactId>batik-transcoder</artifactId>
+        <version>1.14</version>
+    </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-fonts-roboto</artifactId>
+            <version>2.137</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.netbeans.external</groupId>
+            <artifactId>AbsoluteLayout</artifactId>
+            <version>RELEASE210</version>
+        </dependency>
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+        </dependency>
+        
+    </dependencies>
+    <name>AO Style</name>
+</project>
