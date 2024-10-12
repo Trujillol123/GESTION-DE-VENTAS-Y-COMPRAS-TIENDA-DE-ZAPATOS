@@ -22,10 +22,10 @@ import views.GestionProductos;
 import views.Principal;
 import views.Proveedores;
 
-import views.Reportes;
-import views.UpZapato;
+
+import views.NewZapato;
 import views.Ventas;
-import views.UPCliente;
+import views.NewCliente;
 
 public class dashboard extends JFrame {
 
@@ -33,55 +33,47 @@ public class dashboard extends JFrame {
     private final ImageIcon SolIcon;
     private final ImageIcon LunaIcon;
     private final ImageIcon ShoeRackIcon;
+    private final ImageIcon CasaIcon;
+    private final ImageIcon CasaNegraIcon;
     
-    
+   
 
     public dashboard() {
         // Depuración de carga de recursos
         URL solUrl = getClass().getResource("/icons/sol.png");
         URL lunaUrl = getClass().getResource("/icons/luna.png");
         URL shoerackUrl = getClass().getResource("/images/ShoeRack_black_rb_182_103.png");
-
-        if (solUrl == null) {
-            System.err.println("No se encontró sol.png");
-        } else {
-            System.out.println("sol.png encontrado en: " + solUrl.toExternalForm());
-        }
-
-        if (lunaUrl == null) {
-            System.err.println("No se encontró luna.png");
-        } else {
-            System.out.println("luna.png encontrado en: " + lunaUrl.toExternalForm());
-        }
-        
-        if (shoerackUrl == null) {
-            System.out.println("No se encontró ShoeRack_black_rb_182_103.png");
-        } else {
-            System.out.println("ShoeRack_black_rb_182_103.png encontrado en: " + shoerackUrl.toExternalForm());
-        }
+        URL Casaurl = getClass ().getResource("/icons/casa.png");
+        URL casanegraurl = getClass ().getResource("/icons/casanegra.png");
+  
 
         SolIcon = new ImageIcon(solUrl);
         LunaIcon = new ImageIcon(lunaUrl);
         ShoeRackIcon = new ImageIcon(shoerackUrl);
-
+        CasaNegraIcon = new ImageIcon(casanegraurl);
+        CasaIcon = new ImageIcon (Casaurl);
         initComponents();
         setLightMode(); 
         SetDate();
         initContent();
-        initStyles ();
+        styleButtonPrincipal(rootPaneCheckingEnabled);
+       
     }
     
-    private void initStyles () {
-        btnClientes.setHorizontalAlignment(SwingConstants.CENTER);
-        btnPrinciapl.setHorizontalAlignment(SwingConstants.CENTER);
-        btnGestiondeProductos.setHorizontalAlignment(SwingConstants.CENTER);
-        btnCompras.setHorizontalAlignment(SwingConstants.CENTER);
-        btnVentas.setHorizontalAlignment(SwingConstants.CENTER);
-        btnProveedores.setHorizontalAlignment(SwingConstants.CENTER);
-        btnReportes.setHorizontalAlignment(SwingConstants.CENTER);
+
+    
+    private void styleButtonPrincipal(boolean isDarkMode) {
+    btnPrinciapl.setHorizontalAlignment(SwingConstants.LEFT);
+    btnPrinciapl.setHorizontalTextPosition(SwingConstants.RIGHT);
+    btnPrinciapl.setVerticalTextPosition(SwingConstants.CENTER);
+    btnPrinciapl.setIconTextGap(10); 
+    
+    if (isDarkMode) {
+        btnPrinciapl.setIcon(CasaIcon);
+    } else {
+        btnPrinciapl.setIcon(CasaNegraIcon);
     }
-    
-    
+}
    private void initContent() {
        showJpanel(new Compras());
 }
@@ -117,7 +109,6 @@ public class dashboard extends JFrame {
         btnClientes = new javax.swing.JButton();
         btnCompras = new javax.swing.JButton();
         btnProveedores = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         JToggleButton = new javax.swing.JButton();
 
@@ -228,18 +219,6 @@ public class dashboard extends JFrame {
             }
         });
 
-        btnReportes.setText("REPORTES");
-        btnReportes.setBorder(null);
-        btnReportes.setBorderPainted(false);
-        btnReportes.setContentAreaFilled(false);
-        btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnReportes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnReportes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportesActionPerformed(evt);
-            }
-        });
-
         btnLogout.setText("CERRAR SESION");
         btnLogout.setBorderPainted(false);
         btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -266,7 +245,6 @@ public class dashboard extends JFrame {
             .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(JToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PanelMenuLayout.setVerticalGroup(
@@ -287,10 +265,8 @@ public class dashboard extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(JToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addGap(70, 70, 70)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -340,6 +316,7 @@ public class dashboard extends JFrame {
 
     private void btnPrinciaplActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrinciaplActionPerformed
            showJpanel(new Principal()); 
+           
     }//GEN-LAST:event_btnPrinciaplActionPerformed
 
     private void btnGestiondeProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestiondeProductosActionPerformed
@@ -361,10 +338,6 @@ public class dashboard extends JFrame {
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
        showJpanel(new Proveedores()); 
     }//GEN-LAST:event_btnProveedoresActionPerformed
-
-    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        showJpanel(new Reportes()); 
-    }//GEN-LAST:event_btnReportesActionPerformed
 
     
     private void SetDate (){
@@ -402,9 +375,13 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
                 FlatLaf.updateUI();
                 FlatAnimatedLafChange.hideSnapshotWithAnimation();
                 
+                styleButtonPrincipal(false);
+                
+                
                 // Actualizar botón
                 JToggleButton.setText("Light Mode");
                 JToggleButton.setIcon(SolIcon);  // Cambia al icono de sol
+               
                 logoletras.setIcon(ShoeRackIcon); //Cambia las letras SHOERACK STORE de blanco a negro
                 
                 // Personalizar colores del botón para modo claro
@@ -429,8 +406,11 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
             FlatLaf.updateUI();
             FlatAnimatedLafChange.hideSnapshotWithAnimation();
 
+            styleButtonPrincipal(true);
+            
             // Actualizar botón
             JToggleButton.setText("Dark Mode");
+           
             JToggleButton.setIcon(LunaIcon);  // Cambia al icono de luna
 
             // Personalizar colores del botón para modo oscuro
@@ -476,7 +456,6 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnPrinciapl;
     private javax.swing.JButton btnProveedores;
-    private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnVentas;
     private static javax.swing.JPanel content;
     private javax.swing.JLabel datetext;
