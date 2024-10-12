@@ -152,7 +152,7 @@ public class GestionProductos extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        dashboard.showJpanel(new NewZapato()); 
+        dashboard.getInstance().showJpanel(new NewZapato());
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

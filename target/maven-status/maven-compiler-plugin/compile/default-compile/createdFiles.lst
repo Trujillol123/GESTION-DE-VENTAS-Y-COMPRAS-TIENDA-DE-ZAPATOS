@@ -57,6 +57,7 @@ views\NewCompra$3.class
 DataBase\Database.class
 views\NewCliente$2.class
 views\Compras$7.class
+TiendaZapatos\PanelRound.class
 views\Ventas$2.class
 views\Clientes$5.class
 views\GestionProductos$4.class

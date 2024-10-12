@@ -171,7 +171,7 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnNuevaVEntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaVEntaActionPerformed
-      dashboard.showJpanel(new NewVenta());
+      dashboard.getInstance().showJpanel(new NewVenta());
     }//GEN-LAST:event_btnNuevaVEntaActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

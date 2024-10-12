@@ -38,7 +38,9 @@ public class dashboard extends JFrame {
     
    
 
-    public dashboard() {
+     private static dashboard instance;
+    
+    private dashboard() {
         // Depuración de carga de recursos
         URL solUrl = getClass().getResource("/icons/sol.png");
         URL lunaUrl = getClass().getResource("/icons/luna.png");
@@ -52,6 +54,7 @@ public class dashboard extends JFrame {
         ShoeRackIcon = new ImageIcon(shoerackUrl);
         CasaNegraIcon = new ImageIcon(casanegraurl);
         CasaIcon = new ImageIcon (Casaurl);
+        
         initComponents();
         setLightMode(); 
         SetDate();
@@ -60,6 +63,13 @@ public class dashboard extends JFrame {
        
     }
     
+    // Método público estático para obtener la única instancia
+    public static dashboard getInstance() {
+        if (instance == null) {
+            instance = new dashboard(); // Crea la instancia si no existe
+        }
+        return instance; // Devuelve la instancia
+    }
 
     
     private void styleButtonPrincipal(boolean isDarkMode) {
@@ -78,7 +88,9 @@ public class dashboard extends JFrame {
        showJpanel(new Compras());
 }
    
-   public static void showJpanel (JPanel p){
+   //HOLA
+   
+   public void showJpanel (JPanel p){
        p.setSize(1205, 636);
        p.setLocation(0,0);
        
@@ -99,7 +111,7 @@ public class dashboard extends JFrame {
     private void initComponents() {
 
         BackGround = new javax.swing.JPanel();
-        content = new javax.swing.JPanel();
+        content = new TiendaZapatos.PanelRound();
         datetext = new javax.swing.JLabel();
         PanelMenu = new javax.swing.JPanel();
         logoletras = new javax.swing.JLabel();
@@ -115,9 +127,8 @@ public class dashboard extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1060, 583));
 
-        content.setBackground(new java.awt.Color(204, 255, 255));
-        content.setForeground(new java.awt.Color(255, 255, 255));
-        content.setPreferredSize(new java.awt.Dimension(883, 474));
+        content.setBackground(new java.awt.Color(102, 0, 0));
+        content.setRoundTopLeft(50);
 
         datetext.setText("Hoy es {dayname}  {day} de {mounth} del {year}");
 
@@ -126,16 +137,16 @@ public class dashboard extends JFrame {
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(datetext)
-                .addContainerGap(747, Short.MAX_VALUE))
+                .addContainerGap(684, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(contentLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addComponent(datetext, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(601, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         PanelMenu.setBackground(new java.awt.Color(153, 153, 153));
@@ -237,7 +248,7 @@ public class dashboard extends JFrame {
             .addGroup(PanelMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logoletras, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
             .addComponent(btnPrinciapl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnGestiondeProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnCompras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -265,7 +276,7 @@ public class dashboard extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addComponent(JToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                 .addGap(70, 70, 70)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -276,13 +287,13 @@ public class dashboard extends JFrame {
             BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackGroundLayout.createSequentialGroup()
                 .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         BackGroundLayout.setVerticalGroup(
             BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -457,7 +468,7 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
     private javax.swing.JButton btnPrinciapl;
     private javax.swing.JButton btnProveedores;
     private javax.swing.JButton btnVentas;
-    private static javax.swing.JPanel content;
+    private TiendaZapatos.PanelRound content;
     private javax.swing.JLabel datetext;
     private javax.swing.JLabel logoletras;
     // End of variables declaration//GEN-END:variables
