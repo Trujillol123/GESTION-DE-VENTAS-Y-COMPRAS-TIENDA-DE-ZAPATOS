@@ -16,41 +16,43 @@
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-svggen</artifactId>
         <version>1.14</version> <!-- Verifica la última versión -->
-    </dependency>
+        </dependency>
         <dependency>
-    <groupId>org.apache.xmlgraphics</groupId>
-    <artifactId>batik-swing</artifactId>
-    <version>1.14</version> <!-- Verifica si hay una versión más reciente -->
-</dependency>
-   <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-swing</artifactId>
+            <version>1.14</version> <!-- Verifica si hay una versión más reciente -->
+        </dependency>
+        <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-svg-dom</artifactId>
         <version>1.14</version> <!-- Verifica la última versión -->
-    </dependency>
-         <dependency>
-        <groupId>com.formdev</groupId>
-        <artifactId>flatlaf-extras</artifactId>
-        <version>3.4.1</version>
         </dependency>
         <dependency>
-  <groupId>com.formdev</groupId>
-  <artifactId>flatlaf-intellij-themes</artifactId>
-  <version>3.5.1</version>
-</dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-extras</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.formdev</groupId>
+            <artifactId>flatlaf-intellij-themes</artifactId>
+            <version>3.5.1</version>
+        </dependency>
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf</artifactId>
             <version>3.5.1</version>
             <type>jar</type>
         </dependency>
-        
-    <!-- Otras dependencias de tu proyecto -->
-    
-    <dependency>
-        <groupId>org.apache.xmlgraphics</groupId>
-        <artifactId>batik-transcoder</artifactId>
-        <version>1.14</version>
-    </dependency>
+        <dependency>
+             <groupId>mysql</groupId>
+             <artifactId>mysql-connector-java</artifactId>
+             <version>5.1.13</version>
+        </dependency>    
+        <dependency>
+             <groupId>org.apache.xmlgraphics</groupId>
+             <artifactId>batik-transcoder</artifactId>
+             <version>1.14</version>
+        </dependency>
         <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf-fonts-roboto</artifactId>

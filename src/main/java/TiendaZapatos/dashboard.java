@@ -7,6 +7,7 @@ import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.net.URL;
@@ -21,6 +22,8 @@ import views.Compras;
 import views.GestionProductos;
 import views.Principal;
 import views.Proveedores;
+import java.awt.Image;
+
 
 
 import views.NewZapato;
@@ -35,16 +38,34 @@ public class dashboard extends JFrame {
     private final ImageIcon ShoeRackIcon;
     private final ImageIcon CasaIcon;
     private final ImageIcon CasaNegraIcon;
+    private ImageIcon icono;
+    
     
    
 
     public dashboard() {
-        // Depuración de carga de recursos
+        
+
+   // Configurar la ventana
+        setTitle("ShoesRack");
+        setSize(800, 600);
+
+        // Establecer el ícono
+        Image logoImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/logozapato.png"));
+        icono = new ImageIcon(logoImage); // Crear ImageIcon usando la variable icono
+        setIconImage(icono.getImage()); // Establecer la imagen del ícono
+
+        // Otras configuraciones de la ventana
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+
+// Depuración de carga de recursos
         URL solUrl = getClass().getResource("/icons/sol.png");
         URL lunaUrl = getClass().getResource("/icons/luna.png");
         URL shoerackUrl = getClass().getResource("/images/ShoeRack_black_rb_182_103.png");
         URL Casaurl = getClass ().getResource("/icons/casa.png");
         URL casanegraurl = getClass ().getResource("/icons/casanegra.png");
+        URL Logoiconrrl = getClass ().getResource("/images/logozapato.png");
   
 
         SolIcon = new ImageIcon(solUrl);
@@ -52,6 +73,11 @@ public class dashboard extends JFrame {
         ShoeRackIcon = new ImageIcon(shoerackUrl);
         CasaNegraIcon = new ImageIcon(casanegraurl);
         CasaIcon = new ImageIcon (Casaurl);
+       
+      
+   
+        
+        
         initComponents();
         setLightMode(); 
         SetDate();
@@ -426,8 +452,9 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
              
         });
     }
-    
-    
+   
+
+
     
     
     
