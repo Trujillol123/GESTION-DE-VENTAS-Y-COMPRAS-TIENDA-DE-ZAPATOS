@@ -568,7 +568,7 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
             // Cambiar el color del fondo (background)
             PanelMenu.setBackground(Color.DARK_GRAY);
             
-            
+            //HOLA HOLA
             // Actualizar el color de los paneles dentro de 'content' 
             updatePanelColors(content, Color.DARK_GRAY, Color.WHITE);
              
