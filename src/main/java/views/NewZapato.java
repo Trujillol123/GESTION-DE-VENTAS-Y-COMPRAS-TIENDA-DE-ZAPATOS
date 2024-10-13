@@ -261,7 +261,8 @@ public class NewZapato extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSubirActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
-        dashboard.showJpanel(new GestionProductos());
+
+        dashboard.getInstance().showJpanel(new GestionProductos());
     }//GEN-LAST:event_btnAtrasActionPerformed
 
 

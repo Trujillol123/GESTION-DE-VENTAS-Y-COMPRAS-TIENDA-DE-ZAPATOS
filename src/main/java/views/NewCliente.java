@@ -199,7 +199,7 @@ public class NewCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_txtfPrimerApellidoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-     dashboard.showJpanel(new Clientes());
+        dashboard.getInstance().showJpanel(new Clientes());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
 

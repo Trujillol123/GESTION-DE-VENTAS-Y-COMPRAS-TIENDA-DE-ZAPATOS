@@ -230,7 +230,9 @@ public class NewVenta extends javax.swing.JPanel {
     
     
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        dashboard.showJpanel(new NewCliente());
+        
+        dashboard.getInstance().showJpanel(new NewCliente());
+
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed

@@ -223,7 +223,8 @@ public class NewProveedor extends javax.swing.JPanel {
     }//GEN-LAST:event_txtfDomicilio1ActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        dashboard.showJpanel(new Proveedores());
+        
+        dashboard.getInstance().showJpanel(new Proveedores());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
 

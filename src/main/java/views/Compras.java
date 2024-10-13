@@ -206,7 +206,7 @@ public class Compras extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnNuevaCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaCompraActionPerformed
-        dashboard.showJpanel(new NewCompra());
+        dashboard.getInstance().showJpanel(new NewCompra());
     }//GEN-LAST:event_btnNuevaCompraActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

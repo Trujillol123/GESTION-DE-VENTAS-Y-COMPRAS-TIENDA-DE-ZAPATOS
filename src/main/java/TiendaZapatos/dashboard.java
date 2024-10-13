@@ -7,9 +7,10 @@ import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Toolkit;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.net.URL;
 import java.time.LocalDate;
 import javax.swing.ImageIcon;
@@ -22,8 +23,6 @@ import views.Compras;
 import views.GestionProductos;
 import views.Principal;
 import views.Proveedores;
-import java.awt.Image;
-
 
 
 import views.NewZapato;
@@ -40,13 +39,13 @@ public class dashboard extends JFrame {
     private final ImageIcon CasaNegraIcon;
     private ImageIcon icono;
     
-    
    
 
-    public dashboard() {
+     private static dashboard instance;
+    
+    private dashboard() {
         
-
-   // Configurar la ventana
+        // Configurar la ventana
         setTitle("ShoesRack");
         setSize(800, 600);
 
@@ -58,14 +57,13 @@ public class dashboard extends JFrame {
         // Otras configuraciones de la ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-
-// Depuración de carga de recursos
+        
+        // Depuración de carga de recursos
         URL solUrl = getClass().getResource("/icons/sol.png");
         URL lunaUrl = getClass().getResource("/icons/luna.png");
         URL shoerackUrl = getClass().getResource("/images/ShoeRack_black_rb_182_103.png");
         URL Casaurl = getClass ().getResource("/icons/casa.png");
         URL casanegraurl = getClass ().getResource("/icons/casanegra.png");
-        URL Logoiconrrl = getClass ().getResource("/images/logozapato.png");
   
 
         SolIcon = new ImageIcon(solUrl);
@@ -73,10 +71,6 @@ public class dashboard extends JFrame {
         ShoeRackIcon = new ImageIcon(shoerackUrl);
         CasaNegraIcon = new ImageIcon(casanegraurl);
         CasaIcon = new ImageIcon (Casaurl);
-       
-      
-   
-        
         
         initComponents();
         setLightMode(); 
@@ -86,6 +80,13 @@ public class dashboard extends JFrame {
        
     }
     
+    // Método público estático para obtener la única instancia
+    public static dashboard getInstance() {
+        if (instance == null) {
+            instance = new dashboard(); // Crea la instancia si no existe
+        }
+        return instance; // Devuelve la instancia
+    }
 
     
     private void styleButtonPrincipal(boolean isDarkMode) {
@@ -104,7 +105,9 @@ public class dashboard extends JFrame {
        showJpanel(new Compras());
 }
    
-   public static void showJpanel (JPanel p){
+   //HOLA
+   
+   public void showJpanel (JPanel p){
        p.setSize(1205, 636);
        p.setLocation(0,0);
        
@@ -119,13 +122,18 @@ public class dashboard extends JFrame {
         updatePanelColors(p, Color.WHITE, Color.BLACK);
     }
    }
+       
+    
+    
+   
+ 
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         BackGround = new javax.swing.JPanel();
-        content = new javax.swing.JPanel();
+        content = new TiendaZapatos.PanelRound();
         datetext = new javax.swing.JLabel();
         PanelMenu = new javax.swing.JPanel();
         logoletras = new javax.swing.JLabel();
@@ -141,9 +149,8 @@ public class dashboard extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1060, 583));
 
-        content.setBackground(new java.awt.Color(204, 255, 255));
-        content.setForeground(new java.awt.Color(255, 255, 255));
-        content.setPreferredSize(new java.awt.Dimension(883, 474));
+        content.setBackground(new java.awt.Color(102, 0, 0));
+        content.setRoundTopLeft(50);
 
         datetext.setText("Hoy es {dayname}  {day} de {mounth} del {year}");
 
@@ -152,16 +159,16 @@ public class dashboard extends JFrame {
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(datetext)
-                .addContainerGap(747, Short.MAX_VALUE))
+                .addContainerGap(709, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(contentLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addComponent(datetext, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(601, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         PanelMenu.setBackground(new java.awt.Color(153, 153, 153));
@@ -263,7 +270,7 @@ public class dashboard extends JFrame {
             .addGroup(PanelMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(logoletras, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE))
             .addComponent(btnPrinciapl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnGestiondeProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(btnCompras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -291,7 +298,7 @@ public class dashboard extends JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                .addComponent(JToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
                 .addGap(70, 70, 70)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -303,12 +310,13 @@ public class dashboard extends JFrame {
             .addGroup(BackGroundLayout.createSequentialGroup()
                 .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE))
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         BackGroundLayout.setVerticalGroup(
             BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -484,7 +492,7 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
     private javax.swing.JButton btnPrinciapl;
     private javax.swing.JButton btnProveedores;
     private javax.swing.JButton btnVentas;
-    private static javax.swing.JPanel content;
+    private TiendaZapatos.PanelRound content;
     private javax.swing.JLabel datetext;
     private javax.swing.JLabel logoletras;
     // End of variables declaration//GEN-END:variables
