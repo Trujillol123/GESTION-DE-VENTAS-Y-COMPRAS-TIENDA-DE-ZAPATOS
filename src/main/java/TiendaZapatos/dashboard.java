@@ -34,14 +34,27 @@ public class dashboard extends JFrame {
     // Cargar los íconos de sol y luna con rutas absolutas
     private final ImageIcon SolIcon;
     private final ImageIcon LunaIcon;
-    private final ImageIcon ShoeRackIcon;
+    private final ImageIcon LogoLetrasNegroIcon;
+    private final ImageIcon LogoLetrasBlancoIcon;
     private final ImageIcon CasaIcon;
     private final ImageIcon CasaNegraIcon;
+    private final ImageIcon GestionBlancoIcon;
+    private final ImageIcon GestionNegroIcon;
+    private final ImageIcon ComprasBlancoIcon;
+    private final ImageIcon ComprasNegroIcon;
+    private final ImageIcon SignoPesosBlancoIcon;
+    private final ImageIcon SignoPesosNegroIcon;
+    private final ImageIcon PersonaBlancoIcon;
+    private final ImageIcon PersonaNegroIcon;
+    private final ImageIcon ProveedoresBlancoIcon;
+    private final ImageIcon ProveedoresNegroIcon;
+    
+    
     private ImageIcon icono;
     
    
 
-     private static dashboard instance;
+    private static dashboard instance;
     
     private dashboard() {
         
@@ -61,22 +74,51 @@ public class dashboard extends JFrame {
         // Depuración de carga de recursos
         URL solUrl = getClass().getResource("/icons/sol.png");
         URL lunaUrl = getClass().getResource("/icons/luna.png");
-        URL shoerackUrl = getClass().getResource("/images/ShoeRack_black_rb_182_103.png");
-        URL Casaurl = getClass ().getResource("/icons/casa.png");
-        URL casanegraurl = getClass ().getResource("/icons/casanegra.png");
+        URL logoletrasnegroUrl = getClass().getResource("/images/logoletrasnegro.png");
+        URL logoletrasblancoUrl = getClass().getResource("/images/logoletrasblanco.png");
+        URL Casaurl = getClass ().getResource("/icons/casablanco.png");
+        URL casanegraurl = getClass ().getResource("/icons/casanegro.png");
+        URL gestionblancoUrl = getClass().getResource("/icons/gestionblanco.png");
+        URL gestionnegroUrl = getClass().getResource("/icons/gestionnegro.png");
+        URL comprasblancoUrl = getClass().getResource("/icons/comprasblanco.png");
+        URL comprasnegroUrl = getClass().getResource("/icons/comprasnegro.png");
+        URL signopesosblancoUrl = getClass().getResource("/icons/signopesosblanco.png");
+        URL signopesosnegroUrl = getClass().getResource("/icons/signopesosnegro.png");
+        URL personablancoUrl = getClass().getResource("/icons/personablanco.png");
+        URL personanegroUrl = getClass().getResource("/icons/personanegro.png");
+        URL proveedoresblancoUrl = getClass().getResource("/icons/proveedoresblanco.png");
+        URL proveedoresnegroUrl = getClass().getResource("/icons/proveedoresnegro.png");
   
 
         SolIcon = new ImageIcon(solUrl);
         LunaIcon = new ImageIcon(lunaUrl);
-        ShoeRackIcon = new ImageIcon(shoerackUrl);
+        LogoLetrasNegroIcon = new ImageIcon(logoletrasnegroUrl);
+        LogoLetrasBlancoIcon = new ImageIcon(logoletrasblancoUrl);
         CasaNegraIcon = new ImageIcon(casanegraurl);
         CasaIcon = new ImageIcon (Casaurl);
+        GestionBlancoIcon = new ImageIcon(gestionblancoUrl);
+        GestionNegroIcon = new ImageIcon(gestionnegroUrl);
+        ComprasBlancoIcon = new ImageIcon(comprasblancoUrl);
+        ComprasNegroIcon = new ImageIcon(comprasnegroUrl);
+        SignoPesosBlancoIcon = new ImageIcon(signopesosblancoUrl);
+        SignoPesosNegroIcon =  new ImageIcon(signopesosnegroUrl);
+        PersonaBlancoIcon = new ImageIcon(personablancoUrl);
+        PersonaNegroIcon = new ImageIcon(personanegroUrl);
+        ProveedoresBlancoIcon = new ImageIcon(proveedoresblancoUrl);
+        ProveedoresNegroIcon = new ImageIcon(proveedoresnegroUrl);
         
         initComponents();
         setLightMode(); 
         SetDate();
         initContent();
+        
+        //Estilo de Botones del Menu
         styleButtonPrincipal(rootPaneCheckingEnabled);
+        styleButtonGestiondeProductos(rootPaneCheckingEnabled);
+        styleButtonCompras(rootPaneCheckingEnabled);
+        styleButtonVentas(rootPaneCheckingEnabled);
+        styleButtonClientes(rootPaneCheckingEnabled);
+        styleButtonProveedores(rootPaneCheckingEnabled);
        
     }
     
@@ -101,6 +143,72 @@ public class dashboard extends JFrame {
         btnPrinciapl.setIcon(CasaNegraIcon);
     }
 }
+    
+    private void styleButtonGestiondeProductos(boolean isDarkMode) {
+    btnGestiondeProductos.setHorizontalAlignment(SwingConstants.LEFT);
+    btnGestiondeProductos.setHorizontalTextPosition(SwingConstants.RIGHT);
+    btnGestiondeProductos.setVerticalTextPosition(SwingConstants.CENTER);
+    btnGestiondeProductos.setIconTextGap(10); 
+    
+    if (isDarkMode) {
+        btnGestiondeProductos.setIcon(GestionBlancoIcon);
+    } else {
+        btnGestiondeProductos.setIcon(GestionNegroIcon);
+    }
+}
+    
+    private void styleButtonCompras(boolean isDarkMode) {
+    btnCompras.setHorizontalAlignment(SwingConstants.LEFT);
+    btnCompras.setHorizontalTextPosition(SwingConstants.RIGHT);
+    btnCompras.setVerticalTextPosition(SwingConstants.CENTER);
+    btnCompras.setIconTextGap(10); 
+    
+    if (isDarkMode) {
+        btnCompras.setIcon(ComprasBlancoIcon);
+    } else {
+        btnCompras.setIcon(ComprasNegroIcon);
+    }
+}
+    
+    private void styleButtonVentas(boolean isDarkMode) {
+    btnVentas.setHorizontalAlignment(SwingConstants.LEFT);
+    btnVentas.setHorizontalTextPosition(SwingConstants.RIGHT);
+    btnVentas.setVerticalTextPosition(SwingConstants.CENTER);
+    btnVentas.setIconTextGap(10); 
+    
+    if (isDarkMode) {
+        btnVentas.setIcon(SignoPesosBlancoIcon);
+    } else {
+        btnVentas.setIcon(SignoPesosNegroIcon);
+    }
+}
+    
+    private void styleButtonClientes(boolean isDarkMode) {
+    btnClientes.setHorizontalAlignment(SwingConstants.LEFT);
+    btnClientes.setHorizontalTextPosition(SwingConstants.RIGHT);
+    btnClientes.setVerticalTextPosition(SwingConstants.CENTER);
+    btnClientes.setIconTextGap(10); 
+    
+    if (isDarkMode) {
+        btnClientes.setIcon(PersonaBlancoIcon);
+    } else {
+        btnClientes.setIcon(PersonaNegroIcon);
+    }
+}
+    
+    private void styleButtonProveedores(boolean isDarkMode) {
+    btnProveedores.setHorizontalAlignment(SwingConstants.LEFT);
+    btnProveedores.setHorizontalTextPosition(SwingConstants.RIGHT);
+    btnProveedores.setVerticalTextPosition(SwingConstants.CENTER);
+    btnProveedores.setIconTextGap(10); 
+    
+    if (isDarkMode) {
+        btnProveedores.setIcon(ProveedoresBlancoIcon);
+    } else {
+        btnProveedores.setIcon(ProveedoresNegroIcon);
+    }
+}
+    
    private void initContent() {
        showJpanel(new Compras());
 }
@@ -136,7 +244,6 @@ public class dashboard extends JFrame {
         content = new TiendaZapatos.PanelRound();
         datetext = new javax.swing.JLabel();
         PanelMenu = new javax.swing.JPanel();
-        logoletras = new javax.swing.JLabel();
         btnPrinciapl = new javax.swing.JButton();
         btnGestiondeProductos = new javax.swing.JButton();
         btnVentas = new javax.swing.JButton();
@@ -145,12 +252,16 @@ public class dashboard extends JFrame {
         btnProveedores = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         JToggleButton = new javax.swing.JButton();
+        logoletras = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1060, 583));
 
         content.setBackground(new java.awt.Color(102, 0, 0));
+        content.setRoundBottomLeft(50);
+        content.setRoundBottomRight(50);
         content.setRoundTopLeft(50);
+        content.setRoundTopRight(50);
 
         datetext.setText("Hoy es {dayname}  {day} de {mounth} del {year}");
 
@@ -173,8 +284,6 @@ public class dashboard extends JFrame {
 
         PanelMenu.setBackground(new java.awt.Color(153, 153, 153));
         PanelMenu.setForeground(new java.awt.Color(102, 102, 102));
-
-        logoletras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ShoeRack_black_rb_182_103.png"))); // NOI18N
 
         btnPrinciapl.setText("PRINCIPAL");
         btnPrinciapl.setBorder(null);
@@ -268,37 +377,36 @@ public class dashboard extends JFrame {
         PanelMenuLayout.setHorizontalGroup(
             PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(logoletras, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(72, Short.MAX_VALUE))
-            .addComponent(btnPrinciapl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnGestiondeProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnCompras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(JToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
+                .addComponent(logoletras, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(btnPrinciapl, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnGestiondeProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(JToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         PanelMenuLayout.setVerticalGroup(
             PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(logoletras, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(10, 10, 10)
+                .addComponent(logoletras, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
                 .addComponent(btnPrinciapl, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(btnGestiondeProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(btnCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(btnProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
+                .addComponent(JToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -410,20 +518,25 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
                 FlatAnimatedLafChange.hideSnapshotWithAnimation();
                 
                 styleButtonPrincipal(false);
+                styleButtonGestiondeProductos(false);
+                styleButtonCompras(false);
+                styleButtonVentas(false);
+                styleButtonClientes(false);
+                styleButtonProveedores(false);
                 
                 
                 // Actualizar botón
                 JToggleButton.setText("Light Mode");
                 JToggleButton.setIcon(SolIcon);  // Cambia al icono de sol
                
-                logoletras.setIcon(ShoeRackIcon); //Cambia las letras SHOERACK STORE de blanco a negro
+                logoletras.setIcon(LogoLetrasNegroIcon); //Cambia las letras SHOERACK STORE de blanco a negro
                 
                 // Personalizar colores del botón para modo claro
                 JToggleButton.setBackground(Color.WHITE);
                 JToggleButton.setForeground(Color.BLACK);
                 
                 // Cambiar el color del PanelMenu y PanelCabezera
-                PanelMenu.setBackground(Color.white);
+                PanelMenu.setBackground(Color.BLUE);
                 
                 
                 //Cambiar El color del content que recibe
@@ -441,11 +554,18 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
             FlatAnimatedLafChange.hideSnapshotWithAnimation();
 
             styleButtonPrincipal(true);
+            styleButtonGestiondeProductos(true);
+            styleButtonCompras(true);
+            styleButtonVentas(true);
+            styleButtonClientes(true);
+            styleButtonProveedores(true);
             
             // Actualizar botón
             JToggleButton.setText("Dark Mode");
            
             JToggleButton.setIcon(LunaIcon);  // Cambia al icono de luna
+            
+            logoletras.setIcon(LogoLetrasBlancoIcon);
 
             // Personalizar colores del botón para modo oscuro
             JToggleButton.setBackground(Color.DARK_GRAY);
@@ -454,7 +574,7 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
             // Cambiar el color del fondo (background)
             PanelMenu.setBackground(Color.DARK_GRAY);
             
-            
+            //juepucha
             // Actualizar el color de los paneles dentro de 'content' 
             updatePanelColors(content, Color.DARK_GRAY, Color.WHITE);
              
