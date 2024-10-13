@@ -1,5 +1,7 @@
 package TiendaZapatos;
 
+import java.awt.Dimension;
+
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
@@ -217,13 +219,16 @@ public class dashboard extends JFrame {
 }
    
    public void showJpanel (JPanel p){
-       p.setSize(1205, 636);
-       p.setLocation(0,0);
-       
-       content.removeAll();
-       content.add(p, BorderLayout.CENTER);
-       content.revalidate();
-       content.repaint();
+       // Configurar tamaño y ubicación del panel
+    p.setPreferredSize(new Dimension(content.getWidth(), content.getHeight())); // Ajustar al tamaño de 'content'
+    p.setLocation(0, 0);
+    
+    // Limpiar el panel anterior y agregar el nuevo
+    content.removeAll();
+    content.setLayout(new BorderLayout());  // Asegurarse de que 'content' usa BorderLayout
+    content.add(p, BorderLayout.CENTER);   // Agregar el panel al centro
+    content.revalidate();
+    content.repaint();
        
         if (FlatLaf.isLafDark()) {
         updatePanelColors(p, Color.DARK_GRAY, Color.WHITE);
@@ -276,7 +281,7 @@ public class dashboard extends JFrame {
             .addGroup(contentLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(datetext, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(635, Short.MAX_VALUE))
         );
 
         PanelMenu.setBackground(new java.awt.Color(153, 153, 153));
@@ -402,7 +407,7 @@ public class dashboard extends JFrame {
                 .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(btnProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                 .addComponent(JToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
