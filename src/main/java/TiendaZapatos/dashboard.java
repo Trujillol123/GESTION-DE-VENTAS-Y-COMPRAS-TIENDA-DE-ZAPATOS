@@ -48,8 +48,6 @@ public class dashboard extends JFrame {
     private final ImageIcon PersonaNegroIcon;
     private final ImageIcon ProveedoresBlancoIcon;
     private final ImageIcon ProveedoresNegroIcon;
-    
-    
     private ImageIcon icono;
     
    
@@ -123,12 +121,15 @@ public class dashboard extends JFrame {
     }
     
     // Método público estático para obtener la única instancia
-    public static dashboard getInstance() {
-        if (instance == null) {
-            instance = new dashboard(); // Crea la instancia si no existe
-        }
-        return instance; // Devuelve la instancia
+   public static dashboard getInstance() {
+    if (instance == null) {
+        instance = new dashboard(); // Crea la instancia si no existe
+        instance.setVisible(true); // Muestra la ventana
+    } else {
+        instance.toFront(); // Lleva la ventana al frente si ya está abierta
     }
+    return instance; // Devuelve la instancia
+}
 
     
     private void styleButtonPrincipal(boolean isDarkMode) {
@@ -594,7 +595,7 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
        
         
         java.awt.EventQueue.invokeLater(() -> {
-            new dashboard().setVisible(true);
+            dashboard.getInstance().setVisible(true);
         });
     }
        

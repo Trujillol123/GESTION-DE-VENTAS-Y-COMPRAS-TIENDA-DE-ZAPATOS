@@ -6,7 +6,10 @@ package views;
 
 import TiendaZapatos.DAOClienteImpl;
 import TiendaZapatos.dashboard;
+import com.toedter.calendar.JDateChooser;
 import interfaces.DAOCliente;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -109,7 +112,7 @@ public class NewCliente extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(114, 114, 114)
+                .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,12 +139,12 @@ public class NewCliente extends javax.swing.JPanel {
                         .addComponent(btnSubit, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(94, 94, 94))
+                .addGap(129, 129, 129))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addGap(124, 124, 124)
                 .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,7 +175,7 @@ public class NewCliente extends javax.swing.JPanel {
                             .addComponent(btnSubit, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -185,25 +188,58 @@ public class NewCliente extends javax.swing.JPanel {
 
     private void btnSubitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubitActionPerformed
        
-        String nombre = txtNombre.getText();
-        String email = txtEmail.getText ();
-        String Telefono = txtTelefono.getText ();
-        String direccion = txtDireccion.getText();
-        String fecha = date.getDateFormatString();
-        
+    // Obtener los datos de los campos de texto
+        String nombre = txtNombre.getText().trim();
+        String email = txtEmail.getText().trim();
+        String telefono = txtTelefono.getText().trim();
+        String direccion = txtDireccion.getText().trim();
+
+    // Obtener y formatear la fecha del JDateChooser
+         String fecha = obtenerFechaFormateada(date);
+
+    // Validar campos antes de proceder
+     if (!validarCampos(nombre, email, telefono, direccion, fecha)) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Debe llenar todos los campos", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        txtNombre.requestFocus();
+        return;
+    }
+
+        // Crear objeto cliente
         models.cliente cliente = new models.cliente();
         cliente.setNombre(nombre);
         cliente.setEmail(email);
-        cliente.setTelefono(Telefono);
+        cliente.setTelefono(telefono);
         cliente.setDireccion(direccion);
         cliente.setFecha_registro(fecha);
-        
-        try {
-            DAOCliente dao = new DAOClienteImpl();
-            dao.create(cliente);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+
+    // Intentar registrar cliente
+    try {
+        DAOCliente dao = new DAOClienteImpl();
+        dao.create(cliente);
+        javax.swing.JOptionPane.showMessageDialog(this, "El Cliente se registró con éxito", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    } catch (Exception e) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al registrar al cliente", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}                                          
+
+
+        //Método para obtener y formatear la fecha del JDateChooser
+
+    private String obtenerFechaFormateada(JDateChooser dateChooser) {
+    java.util.Date fechaDate = dateChooser.getDate();
+    if (fechaDate != null) {
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(fechaDate);
+    }
+    return "";  // Si no hay fecha, retorna cadena vacía
+}
+
+/**
+ * Método para validar los campos
+ */
+private boolean validarCampos(String nombre, String email, String telefono, String direccion, String fecha) {
+    return !(nombre.isEmpty() || email.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || fecha.isEmpty());
     }//GEN-LAST:event_btnSubitActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
