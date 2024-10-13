@@ -7,14 +7,17 @@ models\detalleventa.class
 views\NewVenta$2.class
 interfaces\DAOMarca.class
 views\Principal.class
+views\PruebaNewCliente$4.class
 interfaces\DAOFacturacompra.class
 views\NewCliente.class
 views\Proveedores$4.class
+views\PruebaNewCliente$1.class
 models\metodopago.class
 views\Ventas$4.class
 TiendaZapatos\dashboard$5.class
 views\Clientes$3.class
 views\GestionProductos$2.class
+views\PruebaNewCliente.class
 models\zapato_color.class
 interfaces\DAOCategoria.class
 views\NewCliente$4.class
@@ -27,6 +30,8 @@ TiendaZapatos\DAOClienteImpl.class
 views\Ventas$5.class
 views\GestionProductos$3.class
 views\NewProveedor$6.class
+views\PruebaNewCliente$3.class
+TiendaZapatos\dashboard$9.class
 interfaces\DAOZapatoColor.class
 views\Compras$3.class
 views\NewCompra.class
@@ -66,6 +71,7 @@ views\Proveedores$2.class
 views\Compras$5.class
 views\NewVenta$1.class
 models\talla.class
+views\PruebaNewCliente$2.class
 interfaces\DAODetalleVenta.class
 views\Clientes$1.class
 views\NewProveedor$2.class
@@ -74,6 +80,7 @@ views\Proveedores$5.class
 TiendaZapatos\dashboard$1.class
 views\Ventas.class
 interfaces\DAOMetodopago.class
+views\PruebaNewCliente$5.class
 views\Compras$6.class
 views\DetalleVenta.class
 views\NewCliente$3.class
@@ -85,6 +92,7 @@ views\Compras$2.class
 models\colores.class
 views\NewZapato$2.class
 views\NewZapato.class
+views\PruebaNewCliente$6.class
 interfaces\DAOComprazapato.class
 views\NewCompra$3.class
 DataBase\Database.class

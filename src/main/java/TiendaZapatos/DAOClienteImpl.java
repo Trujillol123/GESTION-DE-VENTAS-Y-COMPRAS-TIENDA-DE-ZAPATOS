@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import models.cliente;
 
+
 /**
  *
  * @author cland
@@ -30,7 +31,7 @@ public class DAOClienteImpl extends Database implements DAOCliente{
             st.setString(4, cliente.getDireccion());
             
             String fechaRegistroStr = cliente.getFecha_registro();
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // Formato esperado
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // Asegúrate de que este formato coincide con el que usas al obtener la fecha
             java.util.Date utilDate = formato.parse(fechaRegistroStr); // Convierte String a Date
             Date sqlDate = new Date(utilDate.getTime()); // Convierte util.Date a sql.Date
             
