@@ -27,10 +27,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" min="-2" pref="57" max="-2" attributes="0"/>
-                          <Component id="txtfPrimerApellido" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtEmail" alignment="0" max="32767" attributes="0"/>
                           <Component id="jLabel4" min="-2" pref="94" max="-2" attributes="0"/>
-                          <Component id="txtfSegundoApellido" alignment="0" pref="457" max="32767" attributes="0"/>
-                          <Component id="txtfNombre" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtTelefono" alignment="0" pref="457" max="32767" attributes="0"/>
+                          <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
                           <Component id="Titulo" alignment="0" pref="457" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
@@ -44,8 +44,8 @@
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel7" max="32767" attributes="0"/>
-                  <Component id="jDateChooser1" alignment="0" pref="456" max="32767" attributes="0"/>
-                  <Component id="txtfDomicilio" alignment="1" max="32767" attributes="0"/>
+                  <Component id="date" alignment="0" pref="456" max="32767" attributes="0"/>
+                  <Component id="txtDireccion" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -76,8 +76,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="txtfNombre" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
-                                  <Component id="txtfDomicilio" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                                  <Component id="txtNombre" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
+                                  <Component id="txtDireccion" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -89,14 +89,14 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jDateChooser1" min="-2" pref="43" max="-2" attributes="0"/>
-                          <Component id="txtfPrimerApellido" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
+                          <Component id="date" min="-2" pref="43" max="-2" attributes="0"/>
+                          <Component id="txtEmail" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" pref="14" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtfSegundoApellido" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                          <Component id="txtTelefono" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                           <Component id="btnSubit" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
                           <Component id="btnCancelar" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
@@ -135,9 +135,9 @@
         <Property name="text" type="java.lang.String" value="Direccion"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtfDomicilio">
+    <Component class="javax.swing.JTextField" name="txtDireccion">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfDomicilioActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDireccionActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -163,9 +163,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubitActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtfNombre">
+    <Component class="javax.swing.JTextField" name="txtNombre">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfNombreActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNombreActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
@@ -173,9 +173,9 @@
         <Property name="text" type="java.lang.String" value="Email"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtfSegundoApellido">
+    <Component class="javax.swing.JTextField" name="txtTelefono">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfSegundoApellidoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTelefonoActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
@@ -183,12 +183,12 @@
         <Property name="text" type="java.lang.String" value="Telefono"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="txtfPrimerApellido">
+    <Component class="javax.swing.JTextField" name="txtEmail">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtfPrimerApellidoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEmailActionPerformed"/>
       </Events>
     </Component>
-    <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+    <Component class="com.toedter.calendar.JDateChooser" name="date">
     </Component>
     <Component class="javax.swing.JButton" name="btnCancelar">
       <Properties>

@@ -213,8 +213,6 @@ public class dashboard extends JFrame {
        showJpanel(new Compras());
 }
    
-   //HOLA
-   
    public void showJpanel (JPanel p){
        p.setSize(1205, 636);
        p.setLocation(0,0);
@@ -272,7 +270,7 @@ public class dashboard extends JFrame {
             .addGroup(contentLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(datetext)
-                .addContainerGap(709, Short.MAX_VALUE))
+                .addContainerGap(733, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,9 +415,8 @@ public class dashboard extends JFrame {
             BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackGroundLayout.createSequentialGroup()
                 .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(1, 1, 1)
+                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         BackGroundLayout.setVerticalGroup(
             BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -535,8 +532,8 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
                 JToggleButton.setBackground(Color.WHITE);
                 JToggleButton.setForeground(Color.BLACK);
                 
-                // Cambiar el color del PanelMenu y PanelCabezera
-                PanelMenu.setBackground(Color.BLUE);
+                // Cambiar el color del PanelMenu
+                setPanelColor(PanelMenu, 255, 138, 115);
                 
                 
                 //Cambiar El color del content que recibe
@@ -552,6 +549,7 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
             FlatDarculaLaf.setup(); // Tema oscuro
             FlatLaf.updateUI();
             FlatAnimatedLafChange.hideSnapshotWithAnimation();
+            
 
             styleButtonPrincipal(true);
             styleButtonGestiondeProductos(true);
@@ -572,13 +570,18 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
             JToggleButton.setForeground(Color.WHITE);
 
             // Cambiar el color del fondo (background)
-            PanelMenu.setBackground(Color.DARK_GRAY);
+            
             
             //juepucha
             // Actualizar el color de los paneles dentro de 'content' 
             updatePanelColors(content, Color.DARK_GRAY, Color.WHITE);
              
         });
+    }
+    
+    //DEFINIR COLORES CON METODO
+    private void setPanelColor(JPanel panel, int red, int green, int blue){
+        panel.setBackground(new Color(red, green, blue));
     }
    
 
@@ -590,11 +593,13 @@ public static void updatePanelColors(JPanel panel, Color backgroundColor, Color 
         
         FlatRobotoFont.install();
         UIManager.put("defaultFont", new Font (FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+        
+        
         FlatIntelliJLaf.setup(); 
        
         
         java.awt.EventQueue.invokeLater(() -> {
-            new dashboard().setVisible(true);
+            dashboard.getInstance().setVisible(true);
         });
     }
        
