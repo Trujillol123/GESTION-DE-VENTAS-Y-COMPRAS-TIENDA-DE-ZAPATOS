@@ -4,7 +4,9 @@
  */
 package views;
 
+import TiendaZapatos.DAOClienteImpl;
 import TiendaZapatos.dashboard;
+import interfaces.DAOCliente;
 
 /**
  *
@@ -31,17 +33,17 @@ public class NewCliente extends javax.swing.JPanel {
 
         jSeparator2 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
-        txtfDomicilio = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnSubit = new javax.swing.JButton();
-        txtfNombre = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtfSegundoApellido = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtfPrimerApellido = new javax.swing.JTextField();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        txtEmail = new javax.swing.JTextField();
+        date = new com.toedter.calendar.JDateChooser();
         btnCancelar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 204, 204));
@@ -54,9 +56,9 @@ public class NewCliente extends javax.swing.JPanel {
 
         jLabel6.setText("Direccion");
 
-        txtfDomicilio.addActionListener(new java.awt.event.ActionListener() {
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfDomicilioActionPerformed(evt);
+                txtDireccionActionPerformed(evt);
             }
         });
 
@@ -73,25 +75,25 @@ public class NewCliente extends javax.swing.JPanel {
             }
         });
 
-        txtfNombre.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfNombreActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Email");
 
-        txtfSegundoApellido.addActionListener(new java.awt.event.ActionListener() {
+        txtTelefono.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfSegundoApellidoActionPerformed(evt);
+                txtTelefonoActionPerformed(evt);
             }
         });
 
         jLabel5.setText("Telefono");
 
-        txtfPrimerApellido.addActionListener(new java.awt.event.ActionListener() {
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfPrimerApellidoActionPerformed(evt);
+                txtEmailActionPerformed(evt);
             }
         });
 
@@ -112,10 +114,10 @@ public class NewCliente extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtfPrimerApellido)
+                            .addComponent(txtEmail)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtfSegundoApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
-                            .addComponent(txtfNombre)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                            .addComponent(txtNombre)
                             .addComponent(Titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE))
                         .addGap(42, 42, 42))
                     .addGroup(layout.createSequentialGroup()
@@ -125,8 +127,8 @@ public class NewCliente extends javax.swing.JPanel {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
-                    .addComponent(txtfDomicilio, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -151,8 +153,8 @@ public class NewCliente extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtfDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel4))
                             .addGroup(layout.createSequentialGroup()
@@ -160,13 +162,13 @@ public class NewCliente extends javax.swing.JPanel {
                                 .addComponent(jLabel7)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtfPrimerApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(13, 13, 13)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtfSegundoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSubit, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -177,26 +179,44 @@ public class NewCliente extends javax.swing.JPanel {
      private void initStyles () {
         Titulo.putClientProperty( "FlatLaf.styleClass" , "h3" );
     }
-    private void txtfDomicilioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfDomicilioActionPerformed
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtfDomicilioActionPerformed
+    }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void btnSubitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubitActionPerformed
-
-     
+       
+        String nombre = txtNombre.getText();
+        String email = txtEmail.getText ();
+        String Telefono = txtTelefono.getText ();
+        String direccion = txtDireccion.getText();
+        String fecha = date.getDateFormatString();
+        
+        models.cliente cliente = new models.cliente();
+        cliente.setNombre(nombre);
+        cliente.setEmail(email);
+        cliente.setTelefono(Telefono);
+        cliente.setDireccion(direccion);
+        cliente.setFecha_registro(fecha);
+        
+        try {
+            DAOCliente dao = new DAOClienteImpl();
+            dao.create(cliente);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_btnSubitActionPerformed
 
-    private void txtfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfNombreActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtfNombreActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtfSegundoApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfSegundoApellidoActionPerformed
+    private void txtTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtfSegundoApellidoActionPerformed
+    }//GEN-LAST:event_txtTelefonoActionPerformed
 
-    private void txtfPrimerApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfPrimerApellidoActionPerformed
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtfPrimerApellidoActionPerformed
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         dashboard.getInstance().showJpanel(new Clientes());
@@ -207,16 +227,16 @@ public class NewCliente extends javax.swing.JPanel {
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSubit;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField txtfDomicilio;
-    private javax.swing.JTextField txtfNombre;
-    private javax.swing.JTextField txtfPrimerApellido;
-    private javax.swing.JTextField txtfSegundoApellido;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
