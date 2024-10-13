@@ -30,7 +30,7 @@ public class DAOClienteImpl extends Database implements DAOCliente{
             st.setString(4, cliente.getDireccion());
             
             String fechaRegistroStr = cliente.getFecha_registro();
-            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy"); // Formato esperado
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // Formato esperado
             java.util.Date utilDate = formato.parse(fechaRegistroStr); // Convierte String a Date
             Date sqlDate = new Date(utilDate.getTime()); // Convierte util.Date a sql.Date
             
