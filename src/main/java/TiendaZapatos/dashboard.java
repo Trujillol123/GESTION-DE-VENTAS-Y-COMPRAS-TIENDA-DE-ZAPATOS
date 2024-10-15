@@ -1,6 +1,8 @@
 package TiendaZapatos;
 
 import java.awt.Dimension;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -20,6 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -616,9 +619,7 @@ public class dashboard extends JFrame {
     private void setPanelColor(JPanel panel, int red, int green, int blue){
         panel.setBackground(new Color(red, green, blue));
     }
-   
-
-
+  
     
     
     
@@ -629,16 +630,14 @@ public class dashboard extends JFrame {
         
         
         FlatIntelliJLaf.setup(); 
-       
+        UIManager.put("TextField.placeholderForeground", Color.GRAY); 
         
         java.awt.EventQueue.invokeLater(() -> {
             dashboard.getInstance().setVisible(true);
         });
     }
     
-    
-    
-       
+     
 
    
 

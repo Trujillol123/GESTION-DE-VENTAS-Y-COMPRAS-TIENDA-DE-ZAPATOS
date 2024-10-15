@@ -26,11 +26,11 @@ public class proveedor {
         this.id_proveedor = id_proveedor;
     }
 
-    public int getId_marca() {
+    public int getid_marca() {
         return id_marca;
     }
 
-    public void setId_marca(int id_marca) {
+    public void setid_marca(int id_marca) {
         this.id_marca = id_marca;
     }
 

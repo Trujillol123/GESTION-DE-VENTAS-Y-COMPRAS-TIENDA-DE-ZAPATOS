@@ -17,7 +17,7 @@ public interface DAOCliente {
     public void create(cliente cliente) throws Exception;
 
     // Método para obtener una lista de todos los clientes
-    public List<cliente> read();
+    public List<cliente> read() throws Exception;
 
     // Método para obtener un cliente específico por su ID
     public cliente readById(int id);
@@ -25,6 +25,7 @@ public interface DAOCliente {
     // Método para actualizar los datos de un cliente
     public void update(cliente cliente);
 
-    // Método para eliminar un cliente por su ID
-    public void delete(int id);
+    public void delete(int id_cliente) throws Exception;
+    
+    public cliente getclientebyid (int id_cliente) throws Exception;
 }

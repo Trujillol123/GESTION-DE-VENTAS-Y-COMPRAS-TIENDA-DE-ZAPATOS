@@ -88,7 +88,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jButton7" min="-2" pref="130" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Component id="jTextField1" max="32767" attributes="0"/>
+                          <Component id="txtbuscar" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
@@ -130,7 +130,7 @@
                           <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
                           <Component id="jButton7" min="-2" pref="44" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jTextField1" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="txtbuscar" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="259" max="-2" attributes="0"/>
@@ -254,7 +254,7 @@
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser5">
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtbuscar">
         </Component>
         <Component class="javax.swing.JButton" name="jButton7">
           <Properties>

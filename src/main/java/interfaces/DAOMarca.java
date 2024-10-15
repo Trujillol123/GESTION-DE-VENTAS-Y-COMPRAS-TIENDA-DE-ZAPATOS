@@ -14,7 +14,7 @@ import models.marca;
 public interface DAOMarca {
     
     
-    public List<marca> read()throws Exception;
+    public List<marca> getAllMarcas()throws Exception;
     
     public marca readById(int id)throws Exception;
     
