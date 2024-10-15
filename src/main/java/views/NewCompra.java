@@ -4,7 +4,13 @@
  */
 package views;
 
+import TiendaZapatos.DAOProveedoresImpl;
 import TiendaZapatos.dashboard;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.proveedor;
 
 /**
  *
@@ -18,6 +24,8 @@ public class NewCompra extends javax.swing.JPanel {
     public NewCompra() {
         initComponents();
         initStyles ();
+        cargarProveedores();
+        obtenerProveedores ();
     }
 
     /**
@@ -32,7 +40,7 @@ public class NewCompra extends javax.swing.JPanel {
         Background = new javax.swing.JPanel();
         Titulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboproveedor = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         date = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
@@ -53,10 +61,9 @@ public class NewCompra extends javax.swing.JPanel {
 
         jLabel2.setText("Cantidad");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        comboproveedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                comboproveedorActionPerformed(evt);
             }
         });
 
@@ -78,6 +85,11 @@ public class NewCompra extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Fecha");
 
@@ -121,7 +133,7 @@ public class NewCompra extends javax.swing.JPanel {
                         .addGap(40, 40, 40)
                         .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(12, 12, 12)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(73, 73, 73)
                         .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(27, 27, 27)
@@ -163,7 +175,7 @@ public class NewCompra extends javax.swing.JPanel {
                 .addComponent(Titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboproveedor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(BackgroundLayout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -228,9 +240,9 @@ public class NewCompra extends javax.swing.JPanel {
         
         
     }
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void comboproveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboproveedorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_comboproveedorActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         
@@ -245,15 +257,44 @@ public class NewCompra extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+     public List<proveedor> obtenerProveedores() {
+        DAOProveedoresImpl daoProveedor = new DAOProveedoresImpl();
+        List<proveedor> proveedores = new ArrayList<>(); // Crear una lista para almacenar las marcas
+
+        try {
+            proveedores = daoProveedor.getAllProveedores(); 
+        } catch (Exception e) {
+            Logger.getLogger(NewProveedor.class.getName()).log(Level.SEVERE, null, e);
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las marcas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+        return proveedores; // Retornar la lista de marcas
+    }
+    private void cargarProveedores() {
+    comboproveedor.addItem(new proveedor(0, "")); // Agregar un valor en blanco o por defecto
+    
+    List<proveedor> listaproveedor = obtenerProveedores(); // Método que obtiene los proveedores
+    for (proveedor p : listaproveedor) {
+        comboproveedor.addItem(p); // Agregar cada proveedor al JComboBox
+    }
+}
+
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnAgregarPrdocuto;
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JComboBox<proveedor> comboproveedor;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

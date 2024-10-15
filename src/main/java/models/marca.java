@@ -16,7 +16,7 @@ public class marca {
 
     @Override
     public String toString() {
-        return nombre_marca; // Muestra el nombre de la marca en el JComboBox
+        return nombre_marca; 
     }
 
     // Métodos getters y setters

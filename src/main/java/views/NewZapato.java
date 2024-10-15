@@ -4,7 +4,20 @@
  */
 package views;
 
+import TiendaZapatos.DAOCategoriasImpl;
+import TiendaZapatos.DAOMarcaImpl;
+import TiendaZapatos.DAOProveedoresImpl;
+import TiendaZapatos.DAOTallaImpl;
 import TiendaZapatos.dashboard;
+import interfaces.DAOCategoria;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.categoria;
+import models.marca;
+import models.proveedor;
+import models.talla;
 
 /**
  *
@@ -18,6 +31,14 @@ public class NewZapato extends javax.swing.JPanel {
     public NewZapato() {
         initComponents();
         initStyles ();
+        obtenerTallas ();
+        cargarCategorias ();
+        cargarTallas ();
+        cargarMarcas();
+        cargarProveedores ();
+        obtenerMarcas();
+        obtenerCategorias ();
+        obtenerProveedores ();
     }
 
     /**
@@ -39,19 +60,19 @@ public class NewZapato extends javax.swing.JPanel {
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         txtZapatoid21 = new javax.swing.JTextField();
-        jComboBox29 = new javax.swing.JComboBox<>();
+        combocategoria = new javax.swing.JComboBox<>();
         txtZapatoid22 = new javax.swing.JTextField();
         jSeparator6 = new javax.swing.JSeparator();
         btnLimpiar = new javax.swing.JButton();
         jLabel41 = new javax.swing.JLabel();
-        jComboBox26 = new javax.swing.JComboBox<>();
-        jComboBox27 = new javax.swing.JComboBox<>();
+        combomarcas = new javax.swing.JComboBox<>();
+        combotallas = new javax.swing.JComboBox<>();
         jLabel45 = new javax.swing.JLabel();
         Titulo = new javax.swing.JLabel();
         lblCategoria16 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
         txtZapatoid23 = new javax.swing.JTextField();
-        jComboBox30 = new javax.swing.JComboBox<>();
+        comboproveedores = new javax.swing.JComboBox<>();
         jLabel48 = new javax.swing.JLabel();
         lblCategoria17 = new javax.swing.JLabel();
         txtNombre5 = new javax.swing.JTextField();
@@ -84,10 +105,9 @@ public class NewZapato extends javax.swing.JPanel {
 
         jLabel44.setText("COLOR");
 
-        jComboBox29.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "    ", "   Hombre", "Mujer", " " }));
-        jComboBox29.addActionListener(new java.awt.event.ActionListener() {
+        combocategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox29ActionPerformed(evt);
+                combocategoriaActionPerformed(evt);
             }
         });
 
@@ -99,10 +119,6 @@ public class NewZapato extends javax.swing.JPanel {
 
         jLabel41.setText("CANTIDAD");
 
-        jComboBox26.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "          ", "  NIKE", "ADIDAS", " ", " ", " " }));
-
-        jComboBox27.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "         ", "35", "36", "37", "38", "39", "40", "41", "42" }));
-
         jLabel45.setText("DESCRIPCION");
 
         Titulo.setText("SUBIR NUEVO PRODUCTO");
@@ -110,8 +126,6 @@ public class NewZapato extends javax.swing.JPanel {
         lblCategoria16.setText("PROVEEDOR");
 
         jLabel47.setText("PRECIO");
-
-        jComboBox30.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "     ", "NIKE IBAGUE", "NIKE BOGOTA", "ADIDAS IBAGUE", "ADIDAS BOGOTA", " ", " ", " " }));
 
         jLabel48.setText("ZAPATO ID");
 
@@ -145,11 +159,11 @@ public class NewZapato extends javax.swing.JPanel {
                             .addComponent(txtNombre5, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
                             .addComponent(jLabel43, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCategoria15, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox29, 0, 274, Short.MAX_VALUE)
+                            .addComponent(combocategoria, 0, 274, Short.MAX_VALUE)
                             .addComponent(lblCategoria17, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox26, 0, 274, Short.MAX_VALUE)
+                            .addComponent(combomarcas, 0, 274, Short.MAX_VALUE)
                             .addComponent(lblCategoria16, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox30, 0, 274, Short.MAX_VALUE)
+                            .addComponent(comboproveedores, 0, 274, Short.MAX_VALUE)
                             .addComponent(txtZapatoid20))
                         .addGap(60, 60, 60)
                         .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,7 +174,7 @@ public class NewZapato extends javax.swing.JPanel {
                             .addComponent(jLabel45, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtZapatoid23, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel42, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox27, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combotallas, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel44, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jComboBox28, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel41, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -190,15 +204,15 @@ public class NewZapato extends javax.swing.JPanel {
                         .addGap(0, 0, 0)
                         .addComponent(lblCategoria15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(0, 0, 0)
-                        .addComponent(jComboBox29)
+                        .addComponent(combocategoria)
                         .addGap(0, 0, 0)
                         .addComponent(lblCategoria17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(0, 0, 0)
-                        .addComponent(jComboBox26)
+                        .addComponent(combomarcas)
                         .addGap(0, 0, 0)
                         .addComponent(lblCategoria16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(6, 6, 6)
-                        .addComponent(jComboBox30))
+                        .addComponent(comboproveedores))
                     .addComponent(jSeparator6, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                     .addGroup(BackgroundLayout.createSequentialGroup()
                         .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -211,7 +225,7 @@ public class NewZapato extends javax.swing.JPanel {
                         .addGap(0, 0, 0)
                         .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(0, 0, 0)
-                        .addComponent(jComboBox27)
+                        .addComponent(combotallas)
                         .addGap(0, 0, 0)
                         .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(0, 0, 0)
@@ -252,9 +266,9 @@ public class NewZapato extends javax.swing.JPanel {
     }
     
     
-    private void jComboBox29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox29ActionPerformed
+    private void combocategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combocategoriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox29ActionPerformed
+    }//GEN-LAST:event_combocategoriaActionPerformed
 
     private void btnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirActionPerformed
         // TODO add your handling code here:
@@ -265,6 +279,92 @@ public class NewZapato extends javax.swing.JPanel {
         dashboard.getInstance().showJpanel(new GestionProductos());
     }//GEN-LAST:event_btnAtrasActionPerformed
 
+    public List<talla> obtenerTallas() {
+         DAOTallaImpl daoTalla = new DAOTallaImpl();
+        List<talla> tallas = new ArrayList<>(); // Crear una lista para almacenar las tallas
+
+        try {
+            tallas = daoTalla.getallTallas(); 
+        } catch (Exception e) {
+            Logger.getLogger(NewProveedor.class.getName()).log(Level.SEVERE, null, e);
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las tallas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+        return tallas; // Retornar la lista de tallas
+    }
+  
+    private void cargarTallas() {
+        List<talla> listatalla = obtenerTallas(); // Método que obtiene las tallas
+        for (talla t : listatalla) {
+            combotallas.addItem(t); // Agregar cada marca al JComboBox
+        }
+    }
+    
+    public List<marca> obtenerMarcas() {
+        DAOMarcaImpl daoMarca = new DAOMarcaImpl();
+        List<marca> marcas = new ArrayList<>(); // Crear una lista para almacenar las marcas
+
+        try {
+            marcas = daoMarca.getAllMarcas(); 
+        } catch (Exception e) {
+            Logger.getLogger(NewProveedor.class.getName()).log(Level.SEVERE, null, e);
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las marcas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+        return marcas; // Retornar la lista de marcas
+    }
+
+    private void cargarMarcas() {
+        List<marca> listaMarcas = obtenerMarcas(); // Método que obtiene las marcas
+        for (marca m : listaMarcas) {
+            combomarcas.addItem(m); // Agregar cada marca al JComboBox
+        }
+    }
+    
+    public List<categoria> obtenerCategorias() {
+        DAOCategoriasImpl daocategoria = new DAOCategoriasImpl();
+        List<categoria> categorias = new ArrayList<>(); // Crear una lista para almacenar las marcas
+
+        try {
+            categorias = daocategoria.getallCategorias(); 
+        } catch (Exception e) {
+            Logger.getLogger(NewProveedor.class.getName()).log(Level.SEVERE, null, e);
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las marcas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+        return categorias; // Retornar la lista de marcas
+    }
+
+    private void cargarCategorias() {
+        List<categoria> listaCategorias = obtenerCategorias(); // Método que obtiene las marcas
+        for (categoria c : listaCategorias) {
+            combocategoria.addItem(c); // Agregar cada marca al JComboBox
+        }
+    }
+    
+    public List<proveedor> obtenerProveedores() {
+        DAOProveedoresImpl daoProveedor = new DAOProveedoresImpl();
+        List<proveedor> proveedores = new ArrayList<>(); // Crear una lista para almacenar las marcas
+
+        try {
+            proveedores = daoProveedor.getAllProveedores(); 
+        } catch (Exception e) {
+            Logger.getLogger(NewProveedor.class.getName()).log(Level.SEVERE, null, e);
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las marcas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+        return proveedores; // Retornar la lista de marcas
+    }
+    private void cargarProveedores() {
+    comboproveedores.addItem(new proveedor(0, "")); // Agregar un valor en blanco o por defecto
+    
+    List<proveedor> listaproveedor = obtenerProveedores(); // Método que obtiene los proveedores
+    for (proveedor p : listaproveedor) {
+        comboproveedores.addItem(p); // Agregar cada proveedor al JComboBox
+    }
+}
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
@@ -272,12 +372,12 @@ public class NewZapato extends javax.swing.JPanel {
     private javax.swing.JButton btnAtras;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSubir;
+    private javax.swing.JComboBox<categoria> combocategoria;
+    private javax.swing.JComboBox<marca> combomarcas;
+    private javax.swing.JComboBox<proveedor> comboproveedores;
+    private javax.swing.JComboBox<talla> combotallas;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox26;
-    private javax.swing.JComboBox<String> jComboBox27;
     private javax.swing.JComboBox<String> jComboBox28;
-    private javax.swing.JComboBox<String> jComboBox29;
-    private javax.swing.JComboBox<String> jComboBox30;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;

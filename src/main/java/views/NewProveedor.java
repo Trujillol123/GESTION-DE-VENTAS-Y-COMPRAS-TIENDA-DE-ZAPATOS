@@ -300,7 +300,7 @@ public class NewProveedor extends javax.swing.JPanel {
         List<marca> marcas = new ArrayList<>(); // Crear una lista para almacenar las marcas
 
         try {
-            marcas = daoMarca.getAllMarcas(); // Asumiendo que este método existe y retorna List<marca>
+            marcas = daoMarca.getAllMarcas(); 
         } catch (Exception e) {
             Logger.getLogger(NewProveedor.class.getName()).log(Level.SEVERE, null, e);
             javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las marcas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -311,7 +311,7 @@ public class NewProveedor extends javax.swing.JPanel {
 
     
 
-    private void cargarMarcas() {
+         private void cargarMarcas() {
         List<marca> listaMarcas = obtenerMarcas(); // Método que obtiene las marcas
         for (marca m : listaMarcas) {
             combomarcas.addItem(m); // Agregar cada marca al JComboBox

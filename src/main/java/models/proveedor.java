@@ -18,6 +18,14 @@ public class proveedor {
     private String email;
     private String direccion;
 
+   
+    
+    
+    public proveedor() {
+        // Constructor vacío para permitir la creación de objetos sin parámetros
+    }
+    
+
     public int getId_proveedor() {
         return id_proveedor;
     }
@@ -66,6 +74,15 @@ public class proveedor {
         this.direccion = direccion;
     }
     
+     @Override
+    public String toString() {
+        return nombre_proveedor; 
+    }
     
+     // Constructor que inicializa los atributos
+    public proveedor(int id_proveedor, String nombre_proveedor) {
+        this.id_proveedor = id_proveedor;
+        this.nombre_proveedor = nombre_proveedor; // Inicializar el nombre de la marca
+    }
     
 }

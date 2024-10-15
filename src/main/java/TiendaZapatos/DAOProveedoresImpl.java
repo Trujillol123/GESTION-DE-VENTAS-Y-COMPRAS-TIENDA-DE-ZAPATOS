@@ -8,8 +8,10 @@ import DataBase.Database;
 import interfaces.DAOProveedor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import models.marca;
 import models.proveedor;
 
 /**
@@ -62,8 +64,8 @@ public class DAOProveedoresImpl extends Database implements DAOProveedor {
                  proveedor.setId_proveedor(rs.getInt("id_proveedor"));
                  proveedor.setid_marca(rs.getInt("id_marca"));
                  proveedor.setNombre_proveedor(rs.getString("nombre_proveedor"));
-                 proveedor.setDireccion(rs.getString("telefono"));
-                 proveedor.setDireccion(rs.getString("email"));
+                 proveedor.setTelefono(rs.getString("telefono"));
+                 proveedor.setEmail(rs.getString("email"));
                  proveedor.setDireccion(rs.getString("direccion"));
                  
                  lista.add(proveedor);
@@ -110,5 +112,26 @@ public class DAOProveedoresImpl extends Database implements DAOProveedor {
             this.Cerrar();
         }
         }
+
+    @Override
+    public List<proveedor> getAllProveedores() throws Exception {
+            List<proveedor> lista = new ArrayList<>();
+        try {
+            this.Conectar();
+            PreparedStatement st = this.conexion.prepareStatement("SELECT * FROM proveedor;");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                proveedor proveedor = new proveedor(rs.getInt("id_proveedor"), rs.getString("nombre_proveedor"));
+                lista.add(proveedor);
+            }
+            rs.close();
+            st.close();
+        } catch (SQLException e) {
+            throw new Exception("Error al obtener marcas: " + e.getMessage(), e);
+        } finally {
+            this.Cerrar();
+        }
+        return lista;
+    }    }
     
-}
+
