@@ -14,7 +14,7 @@ import models.colores;
 public interface DAOColores {
        
     // Método para obtener una lista de todos los colores disponibles
-    public List<colores> read()throws Exception;
+    public List<colores> getallColors ()throws Exception;
     
     // Método para obtener un color específico por su ID
     public colores readById(int id)throws Exception;

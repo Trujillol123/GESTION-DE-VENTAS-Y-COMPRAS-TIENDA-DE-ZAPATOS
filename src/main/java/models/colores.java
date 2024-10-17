@@ -13,6 +13,18 @@ public class colores {
    private int id_color;
    private String nombre_color;
 
+      
+   
+   @Override
+    public String toString() {
+        return nombre_color;}
+   
+   public colores(int id_color, String nombre_color) {
+        this.id_color = id_color;
+        this.nombre_color = nombre_color;
+    }
+   
+   
     public int getId_color() {
         return id_color;
     }

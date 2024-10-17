@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.util.Date;
+
 /**
  *
  * @author cland
@@ -12,8 +14,8 @@ public class facturacompra {
     
     private int id_facturacompra;
     private int id_proveedor;
-    private String cantidad;
-    private String fecha;
+    private int cantidad;
+    private Date fecha;
 
     public int getId_facturacompra() {
         return id_facturacompra;
@@ -31,19 +33,19 @@ public class facturacompra {
         this.id_proveedor = id_proveedor;
     }
 
-    public String getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
     

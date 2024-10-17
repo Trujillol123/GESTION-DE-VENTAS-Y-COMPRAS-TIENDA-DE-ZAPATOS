@@ -12,7 +12,7 @@ import models.zapato_color;
  * @author cland
  */
 public interface DAOZapatoColor {
-     public boolean create(zapato_color zapato_color);
+     public void create(zapato_color zapato_color) throws Exception;
 
     public List<zapato_color> read()throws Exception;
     
