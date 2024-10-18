@@ -209,9 +209,9 @@ public class NewZapato extends javax.swing.JPanel {
                     .addGroup(BackgroundLayout.createSequentialGroup()
                         .addGap(132, 132, 132)
                         .addComponent(lblCategoria15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(0, 0, 0)
-                        .addComponent(combocategoria)
-                        .addGap(0, 0, 0)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(combocategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
                         .addComponent(lblCategoria17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(0, 0, 0)
                         .addComponent(combomarcas)
@@ -278,67 +278,67 @@ public class NewZapato extends javax.swing.JPanel {
     }//GEN-LAST:event_combocategoriaActionPerformed
     private void btnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirActionPerformed
      
-// Validación y obtención de categoría seleccionada
-categoria categoriaSeleccionada = (categoria) combocategoria.getSelectedItem();
-if (categoriaSeleccionada == null) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una categoría", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    return;
-}
-int id_categoria = categoriaSeleccionada.getId_categoria();
+        // Validación y obtención de categoría seleccionada
+        categoria categoriaSeleccionada = (categoria) combocategoria.getSelectedItem();
+        if (categoriaSeleccionada == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una categoría", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int id_categoria = categoriaSeleccionada.getId_categoria();
 
-// Validación y obtención de marca seleccionada
-marca marcaSeleccionada = (marca) combomarcas.getSelectedItem();
-if (marcaSeleccionada == null) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una marca", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    return;
-}
-int id_marca = marcaSeleccionada.getId_marca();
+        // Validación y obtención de marca seleccionada
+        marca marcaSeleccionada = (marca) combomarcas.getSelectedItem();
+        if (marcaSeleccionada == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una marca", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int id_marca = marcaSeleccionada.getId_marca();
 
-// Validación y obtención de proveedor seleccionado
-proveedor proveedorSeleccionado = (proveedor) comboproveedores.getSelectedItem();
-if (proveedorSeleccionado == null) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un proveedor", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    return;
-}
-int id_proveedor = proveedorSeleccionado.getId_proveedor();
+        // Validación y obtención de proveedor seleccionado
+        proveedor proveedorSeleccionado = (proveedor) comboproveedores.getSelectedItem();
+        if (proveedorSeleccionado == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un proveedor", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int id_proveedor = proveedorSeleccionado.getId_proveedor();
 
-// Validación y obtención de talla seleccionada
-talla tallaSeleccionada = (talla) combotallas.getSelectedItem();
-if (tallaSeleccionada == null) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una talla", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    return;
-}
-int id_talla = tallaSeleccionada.getId_talla();
+        // Validación y obtención de talla seleccionada
+        talla tallaSeleccionada = (talla) combotallas.getSelectedItem();
+        if (tallaSeleccionada == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una talla", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int id_talla = tallaSeleccionada.getId_talla();
 
-// Validación y obtención de color seleccionado
-colores colorSeleccionado = (colores) combocolor.getSelectedItem();
-if (colorSeleccionado == null) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un color", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    return;
-}
-int id_color = colorSeleccionado.getId_color();
+        // Validación y obtención de color seleccionado
+        colores colorSeleccionado = (colores) combocolor.getSelectedItem();
+        if (colorSeleccionado == null) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un color", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        int id_color = colorSeleccionado.getId_color();
 
-// Obtención y validación del precio (float)
-String precioTexto = txtPrecio.getText().trim();
-float precio;
-try {
-    precio = Float.parseFloat(precioTexto);
-} catch (NumberFormatException e) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un precio válido", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    return;
-}
+        // Obtención y validación del precio (float)
+        String precioTexto = txtPrecio.getText().trim();
+        float precio;
+        try {
+            precio = Float.parseFloat(precioTexto);
+        } catch (NumberFormatException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un precio válido", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-// Obtención y validación de la cantidad (int)
-    String cantidadTexto = txtCantidad.getText().trim();
-    int cantidad;
-    try {
-        cantidad = Integer.parseInt(cantidadTexto);
-    } catch (NumberFormatException e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad válida", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+        // Obtención y validación de la cantidad (int)
+            String cantidadTexto = txtCantidad.getText().trim();
+            int cantidad;
+            try {
+                cantidad = Integer.parseInt(cantidadTexto);
+            } catch (NumberFormatException e) {
+                javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad válida", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-    String descripcion = txtDescripcion.getText().trim();
+        String descripcion = txtDescripcion.getText().trim();
 
 
         // Crear objeto zapato
@@ -361,7 +361,7 @@ try {
 
         // Asegúrate de que `idZapatoGenerado` no sea 0 o null
         if (idZapatoGenerado <= 0) {
-            javax.swing.JOptionPane.showMessageDialog(this, "No se pudo generar el ID del zapato", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            javax.swing.JOptionPane.showMessageDialog(this, "Zapato Registrado Con Exito", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
@@ -535,6 +535,17 @@ try {
     }
     return null; // Si no hay fecha, retorna null   
     
+}
+    
+    private void limpiarFormulario() {
+    txtPrecio.setText("");
+    txtCantidad.setText("");
+    txtDescripcion.setText("");
+    combocategoria.setSelectedIndex(0); // O el valor que corresponda para "ninguno"
+    combomarcas.setSelectedIndex(0);
+    comboproveedores.setSelectedIndex(0);
+    combotallas.setSelectedIndex(0);
+    combocolor.setSelectedIndex(0);
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;

@@ -50,6 +50,7 @@ models\marca.class
 TiendaZapatos\PanelRound.class
 views\GestionProductos$4.class
 views\NewProveedor$7.class
+TiendaZapatos\dashboard$10.class
 views\DetalleCompra.class
 TiendaZapatos\dashboard$3.class
 views\NewCliente$6.class

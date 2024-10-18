@@ -117,13 +117,7 @@ public class dashboard extends JFrame {
         SetDate();
         initContent();
         
-        //Estilo de Botones del Menu
-        styleButtonPrincipal(rootPaneCheckingEnabled);
-        styleButtonGestiondeProductos(rootPaneCheckingEnabled);
-        styleButtonCompras(rootPaneCheckingEnabled);
-        styleButtonVentas(rootPaneCheckingEnabled);
-        styleButtonClientes(rootPaneCheckingEnabled);
-        styleButtonProveedores(rootPaneCheckingEnabled);
+      
        
     }
     
@@ -144,6 +138,9 @@ public class dashboard extends JFrame {
     btnPrinciapl.setHorizontalTextPosition(SwingConstants.RIGHT);
     btnPrinciapl.setVerticalTextPosition(SwingConstants.CENTER);
     btnPrinciapl.setIconTextGap(10); 
+    btnPrinciapl.setOpaque(true);  // Asegurarse de que sea opaco
+    btnPrinciapl.putClientProperty("JButton.buttonType", "roundRect"); // Aplicar borde redondeado
+    btnPrinciapl.setBackground(Color.yellow);
     
     if (isDarkMode) {
         btnPrinciapl.setIcon(CasaIcon);
@@ -277,22 +274,22 @@ public class dashboard extends JFrame {
             .addGroup(contentLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(datetext)
-                .addContainerGap(733, Short.MAX_VALUE))
+                .addContainerGap(493, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(datetext, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(635, Short.MAX_VALUE))
+                .addContainerGap(496, Short.MAX_VALUE))
         );
 
-        PanelMenu.setBackground(new java.awt.Color(153, 153, 153));
+        PanelMenu.setBackground(new java.awt.Color(204, 0, 204));
         PanelMenu.setForeground(new java.awt.Color(102, 102, 102));
 
+        btnPrinciapl.setBackground(new java.awt.Color(255, 102, 102));
         btnPrinciapl.setText("PRINCIPAL");
         btnPrinciapl.setBorder(null);
-        btnPrinciapl.setBorderPainted(false);
         btnPrinciapl.setContentAreaFilled(false);
         btnPrinciapl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPrinciapl.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -382,36 +379,41 @@ public class dashboard extends JFrame {
                     .addGroup(PanelMenuLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(logoletras, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnPrinciapl, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGestiondeProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMenuLayout.createSequentialGroup()
-                .addComponent(JToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(PanelMenuLayout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnGestiondeProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
+                            .addComponent(btnPrinciapl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCompras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(PanelMenuLayout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(btnProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelMenuLayout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(JToggleButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelMenuLayout.setVerticalGroup(
             PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMenuLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addComponent(logoletras, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14)
-                .addComponent(btnPrinciapl, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(btnGestiondeProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(btnCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
-                .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addGap(26, 26, 26)
+                .addComponent(btnPrinciapl, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGestiondeProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
-                .addComponent(JToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(JToggleButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -461,7 +463,8 @@ public class dashboard extends JFrame {
 
     private void btnPrinciaplActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrinciaplActionPerformed
            showJpanel(new Principal()); 
-           
+           btnPrinciapl.putClientProperty("JButton.buttonType", "roundRect"); // Aplicar borde redondeado
+
     }//GEN-LAST:event_btnPrinciaplActionPerformed
 
     private void btnGestiondeProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestiondeProductosActionPerformed
@@ -554,13 +557,11 @@ public class dashboard extends JFrame {
                 styleButtonProveedores(false);
                 
                 
-                // Actualizar botón
                 JToggleButton.setText("Light Mode");
                 JToggleButton.setIcon(SolIcon);  // Cambia al icono de sol
                
                 logoletras.setIcon(LogoLetrasNegroIcon); //Cambia las letras SHOERACK STORE de blanco a negro
                 
-                // Personalizar colores del botón para modo claro
                 
                 JToggleButton.setForeground(Color.WHITE);
                 
@@ -578,40 +579,43 @@ public class dashboard extends JFrame {
     }
 
     private void setDarkMode() {
-        EventQueue.invokeLater(() -> {
-            FlatAnimatedLafChange.showSnapshot();
-            FlatDarculaLaf.setup(); // Tema oscuro
-            FlatLaf.updateUI();
-            FlatAnimatedLafChange.hideSnapshotWithAnimation();
-            
-
-            styleButtonPrincipal(true);
-            styleButtonGestiondeProductos(true);
-            styleButtonCompras(true);
-            styleButtonVentas(true);
-            styleButtonClientes(true);
-            styleButtonProveedores(true);
-            
-            // Actualizar botón
-            JToggleButton.setText("Dark Mode");
-            JToggleButton.setIcon(LunaIcon);  // Cambia al icono de luna
-            
-            logoletras.setIcon(LogoLetrasBlancoIcon);
-            
-
-            // Personalizar colores del botón para modo oscuro
-            JToggleButton.setBackground(Color.DARK_GRAY);
-            JToggleButton.setForeground(Color.WHITE);
-
-            // Cambiar el color del fondo (background)
-            setPanelColor(BackGround, 60, 63, 65);
-            setPanelColor(PanelMenu, 60, 63, 65);
-            
-            //juepucha
-            // Actualizar el color de los paneles dentro de 'content' 
-            updatePanelColors(content, Color.getHSBColor(0.9444f, 0.8846f, 0.1020f), Color.WHITE);
-            updateTableColors(content, Color.getHSBColor(0.3966f, 0.1000f, 1.0000f), Color.WHITE);
-            
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                FlatAnimatedLafChange.showSnapshot();
+                FlatDarculaLaf.setup(); // Tema oscuro
+                FlatLaf.updateUI();
+                FlatAnimatedLafChange.hideSnapshotWithAnimation();
+                
+                
+                styleButtonPrincipal(true);
+                styleButtonGestiondeProductos(true);
+                styleButtonCompras(true);
+                styleButtonVentas(true);
+                styleButtonClientes(true);
+                styleButtonProveedores(true);
+                
+                // Actualizar botón
+                JToggleButton.setText("Dark Mode");
+                JToggleButton.setIcon(LunaIcon);  // Cambia al icono de luna
+                
+                logoletras.setIcon(LogoLetrasBlancoIcon);
+                
+                
+                // Personalizar colores del botón para modo oscuro
+                JToggleButton.setBackground(Color.DARK_GRAY);
+                JToggleButton.setForeground(Color.WHITE);
+             
+                
+                // Cambiar el color del fondo (background)
+                setPanelColor(BackGround, 60, 63, 65);
+                setPanelColor(PanelMenu, 60, 63, 65);
+                
+                //juepucha
+                // Actualizar el color de los paneles dentro de 'content'
+                updatePanelColors(content, Color.getHSBColor(0.9444f, 0.8846f, 0.1020f), Color.WHITE);
+                updateTableColors(content, Color.getHSBColor(0.3966f, 0.1000f, 1.0000f), Color.WHITE);
+            }
         });
     }
     
@@ -653,7 +657,11 @@ public class dashboard extends JFrame {
     private javax.swing.JButton btnVentas;
     private TiendaZapatos.PanelRound content;
     private javax.swing.JLabel datetext;
+    private javax.swing.JLabel lbTitle;
+    private javax.swing.JLabel lbTitle1;
     private javax.swing.JLabel logoletras;
+    private javax.swing.JPanel panelTitle;
+    private javax.swing.JPanel panelTitle1;
     // End of variables declaration//GEN-END:variables
     }
 

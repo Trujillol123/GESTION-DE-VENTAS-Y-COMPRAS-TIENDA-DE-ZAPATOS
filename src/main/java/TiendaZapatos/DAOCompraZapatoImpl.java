@@ -24,17 +24,16 @@ public class DAOCompraZapatoImpl extends Database implements DAOComprazapato {
    
     try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("INSERT INTO comprazapato (id_zapato, id_facturacompra, id_color, id_talla) VALUES (?, ?, ?, ?)");
+            PreparedStatement st = this.conexion.prepareStatement("INSERT INTO comprazapato (id_comprazpato, id_zapato, id_facturacompra, id_color, id_talla) VALUES (?, ?, ?, ?, ?)");
         
-        st.setInt(1, compraZapato.getId_comprazapato()); // Asumiendo que id_marca es un entero    
-        st.setInt(2, compraZapato.getId_facturacompra()); // Asumiendo que id_marca es un entero
+            
+        st.setInt(1, compraZapato.getId_comprazapato()); 
+        st.setInt(2, compraZapato.getId_zapato());
+        st.setInt(2, compraZapato.getId_facturacompra()); 
         st.setInt(3, compraZapato.getId_color());
         st.setInt(4, compraZapato.getId_talla());
 
         
-            
-        
-
         st.executeUpdate();
             
                     
