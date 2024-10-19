@@ -9,17 +9,20 @@ package models;
  * @author cland
  */
 public class zapatocolor_talla {
-    
-    private int id_talla_z;
-    private int id_talla;
-    private String cantidad;
 
-    public int getId_talla_z() {
-        return id_talla_z;
+   
+    
+    private int id_zapatocolortalla;
+    private int id_talla;
+    private int id_zapatocolor;
+    private int cantidad;
+
+    public int getId_zapatocolortalla() {
+        return id_zapatocolortalla;
     }
 
-    public void setId_talla_z(int id_talla_z) {
-        this.id_talla_z = id_talla_z;
+    public void setId_zapatocolortalla(int id_talla_z) {
+        this.id_zapatocolortalla = id_zapatocolortalla;
     }
 
     public int getId_talla() {
@@ -30,13 +33,19 @@ public class zapatocolor_talla {
         this.id_talla = id_talla;
     }
 
-    public String getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(String cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
+     public int getId_zapatocolor() {
+        return id_zapatocolor;
+    }
+
+    public void setId_zapatocolor(int id_zapatocolor) {
+        this.id_zapatocolor = id_zapatocolor;
+    }
     
 }

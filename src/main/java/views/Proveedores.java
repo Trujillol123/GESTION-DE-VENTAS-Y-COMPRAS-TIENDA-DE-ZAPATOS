@@ -4,7 +4,12 @@
  */
 package views;
 
+import TiendaZapatos.DAOClienteImpl;
+import TiendaZapatos.DAOProveedoresImpl;
 import TiendaZapatos.dashboard;
+import interfaces.DAOCliente;
+import interfaces.DAOProveedor;
+import javax.swing.table.DefaultTableModel;
 
 
 
@@ -20,6 +25,7 @@ public class Proveedores extends javax.swing.JPanel {
     public Proveedores() {
         initComponents();
         initStyles ();
+        loadProveedor ();
     }
 
     /**
@@ -38,7 +44,7 @@ public class Proveedores extends javax.swing.JPanel {
         btnNuevo = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        txtfBuscadordelibros = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -52,10 +58,7 @@ public class Proveedores extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "MARCA", "NOMBRE", "TELEFONO", "EMAIL", "DIRECCION"
@@ -84,9 +87,9 @@ public class Proveedores extends javax.swing.JPanel {
             }
         });
 
-        txtfBuscadordelibros.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfBuscadordelibrosActionPerformed(evt);
+                txtBuscarActionPerformed(evt);
             }
         });
 
@@ -125,7 +128,7 @@ public class Proveedores extends javax.swing.JPanel {
                             .addGroup(BackgroundLayout.createSequentialGroup()
                                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtfBuscadordelibros))
+                                .addComponent(txtBuscar))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 864, Short.MAX_VALUE))))
                 .addGap(40, 40, 40))
         );
@@ -138,7 +141,7 @@ public class Proveedores extends javax.swing.JPanel {
                     .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtfBuscadordelibros, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
@@ -163,10 +166,20 @@ public class Proveedores extends javax.swing.JPanel {
                 .addGap(5, 5, 5))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+     private void loadProveedor (){
+        try {
+            DAOProveedor dao = new DAOProveedoresImpl();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            dao.read().forEach((c) -> model.addRow(new Object[]{c.getId_proveedor(),c.getid_marca(), c.getNombre_proveedor(), c.getEmail(), c.getTelefono(), c.getDireccion()}));
+            
+        } catch (Exception e) {
+        }
+    }
     
     private void initStyles () {
         Titulo.putClientProperty( "FlatLaf.styleClass" , "h3" );
+        txtBuscar.putClientProperty("JTextField.placeholderText", "Ingrese el nombre del proveedor.");
+        
     }
     
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -175,16 +188,28 @@ public class Proveedores extends javax.swing.JPanel {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        DAOProveedor dao = new DAOProveedoresImpl();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        for (int i : jTable1.getSelectedRows()){
+            try {
+                
+                dao.delete((int) jTable1.getValueAt(i, 0));
+                model.removeRow(i);
+                } catch (Exception e) {
+             System.out.println(e.getMessage());        
+            }
+        }
+    
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void txtfBuscadordelibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfBuscadordelibrosActionPerformed
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtfBuscadordelibrosActionPerformed
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
@@ -201,6 +226,6 @@ public class Proveedores extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtfBuscadordelibros;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

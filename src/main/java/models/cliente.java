@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.util.Date;
+
 /**
  *
  * @author cland
@@ -15,6 +17,7 @@ public class cliente {
     private String email;
     private String telefono;
     private String direccion;
+    private Date fecha_registro;
 
     public int getId_cliente() {
         return id_cliente;
@@ -56,13 +59,14 @@ public class cliente {
         this.direccion = direccion;
     }
 
-    public String getFecha_registro() {
+    public Date getFecha_registro() {
         return fecha_registro;
     }
 
-    public void setFecha_registro(String fecha_registro) {
+    public void setFecha_registro(Date fecha_registro) {
         this.fecha_registro = fecha_registro;
     }
-    private String fecha_registro;
-    
+   
+
+   
 }

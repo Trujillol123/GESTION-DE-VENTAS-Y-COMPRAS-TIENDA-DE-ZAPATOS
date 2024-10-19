@@ -5,7 +5,8 @@
 package interfaces;
 
 import java.util.List;
-import models.Categoria;
+import models.categoria;
+import models.categoria;
 
 /**
  *
@@ -15,8 +16,8 @@ public interface DAOCategoria {
     
 
     // Método para obtener una lista de todos los colores disponibles
-    public List<Categoria> read()throws Exception;
+    public List<categoria> getallCategorias()throws Exception;
     
     // Método para obtener un color específico por su ID
-    public Categoria readById(int id)throws Exception;
+    public categoria readById(int id)throws Exception;
 }

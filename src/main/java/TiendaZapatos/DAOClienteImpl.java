@@ -8,9 +8,12 @@ import DataBase.Database;
 import interfaces.DAOCliente;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import models.cliente;
+import views.Clientes;
 
 
 /**
@@ -30,13 +33,17 @@ public class DAOClienteImpl extends Database implements DAOCliente{
             st.setString(3, cliente.getTelefono());
             st.setString(4, cliente.getDireccion());
             
-            String fechaRegistroStr = cliente.getFecha_registro();
-            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // Asegúrate de que este formato coincide con el que usas al obtener la fecha
-            java.util.Date utilDate = formato.parse(fechaRegistroStr); // Convierte String a Date
-            Date sqlDate = new Date(utilDate.getTime()); // Convierte util.Date a sql.Date
-            
-            st.setDate(5, sqlDate); // Establece la fecha en el PreparedStatement
-            st.executeUpdate();
+            // Aquí ya tienes un objeto java.util.Date en el cliente, lo conviertes directamente a java.sql.Date
+        java.util.Date fechaRegistro = cliente.getFecha_registro();
+        if (fechaRegistro != null) {
+            java.sql.Date sqlDate = new java.sql.Date(fechaRegistro.getTime()); // Convertir util.Date a sql.Date
+            st.setDate(5, sqlDate); // Establecer la fecha en el PreparedStatement
+        } else {
+            st.setNull(5, java.sql.Types.DATE); // Manejo si no se proporciona fecha
+        }
+
+        st.executeUpdate();
+
                     
         } catch (Exception e) {
             
@@ -48,10 +55,39 @@ public class DAOClienteImpl extends Database implements DAOCliente{
     }
 
     @Override
-    public List<cliente> read() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<cliente> read() throws Exception {
+        
+        List<cliente> lista = null;
+        try {
+            this.Conectar();
+            PreparedStatement st = this.conexion.prepareStatement("SELECT * FROM cliente;");
+            
+             lista = new ArrayList();
+             ResultSet rs = st.executeQuery();
+             while (rs.next()) {
+                 cliente cliente = new cliente ();
+                 
+                 cliente.setId_cliente(rs.getInt("id_cliente"));
+                 cliente.setNombre(rs.getString("nombre"));
+                 cliente.setEmail(rs.getString("email"));
+                 cliente.setDireccion(rs.getString("direccion"));
+                 cliente.setFecha_registro(rs.getDate("fecha_registro"));
+                 lista.add(cliente);
+                 
+             }
+            
+             rs.close();
+             st.close();
+        } catch (Exception e) {
+             throw  e;
+        }   finally {
+            
+            this.Cerrar();
+        }   
+        return lista;
+     
     }
-
+    
     @Override
     public cliente readById(int id) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -63,8 +99,57 @@ public class DAOClienteImpl extends Database implements DAOCliente{
     }
 
     @Override
-    public void delete(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void delete(int id_cliente)throws Exception {
+         try {
+            this.Conectar();
+            PreparedStatement st = this.conexion.prepareStatement("DELETE FROM cliente WHERE id_cliente = ?;");
+           
+            st.setInt(1, id_cliente);
+            st.executeUpdate();
+            st.close();
+                    
+        } catch (Exception e) {
+            
+           throw  e;
+        }   finally {
+            
+            this.Cerrar();
+        }
     }
-    
-}
+
+    @Override
+        public cliente getclientebyid(int id_cliente) throws Exception {
+
+            cliente cliente = new cliente();
+
+
+            try {
+                this.Conectar();
+                PreparedStatement st = this.conexion.prepareStatement("SELECT * FROM cliente WHERE id_cliente = ? LIMIT 1;");
+                st.setInt(1, id_cliente);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+
+                     cliente.setId_cliente(rs.getInt("id_cliente"));
+                     cliente.setNombre(rs.getString("nombre"));
+                     cliente.setEmail(rs.getString("email"));
+                     cliente.setDireccion(rs.getString("direccion"));
+                     cliente.setTelefono(rs.getString("telefono"));
+                     cliente.setFecha_registro(rs.getDate("fecha_registro"));
+
+
+                 }
+
+                 rs.close();
+                 st.close();
+            } catch (Exception e) {
+                 throw  e;
+            }   finally {
+
+                this.Cerrar();
+            }   
+            return cliente;
+             }
+
+
+    }
