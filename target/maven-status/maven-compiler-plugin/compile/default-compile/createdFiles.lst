@@ -51,9 +51,11 @@ views\NewCliente$6.class
 interfaces\DAOProveedor.class
 views\Compras$4.class
 views\GestionProductos.class
+views\login$1.class
 interfaces\DAOTalla.class
 views\GestionProductos$1.class
 TiendaZapatos\dashboard$4.class
+views\login.class
 TiendaZapatos\dashboard.class
 views\Clientes$4.class
 views\Proveedores.class
