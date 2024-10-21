@@ -7,6 +7,7 @@ import TiendaZapatos.dashboard;
 import interfaces.DAOCliente;
 import java.awt.Color;
 import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -175,7 +176,15 @@ public class Clientes extends javax.swing.JPanel {
         Titulo.putClientProperty( "FlatLaf.styleClass" , "h3" );
         
         txtbucarnombre.putClientProperty("JTextField.placeholderText", "Ingrese el nombre del cliente a buscar.");
+         setPanelColor(Background, 90, 93, 95);
+        
     }
+     
+     //DEFINIR COLORES CON METODO
+    static void setPanelColor(JPanel panel, int red, int green, int blue){
+        panel.setBackground(new Color(red, green, blue));
+    }
+   
      
     
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

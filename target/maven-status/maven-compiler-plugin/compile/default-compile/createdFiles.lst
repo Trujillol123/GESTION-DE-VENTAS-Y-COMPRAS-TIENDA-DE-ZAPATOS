@@ -6,6 +6,7 @@ models\comprazapato.class
 models\detalleventa.class
 views\NewVenta$2.class
 interfaces\DAOMarca.class
+views\NewZapato$4.class
 views\Principal.class
 interfaces\DAOFacturacompra.class
 views\NewCliente.class
@@ -68,6 +69,7 @@ models\zapato.class
 views\NewProveedor.class
 views\Clientes.class
 views\NewCliente$5.class
+views\NewZapato$5.class
 views\NewCompra$1.class
 views\NewCompra$4.class
 views\NewProveedor$5.class

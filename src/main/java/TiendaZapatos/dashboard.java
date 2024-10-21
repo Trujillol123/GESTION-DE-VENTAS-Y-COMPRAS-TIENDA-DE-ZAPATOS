@@ -31,6 +31,7 @@ import views.Compras;
 import views.GestionProductos;
 import views.Principal;
 import views.Proveedores;
+import javax.swing.JButton;
 
 
 import views.NewZapato;
@@ -114,7 +115,7 @@ public class dashboard extends JFrame {
         
         initComponents();
         setLightMode(); 
-        SetDate();
+     
         initContent();
         
       
@@ -488,16 +489,8 @@ public class dashboard extends JFrame {
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     
-    private void SetDate (){
-    LocalDate now = LocalDate.now();
-    
-         int year = now.getYear();
-         int dia = now.getDayOfMonth();
-         int month = now.getMonthValue();
-         String[] meses = {"enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Diciembre"};
-         datetext.setText(+dia+" de "+meses[month-1]+" de "+year);
-}   
-    
+   
+ 
     
     public static void updatePanelColors(JPanel panel, Color backgroundColor, Color foregroundColor) {
         panel.setBackground(backgroundColor);
@@ -506,6 +499,11 @@ public class dashboard extends JFrame {
             ((JPanel) component).setBackground(backgroundColor);
             ((JPanel) component).setForeground(foregroundColor);
             updatePanelColors((JPanel) component, backgroundColor, foregroundColor);
+            } else if (component instanceof JButton) {
+            // Estiliza el botón
+            JButton button = (JButton) component;
+            button.setBackground(backgroundColor.darker()); // Cambia a un color más oscuro
+            button.setForeground(foregroundColor);
             } else {
             component.setBackground(backgroundColor);
             component.setForeground(foregroundColor);
@@ -572,7 +570,7 @@ public class dashboard extends JFrame {
                 
                 //Cambiar El color del content que recibe
                 // Actualizar el color de los paneles dentro de 'content'
-                updatePanelColors(content, Color.getHSBColor(0.3966f, 0.1000f, 1.0000f), Color.BLACK);
+                updatePanelColors(content, Color.getHSBColor(0.0f, 0.0f, 0.96f), Color.BLACK);
                 updateTableColors(content, Color.getHSBColor(0.3966f, 0.1000f, 1.0000f), Color.BLACK);
             }
         });

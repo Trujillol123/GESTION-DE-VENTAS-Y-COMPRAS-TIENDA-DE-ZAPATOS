@@ -45,7 +45,6 @@ public class GestionProductos extends javax.swing.JPanel {
 
         background.setBackground(new java.awt.Color(0, 51, 51));
         background.setPreferredSize(new java.awt.Dimension(999, 640));
-        background.setRoundBottomLeft(50);
         background.setRoundTopLeft(50);
 
         Titulo.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
