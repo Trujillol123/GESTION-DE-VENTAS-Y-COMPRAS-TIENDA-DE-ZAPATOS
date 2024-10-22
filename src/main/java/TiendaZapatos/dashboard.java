@@ -511,31 +511,6 @@ public class dashboard extends JFrame {
         }
     }
 
-    public static void updateTableColors(JPanel panel, Color backgroundColor, Color foregroundColor) {
-        for (java.awt.Component component : panel.getComponents()) {
-            if (component instanceof JTable) {
-                JTable table = (JTable) component;
-                table.setBackground(backgroundColor);
-                table.setForeground(foregroundColor);
-                table.setGridColor(foregroundColor); // Cambia el color de la cuadrícula si es necesario
-                // Cambiar colores en el modelo de tabla (por ejemplo, en las celdas)
-                table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-                    @Override
-                    public Component getTableCellRendererComponent(JTable table, Object value, 
-                                                                   boolean isSelected, boolean hasFocus, 
-                                                                   int row, int column) {
-                        Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                        cell.setBackground(isSelected ? backgroundColor.darker() : backgroundColor); // Cambia el color de fondo
-                        cell.setForeground(foregroundColor); // Cambia el color de texto
-                        return cell;
-                    }
-                });
-            } else if (component instanceof JPanel) {
-                // Llama recursivamente si el componente es un JPanel
-                updateTableColors((JPanel) component, backgroundColor, foregroundColor);
-            }
-        }
-    }
 
     
     private void setLightMode() {
@@ -571,7 +546,7 @@ public class dashboard extends JFrame {
                 //Cambiar El color del content que recibe
                 // Actualizar el color de los paneles dentro de 'content'
                 updatePanelColors(content, Color.getHSBColor(0.0f, 0.0f, 0.96f), Color.BLACK);
-                updateTableColors(content, Color.getHSBColor(0.3966f, 0.1000f, 1.0000f), Color.BLACK);
+                
             }
         });
     }
@@ -612,7 +587,7 @@ public class dashboard extends JFrame {
                 //juepucha
                 // Actualizar el color de los paneles dentro de 'content'
                 updatePanelColors(content, Color.getHSBColor(0.9444f, 0.8846f, 0.1020f), Color.WHITE);
-                updateTableColors(content, Color.getHSBColor(0.3966f, 0.1000f, 1.0000f), Color.WHITE);
+                
             }
         });
     }
@@ -624,7 +599,7 @@ public class dashboard extends JFrame {
   
     
     
-    
+    /*
     public static void main(String args[]) {
         
         FlatRobotoFont.install();
@@ -639,7 +614,7 @@ public class dashboard extends JFrame {
         });
     }
     
-     
+   */
 
    
 

@@ -18,6 +18,7 @@ TiendaZapatos\dashboard$5.class
 views\Clientes$3.class
 views\GestionProductos$2.class
 models\zapato_color.class
+views\login$3.class
 interfaces\DAOCategoria.class
 TiendaZapatos\DAOCompraZapatoImpl.class
 views\NewCliente$4.class
@@ -53,7 +54,6 @@ models\marca.class
 TiendaZapatos\PanelRound.class
 views\GestionProductos$4.class
 views\NewProveedor$7.class
-TiendaZapatos\dashboard$10.class
 CustomComponents\RoundedTextField$1.class
 views\DetalleCompra.class
 TiendaZapatos\dashboard$3.class
@@ -66,6 +66,7 @@ interfaces\DAOTalla.class
 views\GestionProductos$1.class
 TiendaZapatos\dashboard$4.class
 views\login.class
+views\login$2.class
 TiendaZapatos\dashboard.class
 views\Clientes$4.class
 views\Proveedores.class
@@ -79,6 +80,7 @@ views\NewCompra$1.class
 views\NewCompra$4.class
 views\NewProveedor$5.class
 TiendaZapatos\dashboard$7.class
+views\login$5.class
 views\Proveedores$2.class
 views\Compras$5.class
 views\NewVenta$1.class
@@ -125,5 +127,6 @@ views\NewZapato$3.class
 interfaces\DAOZapato.class
 views\Compras$1.class
 CustomComponents\RoundedTextField.class
+views\login$4.class
 TiendaZapatos\dashboard$6.class
 models\zapatocolor_talla.class

@@ -1,4 +1,3 @@
-
 package DataBase;
 
 import java.sql.Connection;
@@ -10,22 +9,25 @@ import java.util.logging.Logger;
 
 public class Database {
     
-    protected Connection conexion;
+    public Connection conexion;
     private final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private final String DB_URL = "jdbc:mysql://localhost:3306/tiendadezapatos1";
     
     private final String USER = "root";
     private final String PASS = "";
     
-    public void Conectar () throws ClassNotFoundException { 
-        try {
-            conexion = DriverManager.getConnection(DB_URL, USER, PASS);
-        } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void Conectar() throws ClassNotFoundException {
+    try {
+        // Primero cargamos el driver
         Class.forName(JDBC_DRIVER);
-        
+
+        // Luego intentamos la conexión
+        conexion = DriverManager.getConnection(DB_URL, USER, PASS);
+    } catch (SQLException ex) {
+        Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
     }
+}
+
            
     public void Cerrar () throws SQLException{
         if (conexion != null) {
