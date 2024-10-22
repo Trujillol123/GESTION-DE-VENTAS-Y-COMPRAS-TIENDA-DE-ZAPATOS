@@ -9,7 +9,6 @@ import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -28,7 +27,7 @@ import views.login;
 
 public class dashboard extends JFrame {
 
-    // Cargar los íconos de sol y luna con rutas absolutas
+    // Cargar todos los iconos usados con rutas absolutas
     private final ImageIcon SolIcon;
     private final ImageIcon LunaIcon;
     private final ImageIcon LogoLetrasNegroIcon;
@@ -114,7 +113,7 @@ public class dashboard extends JFrame {
     btnPrinciapl.setHorizontalTextPosition(SwingConstants.RIGHT);
     btnPrinciapl.setVerticalTextPosition(SwingConstants.CENTER);
     btnPrinciapl.setIconTextGap(10); 
-    btnPrinciapl.setOpaque(true);  // Asegurarse de que sea opaco
+    //btnPrinciapl.setOpaque(true);  // Asegurarse de que sea opaco
     btnPrinciapl.putClientProperty("JButton.buttonType", "roundRect"); // Aplicar borde redondeado
     btnPrinciapl.setBackground(Color.yellow);
     
@@ -528,7 +527,7 @@ public class dashboard extends JFrame {
     }
 
     private void setDarkMode() {
-        EventQueue.invokeLater(() -> {
+            EventQueue.invokeLater(() -> {
             FlatAnimatedLafChange.showSnapshot();
             FlatDarculaLaf.setup(); // Tema oscuro
             FlatLaf.updateUI();
@@ -570,7 +569,7 @@ public class dashboard extends JFrame {
     }
   
     
-    
+    /*
     public static void main(String args[]) {
         
         FlatRobotoFont.install();
@@ -589,8 +588,8 @@ public class dashboard extends JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             dashboard.getInstance().setVisible(true);
         });
-        */    
-    }
+        
+    } */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -2,22 +2,16 @@ package views;
 
 import DataBase.Database;
 import TiendaZapatos.dashboard;
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.Color;
-import java.awt.Font;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.SwingWorker;
-import javax.swing.UIManager;
 
-/**
- *
- * @author David Grijalba
- */
+/* @author David Grijalba */
+
 public class login extends javax.swing.JFrame {
 
     private ImageIcon icono;
@@ -255,58 +249,65 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+
         String user = txtUser.getText();
         String password = String.valueOf(PassField.getPassword());
 
-        if(user.isEmpty() || password.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un usuario y una contraseña.");
-        return;
+        if (user.isEmpty() || password.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un usuario y una contraseña.");
+            return;
         }
-
+        
         new SwingWorker<Void, Void>() {
-         @Override
+            
+            @Override
             protected Void doInBackground() throws Exception {
-             try {
-                // Establecer conexión con la base de datos
-                Database db = new Database();
-                db.Conectar();
                 
-                // Crear una sentencia SQL para verificar las credenciales
-                String query = "SELECT * FROM usuario WHERE user = ? AND password = ?";
-                java.sql.PreparedStatement ps = db.conexion.prepareStatement(query);
-                ps.setString(1, user);
-                ps.setString(2, password);
-                
-                java.sql.ResultSet rs = ps.executeQuery();
+                try {
+                    // Establecer conexión con la base de datos
+                    Database db = new Database();
+                    db.Conectar();
 
-                // Verificar si hay resultados (usuario válido)
-                if(rs.next()) {
-                    javax.swing.JOptionPane.showMessageDialog(null, "Login exitoso");
-
-                    // Aquí cerramos la ventana de login
-                    dispose();
-                    
-                    // Abrimos el dashboard (esto lo haremos también en segundo plano)
-                    java.awt.EventQueue.invokeLater(() -> {
-                        dashboard.getInstance().setVisible(true);
-                    });
-                } else {
-                    javax.swing.JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+                    // Crear una sentencia SQL para verificar las credenciales
+                    String query = "SELECT * FROM usuario WHERE user = ? AND password = ?";
+                    try (java.sql.PreparedStatement ps = db.conexion.prepareStatement(query)) {
+                        ps.setString(1, user);
+                        ps.setString(2, password);
+                        
+                        java.sql.ResultSet rs = ps.executeQuery();
+                        
+                        // Verificar si hay resultados (usuario válido)
+                        if (rs.next()) {
+                            javax.swing.JOptionPane.showMessageDialog(null, "Login exitoso");
+                            
+                            // Aquí cerramos la ventana de login
+                            dispose();
+                            
+                            // Abrimos el dashboard (esto lo haremos también en segundo plano)
+                            java.awt.EventQueue.invokeLater(() -> {
+                                dashboard.getInstance().setVisible(true);
+                                
+                            });
+                            
+                        } else {
+                            javax.swing.JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+                        }
+                        
+                        // Cerrar la conexión
+                        rs.close();
+                    }
+                    db.Cerrar();
+                } catch (HeadlessException | ClassNotFoundException | SQLException e) {
+                    e.printStackTrace();
+                    javax.swing.JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos.");
                 }
-
-                // Cerrar la conexión
-                rs.close();
-                ps.close();
-                db.Cerrar();
-            } catch (Exception e) {
-                e.printStackTrace();
-                javax.swing.JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos.");
+                
+                return null;
+                
             }
-            return null;
-        }
-
-        @Override
-        protected void done() {
+            
+            @Override
+            protected void done() {
             //Cambiar interfaz si es necesarios
         }
         }.execute();
@@ -346,7 +347,7 @@ public class login extends javax.swing.JFrame {
         btnLogin.setBackground(new java.awt.Color(0,0,0,1));
     }
     
-
+//Main si estuviera en el login.java
 /*
     public static void main(String args[]) {
     // Inicialización del estilo visual y look-and-feel
