@@ -24,7 +24,6 @@ TiendaZapatos\DAOCompraZapatoImpl.class
 views\NewCliente$4.class
 views\NewVenta.class
 views\GestionProductos$5.class
-TiendaZapatos\dashboard$8.class
 views\Ventas$1.class
 views\login$6.class
 TiendaZapatos\DAOFacturaCompraImpl.class
@@ -37,7 +36,6 @@ views\Ventas$5.class
 views\GestionProductos$3.class
 views\NewProveedor$6.class
 TiendaZapatos\DAOZapatoColorTallaImpl.class
-TiendaZapatos\dashboard$9.class
 interfaces\DAOZapatoColor.class
 TiendaZapatos\DAOTallaImpl.class
 TiendaZapatos\DAOComprasImpl.class

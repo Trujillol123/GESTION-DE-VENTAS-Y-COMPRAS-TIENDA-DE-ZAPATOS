@@ -6,8 +6,11 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.SwingWorker;
 import javax.swing.UIManager;
 
@@ -17,10 +20,14 @@ import javax.swing.UIManager;
  */
 public class login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form login
-     */
+    private ImageIcon icono;
+    
     public login() {
+        
+        Image logoImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/logozapato.png"));
+        icono = new ImageIcon(logoImage); // Crear ImageIcon usando la variable icono
+        setIconImage(icono.getImage()); // Establecer la imagen del ícono
+        
         initComponents();
         initStyles();
     }
@@ -31,8 +38,8 @@ public class login extends javax.swing.JFrame {
 
         Background = new javax.swing.JPanel();
         Buttons_bar = new javax.swing.JPanel();
-        labelCerrar = new javax.swing.JLabel();
-        labelMinimizar = new javax.swing.JLabel();
+        btnCerrar = new javax.swing.JLabel();
+        btnMinimizar = new javax.swing.JLabel();
         loginContent = new TiendaZapatos.GradientPanel();
         labelTittle = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -52,19 +59,29 @@ public class login extends javax.swing.JFrame {
         setResizable(false);
 
         Background.setBackground(new java.awt.Color(0, 102, 153));
-        Background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        labelCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close.png"))); // NOI18N
-        labelCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+        Buttons_bar.setBackground(new java.awt.Color(204, 204, 204));
+
+        btnCerrar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnCerrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/close.png"))); // NOI18N
+        btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelCerrarMouseClicked(evt);
+                btnCerrarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCerrarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCerrarMouseExited(evt);
             }
         });
 
-        labelMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
-        labelMinimizar.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnMinimizar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimize.png"))); // NOI18N
+        btnMinimizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelMinimizarMouseClicked(evt);
+                btnMinimizarMouseClicked(evt);
             }
         });
 
@@ -72,22 +89,17 @@ public class login extends javax.swing.JFrame {
         Buttons_bar.setLayout(Buttons_barLayout);
         Buttons_barLayout.setHorizontalGroup(
             Buttons_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Buttons_barLayout.createSequentialGroup()
-                .addContainerGap(714, Short.MAX_VALUE)
-                .addComponent(labelMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(Buttons_barLayout.createSequentialGroup()
+                .addGap(720, 720, 720)
+                .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         Buttons_barLayout.setVerticalGroup(
             Buttons_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(Buttons_barLayout.createSequentialGroup()
-                .addGroup(Buttons_barLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6))
+            .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
-
-        Background.add(Buttons_bar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 40));
 
         loginContent.setColor1(new java.awt.Color(6, 20, 27));
         loginContent.setColor2(new java.awt.Color(37, 55, 69));
@@ -156,7 +168,7 @@ public class login extends javax.swing.JFrame {
                     .addGroup(loginContentLayout.createSequentialGroup()
                         .addGap(149, 149, 149)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         loginContentLayout.setVerticalGroup(
             loginContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,20 +192,44 @@ public class login extends javax.swing.JFrame {
                 .addContainerGap(71, Short.MAX_VALUE))
         );
 
-        Background.add(loginContent, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 520, 500));
-
         Store.setFont(new java.awt.Font("Rubik ExtraBold", 0, 24)); // NOI18N
         Store.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Store.setText("Store");
-        Background.add(Store, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 150, 40));
 
         ShoeRack.setFont(new java.awt.Font("Rubik ExtraBold", 0, 24)); // NOI18N
         ShoeRack.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ShoeRack.setText("Shoe Rack");
-        Background.add(ShoeRack, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 150, 40));
 
         Pattern.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Logo+Pattern_280_500.png"))); // NOI18N
-        Background.add(Pattern, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 500));
+
+        javax.swing.GroupLayout BackgroundLayout = new javax.swing.GroupLayout(Background);
+        Background.setLayout(BackgroundLayout);
+        BackgroundLayout.setHorizontalGroup(
+            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Buttons_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(BackgroundLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ShoeRack, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Store, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(BackgroundLayout.createSequentialGroup()
+                .addGap(280, 280, 280)
+                .addComponent(loginContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(Pattern)
+        );
+        BackgroundLayout.setVerticalGroup(
+            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BackgroundLayout.createSequentialGroup()
+                .addComponent(Buttons_bar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(250, 250, 250)
+                .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ShoeRack, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(BackgroundLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(Store, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addComponent(loginContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Pattern)
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -266,22 +302,30 @@ public class login extends javax.swing.JFrame {
 
         @Override
         protected void done() {
-            // Aquí podrías actualizar la interfaz si fuera necesario
+            //Actualizar la interfaz si es necesario
         }
         }.execute();
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    private void labelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_labelCerrarMouseClicked
-
-    private void labelMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelMinimizarMouseClicked
-        this.setExtendedState(ICONIFIED);
-    }//GEN-LAST:event_labelMinimizarMouseClicked
-
     private void PassFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_PassFieldActionPerformed
+
+    private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btnCerrarMouseClicked
+
+    private void btnCerrarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseEntered
+        btnCerrar.setBackground(Color.red);
+    }//GEN-LAST:event_btnCerrarMouseEntered
+
+    private void btnCerrarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseExited
+        btnCerrar.setBackground(new java.awt.Color(0,0,0,1));
+    }//GEN-LAST:event_btnCerrarMouseExited
+
+    private void btnMinimizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMinimizarMouseClicked
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimizarMouseClicked
 
     private void initStyles() {
         txtUser.putClientProperty("JTextField.placeholderText", "Ingrese su nombre de usuario");
@@ -313,13 +357,13 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel Pattern;
     private javax.swing.JLabel ShoeRack;
     private javax.swing.JLabel Store;
+    private javax.swing.JLabel btnCerrar;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JLabel btnMinimizar;
     private javax.swing.JLabel info;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel labelCerrar;
-    private javax.swing.JLabel labelMinimizar;
     private javax.swing.JLabel labelTittle;
     private TiendaZapatos.GradientPanel loginContent;
     private javax.swing.JTextField txtUser;
