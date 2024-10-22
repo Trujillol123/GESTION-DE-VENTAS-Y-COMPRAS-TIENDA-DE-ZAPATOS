@@ -3,7 +3,6 @@ package TiendaZapatos;
 import java.awt.Dimension;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
@@ -32,7 +31,6 @@ import views.GestionProductos;
 import views.Principal;
 import views.Proveedores;
 
-//OLI PIRINOLI
 
 import views.NewZapato;
 import views.Ventas;
@@ -59,8 +57,9 @@ public class dashboard extends JFrame {
     private final ImageIcon ProveedoresNegroIcon;
     private ImageIcon icono;
     
-   
 
+   
+    
     private static dashboard instance;
     
     private dashboard() {

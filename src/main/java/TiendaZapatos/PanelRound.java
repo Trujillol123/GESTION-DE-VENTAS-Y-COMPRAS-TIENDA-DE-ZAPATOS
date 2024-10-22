@@ -10,11 +10,10 @@ import java.awt.geom.RoundRectangle2D;
 import javax.swing.JPanel;
 
 
-
- // una verga como se va a tirar toda una clase 
-
+    
 public class PanelRound extends JPanel {
 
+    
     public int getRoundTopLeft() {
         return roundTopLeft;
     }
