@@ -74,11 +74,7 @@ models\zapato.class
 views\NewProveedor.class
 views\Clientes.class
 views\NewCliente$5.class
-<<<<<<< HEAD
-views\Compras$8.class
-=======
 views\NewZapato$5.class
->>>>>>> ab062277121267a5017dbbbaed364ddc0ae39c5d
 views\NewCompra$1.class
 views\NewCompra$4.class
 views\NewProveedor$5.class
