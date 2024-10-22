@@ -35,6 +35,11 @@
             <version>3.4.1</version>
         </dependency>
         <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version> <!-- Cambia la versión si es necesario -->
+        </dependency>
+        <dependency>
             <groupId>com.formdev</groupId>
             <artifactId>flatlaf-intellij-themes</artifactId>
             <version>3.5.1</version>
@@ -45,11 +50,6 @@
             <version>3.5.1</version>
             <type>jar</type>
         </dependency>
-        <dependency>
-             <groupId>mysql</groupId>
-             <artifactId>mysql-connector-java</artifactId>
-             <version>5.1.13</version>
-        </dependency>    
         <dependency>
              <groupId>org.apache.xmlgraphics</groupId>
              <artifactId>batik-transcoder</artifactId>

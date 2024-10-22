@@ -1,7 +1,15 @@
 package views;
 
 import DataBase.Database;
+import TiendaZapatos.dashboard;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import java.awt.Color;
+import java.awt.Font;
+import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.SwingWorker;
+import javax.swing.UIManager;
 
 /**
  *
@@ -210,37 +218,57 @@ public class login extends javax.swing.JFrame {
         String password = String.valueOf(PassField.getPassword());
 
         if(user.isEmpty() || password.isEmpty()) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un usuario y una contraseña.");
-            return;
+        javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un usuario y una contraseña.");
+        return;
         }
 
-        try {
-            // Establecer conexión con la base de datos
-            Database db = new Database();
-            db.Conectar();
-            
-            // Crear una sentencia SQL para verificar las credenciales
-            String query = "SELECT * FROM usuarios WHERE usuario = '" + user + "' AND contraseña = '" + password + "'";
-            Statement st = db.conexion.createStatement();
-            java.sql.ResultSet rs = st.executeQuery(query);
+        new SwingWorker<Void, Void>() {
+         @Override
+            protected Void doInBackground() throws Exception {
+             try {
+                // Establecer conexión con la base de datos
+                Database db = new Database();
+                db.Conectar();
+                
+                // Crear una sentencia SQL para verificar las credenciales
+                String query = "SELECT * FROM usuario WHERE user = ? AND password = ?";
+                java.sql.PreparedStatement ps = db.conexion.prepareStatement(query);
+                ps.setString(1, user);
+                ps.setString(2, password);
+                
+                java.sql.ResultSet rs = ps.executeQuery();
 
-            // Verificar si hay resultados (usuario válido)
-            if(rs.next()) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Login exitoso");
-                // Aquí puedes redirigir a la siguiente pantalla del sistema
-            } else {
-                javax.swing.JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+                // Verificar si hay resultados (usuario válido)
+                if(rs.next()) {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Login exitoso");
+
+                    // Aquí cerramos la ventana de login
+                    dispose();
+                    
+                    // Abrimos el dashboard (esto lo haremos también en segundo plano)
+                    java.awt.EventQueue.invokeLater(() -> {
+                        dashboard.getInstance().setVisible(true);
+                    });
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+                }
+
+                // Cerrar la conexión
+                rs.close();
+                ps.close();
+                db.Cerrar();
+            } catch (Exception e) {
+                e.printStackTrace();
+                javax.swing.JOptionPane.showMessageDialog(null, "Error en la conexión a la base de datos.");
             }
-
-            // Cerrar la conexión
-            rs.close();
-            st.close();
-            db.Cerrar();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            javax.swing.JOptionPane.showMessageDialog(this, "Error en la conexión a la base de datos.");
+            return null;
         }
+
+        @Override
+        protected void done() {
+            // Aquí podrías actualizar la interfaz si fuera necesario
+        }
+        }.execute();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void labelCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCerrarMouseClicked
@@ -265,6 +293,19 @@ public class login extends javax.swing.JFrame {
     }
     
 
+    public static void main(String args[]) {
+    // Inicialización del estilo visual y look-and-feel
+    FlatRobotoFont.install();
+    UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+    FlatIntelliJLaf.setup();
+    UIManager.put("TextField.placeholderForeground", Color.GRAY);
+
+    // Abrir la ventana de login como primer paso
+    java.awt.EventQueue.invokeLater(() -> {
+        new login().setVisible(true);
+    });
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JPanel Buttons_bar;
