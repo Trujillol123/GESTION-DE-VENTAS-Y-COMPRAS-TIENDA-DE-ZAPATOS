@@ -71,8 +71,7 @@ public class Compras extends javax.swing.JPanel {
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(823, 537));
 
-        Background.setBackground(new java.awt.Color(0, 51, 51));
-        Background.setRoundBottomLeft(50);
+        Background.setBackground(new java.awt.Color(255, 255, 255));
         Background.setRoundTopLeft(50);
 
         jLabel2.setText("De :");
