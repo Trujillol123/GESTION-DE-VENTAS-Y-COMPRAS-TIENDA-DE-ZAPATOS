@@ -127,6 +127,11 @@ public class login extends javax.swing.JFrame {
                 PassFieldActionPerformed(evt);
             }
         });
+        PassField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PassFieldKeyTyped(evt);
+            }
+        });
 
         info.setFont(new java.awt.Font("Rubik Light", 0, 14)); // NOI18N
         info.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -302,13 +307,14 @@ public class login extends javax.swing.JFrame {
 
         @Override
         protected void done() {
-            //Actualizar la interfaz si es necesario
+            //Cambiar interfaz si es necesarios
         }
         }.execute();
     }//GEN-LAST:event_btnLoginActionPerformed
 
+
     private void PassFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PassFieldActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_PassFieldActionPerformed
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
@@ -327,6 +333,10 @@ public class login extends javax.swing.JFrame {
         this.setExtendedState(ICONIFIED);
     }//GEN-LAST:event_btnMinimizarMouseClicked
 
+    private void PassFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PassFieldKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PassFieldKeyTyped
+
     private void initStyles() {
         txtUser.putClientProperty("JTextField.placeholderText", "Ingrese su nombre de usuario");
         PassField.putClientProperty("JPasswordField.placeholderText", "Ingrese su contraseña");
@@ -337,6 +347,7 @@ public class login extends javax.swing.JFrame {
     }
     
 
+/*
     public static void main(String args[]) {
     // Inicialización del estilo visual y look-and-feel
     FlatRobotoFont.install();
@@ -344,11 +355,9 @@ public class login extends javax.swing.JFrame {
     FlatIntelliJLaf.setup();
     UIManager.put("TextField.placeholderForeground", Color.GRAY);
 
-    // Abrir la ventana de login como primer paso
-    java.awt.EventQueue.invokeLater(() -> {
-        new login().setVisible(true);
-    });
 }
+
+*/
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;

@@ -5,9 +5,11 @@ import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -19,8 +21,10 @@ import views.GestionProductos;
 import views.Principal;
 import views.Proveedores;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 
 import views.Ventas;
+import views.login;
 
 public class dashboard extends JFrame {
 
@@ -568,7 +572,6 @@ public class dashboard extends JFrame {
   
     
     
-    /*
     public static void main(String args[]) {
         
         FlatRobotoFont.install();
@@ -578,14 +581,18 @@ public class dashboard extends JFrame {
         FlatIntelliJLaf.setup(); 
         UIManager.put("TextField.placeholderForeground", Color.GRAY); 
         
+        // Abrir la ventana de login como primer paso
+        java.awt.EventQueue.invokeLater(() -> {
+             new login().setVisible(true);
+        });
+        
+        /*
         java.awt.EventQueue.invokeLater(() -> {
             dashboard.getInstance().setVisible(true);
         });
+        */    
     }
-    
-   */
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackGround;
