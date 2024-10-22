@@ -440,7 +440,6 @@ public class dashboard extends JFrame {
         } else {
             setDarkMode();
         }
-
     }//GEN-LAST:event_JToggleButtonActionPerformed
 
     private void btnPrinciaplActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrinciaplActionPerformed
@@ -575,7 +574,7 @@ public class dashboard extends JFrame {
     public static void main(String args[]) {
         
         FlatRobotoFont.install();
-        UIManager.put("defaultFont", new Font (FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+        //UIManager.put("defaultFont", new Font (FlatRobotoFont.FAMILY, Font.PLAIN, 13));
         
         
         FlatIntelliJLaf.setup(); 
