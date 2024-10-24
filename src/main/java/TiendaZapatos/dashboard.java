@@ -655,11 +655,7 @@ public class dashboard extends JFrame {
     private javax.swing.JButton btnVentas;
     private TiendaZapatos.PanelRound content;
     private javax.swing.JLabel datetext;
-    private javax.swing.JLabel lbTitle;
-    private javax.swing.JLabel lbTitle1;
     private javax.swing.JLabel logoletras;
-    private javax.swing.JPanel panelTitle;
-    private javax.swing.JPanel panelTitle1;
     // End of variables declaration//GEN-END:variables
     }
 

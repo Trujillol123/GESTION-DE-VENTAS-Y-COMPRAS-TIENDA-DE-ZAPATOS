@@ -14,10 +14,54 @@ public class zapato {
     private int id_categoria;
     private int id_marca;
     private int id_proveedor;
+    private String nombre_categoria;
     private float precio;
-    private int stock;
+    private int cantidad;
     private String descripcion;
+    private String nombre_color;
+    private String nombre_marca;
+    private String nombre_proveedor;
 
+    // Getters y setters
+    public String getNombre_color() {
+        return nombre_color;
+    }
+
+    public void setNombre_color(String nombre_color) {
+        this.nombre_color = nombre_color;
+    }
+
+    public String getNombre_marca() {
+        return nombre_marca;
+    }
+
+    public void setNombre_marca(String nombre_marca) {
+        this.nombre_marca = nombre_marca;
+    }
+
+    public String getNombre_proveedor() {
+        return nombre_proveedor;
+    }
+
+    public void setNombre_proveedor(String nombre_proveedor) {
+        this.nombre_proveedor = nombre_proveedor;
+    }
+
+    public String getNombre_categoria() {
+        return nombre_categoria;
+    }
+
+    public void setNombre_categoria(String nombre_categoria) {
+        this.nombre_categoria = nombre_categoria;
+    }
+
+    
+    
+    
+    
+    
+    
+    
     public int getId_zapato() {
         return id_zapato;
     }
@@ -26,10 +70,14 @@ public class zapato {
         this.id_zapato = id_zapato;
     }
 
+    public int getId_categoria(int id_categoria) {
+        return id_categoria;
+    }
+    
     public int getId_categoria() {
         return id_categoria;
     }
-
+    
     public void setId_categoria(int id_categoria) {
         this.id_categoria = id_categoria;
     }
@@ -58,12 +106,12 @@ public class zapato {
         this.precio = precio;
     }
 
-    public int getStock() {
-        return stock;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     public String getDescripcion() {
@@ -74,13 +122,6 @@ public class zapato {
         this.descripcion = descripcion;
     }
 
-    public String getImagen_url() {
-        return imagen_url;
-    }
-
-    public void setImagen_url(String imagen_url) {
-        this.imagen_url = imagen_url;
-    }
-    private String imagen_url;
-    
+   
+   
 }

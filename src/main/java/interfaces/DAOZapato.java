@@ -20,11 +20,13 @@ public interface DAOZapato {
     public List<zapato> read()throws Exception;
 
     // Método para obtener una factura por su ID
-    public zapato readById(int id)throws Exception;
+    public zapato readById(int id_zapato)throws Exception;
 
     // Método para actualizar los datos de una factura
     public void update(zapato zapato)throws Exception;
 
     // Método para eliminar una factura por su ID
     public void delete(int id)throws Exception;
+    
+    public  List<zapato> ReadNames() throws Exception;
 }
