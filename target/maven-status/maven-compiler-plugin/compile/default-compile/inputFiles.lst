@@ -6,12 +6,14 @@ C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\m
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOCategoriasImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\dashboard.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOMarcaImpl.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\UpZapato.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\cliente.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\comprazapato.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOTalla.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\DetalleCompra.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOZapato.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\DataBase\Database.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\GradientPanel.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOMarca.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\colores.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOZapatoColorImpl.java
@@ -38,8 +40,10 @@ C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\T
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOClienteImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOGestionProductosImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\Principal.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\dashboard2.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\NewCliente.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOCliente.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\CustomComponents\RoundedTextField.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\Proveedores.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOTallaImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\Compras.java
@@ -53,4 +57,5 @@ C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\T
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\NewVenta.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOProveedor.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\GestionProductos.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\login.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\categoria.java

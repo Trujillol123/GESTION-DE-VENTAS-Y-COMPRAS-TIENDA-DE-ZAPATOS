@@ -1,9 +1,6 @@
 package TiendaZapatos;
 
 import java.awt.Dimension;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
@@ -11,36 +8,26 @@ import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.net.URL;
-import java.time.LocalDate;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
-import javax.swing.table.DefaultTableCellRenderer;
 import views.Clientes;
 import views.Compras;
 import views.GestionProductos;
 import views.Principal;
 import views.Proveedores;
 import javax.swing.JButton;
+import javax.swing.UIManager;
 
-
-import views.NewZapato;
 import views.Ventas;
-import views.NewCliente;
+import views.login;
 
 public class dashboard extends JFrame {
 
-    // Cargar los íconos de sol y luna con rutas absolutas
+    // Cargar todos los iconos usados con rutas absolutas
     private final ImageIcon SolIcon;
     private final ImageIcon LunaIcon;
     private final ImageIcon LogoLetrasNegroIcon;
@@ -52,15 +39,14 @@ public class dashboard extends JFrame {
     private final ImageIcon ComprasBlancoIcon;
     private final ImageIcon ComprasNegroIcon;
     private final ImageIcon SignoPesosBlancoIcon;
-    private final ImageIcon SignoPesosNegroIcon;
+    private final ImageIcon VentasNegroIcon;
     private final ImageIcon PersonaBlancoIcon;
-    private final ImageIcon PersonaNegroIcon;
+    private final ImageIcon ClientesNegroIcon;
     private final ImageIcon ProveedoresBlancoIcon;
     private final ImageIcon ProveedoresNegroIcon;
-    private ImageIcon icono;
     
-   
 
+    
     private static dashboard instance;
     
     private dashboard() {
@@ -68,13 +54,6 @@ public class dashboard extends JFrame {
         // Configurar la ventana
         setTitle("ShoesRack");
         setSize(800, 600);
-
-        // Establecer el ícono
-        Image logoImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/logozapato.png"));
-        icono = new ImageIcon(logoImage); // Crear ImageIcon usando la variable icono
-        setIconImage(icono.getImage()); // Establecer la imagen del ícono
-
-        // Otras configuraciones de la ventana
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         
@@ -90,9 +69,9 @@ public class dashboard extends JFrame {
         URL comprasblancoUrl = getClass().getResource("/icons/comprasblanco.png");
         URL comprasnegroUrl = getClass().getResource("/icons/comprasnegro.png");
         URL signopesosblancoUrl = getClass().getResource("/icons/signopesosblanco.png");
-        URL signopesosnegroUrl = getClass().getResource("/icons/signopesosnegro.png");
+        URL ventasnegroUrl = getClass().getResource("/icons/ventasnegro.png");
         URL personablancoUrl = getClass().getResource("/icons/personablanco.png");
-        URL personanegroUrl = getClass().getResource("/icons/personanegro.png");
+        URL clientesnegroUrl = getClass().getResource("/icons/clientesnegro.png");
         URL proveedoresblancoUrl = getClass().getResource("/icons/proveedoresblanco.png");
         URL proveedoresnegroUrl = getClass().getResource("/icons/proveedoresnegro.png");
         
@@ -107,22 +86,17 @@ public class dashboard extends JFrame {
         ComprasBlancoIcon = new ImageIcon(comprasblancoUrl);
         ComprasNegroIcon = new ImageIcon(comprasnegroUrl);
         SignoPesosBlancoIcon = new ImageIcon(signopesosblancoUrl);
-        SignoPesosNegroIcon =  new ImageIcon(signopesosnegroUrl);
+        VentasNegroIcon =  new ImageIcon(ventasnegroUrl);
         PersonaBlancoIcon = new ImageIcon(personablancoUrl);
-        PersonaNegroIcon = new ImageIcon(personanegroUrl);
+        ClientesNegroIcon = new ImageIcon(clientesnegroUrl);
         ProveedoresBlancoIcon = new ImageIcon(proveedoresblancoUrl);
         ProveedoresNegroIcon = new ImageIcon(proveedoresnegroUrl);
         
         initComponents();
         setLightMode(); 
-     
         initContent();
-        
-      
-       
     }
     
-    // Método público estático para obtener la única instancia
    public static dashboard getInstance() {
     if (instance == null) {
         instance = new dashboard(); // Crea la instancia si no existe
@@ -139,7 +113,7 @@ public class dashboard extends JFrame {
     btnPrinciapl.setHorizontalTextPosition(SwingConstants.RIGHT);
     btnPrinciapl.setVerticalTextPosition(SwingConstants.CENTER);
     btnPrinciapl.setIconTextGap(10); 
-    btnPrinciapl.setOpaque(true);  // Asegurarse de que sea opaco
+    //btnPrinciapl.setOpaque(true);  // Asegurarse de que sea opaco
     btnPrinciapl.putClientProperty("JButton.buttonType", "roundRect"); // Aplicar borde redondeado
     btnPrinciapl.setBackground(Color.yellow);
     
@@ -185,7 +159,7 @@ public class dashboard extends JFrame {
     if (isDarkMode) {
         btnVentas.setIcon(SignoPesosBlancoIcon);
     } else {
-        btnVentas.setIcon(SignoPesosNegroIcon);
+        btnVentas.setIcon(VentasNegroIcon);
     }
 }
     
@@ -198,7 +172,7 @@ public class dashboard extends JFrame {
     if (isDarkMode) {
         btnClientes.setIcon(PersonaBlancoIcon);
     } else {
-        btnClientes.setIcon(PersonaNegroIcon);
+        btnClientes.setIcon(ClientesNegroIcon);
     }
 }
     
@@ -289,6 +263,7 @@ public class dashboard extends JFrame {
         PanelMenu.setForeground(new java.awt.Color(102, 102, 102));
 
         btnPrinciapl.setBackground(new java.awt.Color(255, 102, 102));
+        btnPrinciapl.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
         btnPrinciapl.setText("PRINCIPAL");
         btnPrinciapl.setBorder(null);
         btnPrinciapl.setContentAreaFilled(false);
@@ -302,6 +277,7 @@ public class dashboard extends JFrame {
             }
         });
 
+        btnGestiondeProductos.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
         btnGestiondeProductos.setText("GESTION DE PRODUCTOS");
         btnGestiondeProductos.setBorder(null);
         btnGestiondeProductos.setBorderPainted(false);
@@ -316,6 +292,7 @@ public class dashboard extends JFrame {
             }
         });
 
+        btnVentas.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
         btnVentas.setText("VENTAS");
         btnVentas.setBorder(null);
         btnVentas.setBorderPainted(false);
@@ -328,6 +305,7 @@ public class dashboard extends JFrame {
             }
         });
 
+        btnClientes.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
         btnClientes.setText("CLIENTES");
         btnClientes.setBorder(null);
         btnClientes.setBorderPainted(false);
@@ -340,6 +318,7 @@ public class dashboard extends JFrame {
             }
         });
 
+        btnCompras.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
         btnCompras.setText("COMPRAS");
         btnCompras.setBorder(null);
         btnCompras.setBorderPainted(false);
@@ -352,6 +331,7 @@ public class dashboard extends JFrame {
             }
         });
 
+        btnProveedores.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
         btnProveedores.setText("PROVEDORES");
         btnProveedores.setBorder(null);
         btnProveedores.setBorderPainted(false);
@@ -459,7 +439,6 @@ public class dashboard extends JFrame {
         } else {
             setDarkMode();
         }
-
     }//GEN-LAST:event_JToggleButtonActionPerformed
 
     private void btnPrinciaplActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrinciaplActionPerformed
@@ -495,10 +474,10 @@ public class dashboard extends JFrame {
     public static void updatePanelColors(JPanel panel, Color backgroundColor, Color foregroundColor) {
         panel.setBackground(backgroundColor);
         for (java.awt.Component component : panel.getComponents()) {
-            if (component instanceof JPanel) {
-            ((JPanel) component).setBackground(backgroundColor);
-            ((JPanel) component).setForeground(foregroundColor);
-            updatePanelColors((JPanel) component, backgroundColor, foregroundColor);
+            if (component instanceof JPanel jPanel) {
+                jPanel.setBackground(backgroundColor);
+                jPanel.setForeground(foregroundColor);
+            updatePanelColors(jPanel, backgroundColor, foregroundColor);
             } else if (component instanceof JButton) {
             // Estiliza el botón
             JButton button = (JButton) component;
@@ -511,109 +490,76 @@ public class dashboard extends JFrame {
         }
     }
 
-    public static void updateTableColors(JPanel panel, Color backgroundColor, Color foregroundColor) {
-        for (java.awt.Component component : panel.getComponents()) {
-            if (component instanceof JTable) {
-                JTable table = (JTable) component;
-                table.setBackground(backgroundColor);
-                table.setForeground(foregroundColor);
-                table.setGridColor(foregroundColor); // Cambia el color de la cuadrícula si es necesario
-                // Cambiar colores en el modelo de tabla (por ejemplo, en las celdas)
-                table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-                    @Override
-                    public Component getTableCellRendererComponent(JTable table, Object value, 
-                                                                   boolean isSelected, boolean hasFocus, 
-                                                                   int row, int column) {
-                        Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                        cell.setBackground(isSelected ? backgroundColor.darker() : backgroundColor); // Cambia el color de fondo
-                        cell.setForeground(foregroundColor); // Cambia el color de texto
-                        return cell;
-                    }
-                });
-            } else if (component instanceof JPanel) {
-                // Llama recursivamente si el componente es un JPanel
-                updateTableColors((JPanel) component, backgroundColor, foregroundColor);
-            }
-        }
-    }
 
     
     private void setLightMode() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                FlatAnimatedLafChange.showSnapshot();
-                FlatIntelliJLaf.setup(); // Tema claro
-                FlatLaf.updateUI();
-                FlatAnimatedLafChange.hideSnapshotWithAnimation();
-                
-                styleButtonPrincipal(false);
-                styleButtonGestiondeProductos(false);
-                styleButtonCompras(false);
-                styleButtonVentas(false);
-                styleButtonClientes(false);
-                styleButtonProveedores(false);
-                
-                
-                JToggleButton.setText("Light Mode");
-                JToggleButton.setIcon(SolIcon);  // Cambia al icono de sol
-               
-                logoletras.setIcon(LogoLetrasNegroIcon); //Cambia las letras SHOERACK STORE de blanco a negro
-                
-                
-                JToggleButton.setForeground(Color.WHITE);
-                
-                // Cambiar el color del PanelMenu
-                setPanelColor(BackGround, 240, 240, 240);
-                setPanelColor(PanelMenu, 240, 240, 240);
-                
-                
-                //Cambiar El color del content que recibe
-                // Actualizar el color de los paneles dentro de 'content'
-                updatePanelColors(content, Color.getHSBColor(0.0f, 0.0f, 0.96f), Color.BLACK);
-                updateTableColors(content, Color.getHSBColor(0.3966f, 0.1000f, 1.0000f), Color.BLACK);
-            }
+        EventQueue.invokeLater(() -> {
+            FlatAnimatedLafChange.showSnapshot();
+            FlatIntelliJLaf.setup(); // Tema claro
+            FlatLaf.updateUI();
+            FlatAnimatedLafChange.hideSnapshotWithAnimation();
+            
+            styleButtonPrincipal(false);
+            styleButtonGestiondeProductos(false);
+            styleButtonCompras(false);
+            styleButtonVentas(false);
+            styleButtonClientes(false);
+            styleButtonProveedores(false);
+            
+            
+            JToggleButton.setText("Light Mode");
+            JToggleButton.setIcon(SolIcon);  // Cambia al icono de sol
+            
+            logoletras.setIcon(LogoLetrasNegroIcon); //Cambia las letras SHOERACK STORE de blanco a negro
+            
+            
+            JToggleButton.setForeground(Color.WHITE);
+            
+            // Cambiar el color del PanelMenu
+            setPanelColor(BackGround, 240, 240, 240);
+            setPanelColor(PanelMenu, 240, 240, 240);
+            
+            
+            //Cambiar El color del content que recibe
+            // Actualizar el color de los paneles dentro de 'content'
+            updatePanelColors(content, Color.getHSBColor(0.0f, 0.0f, 0.96f), Color.BLACK);
         });
     }
 
     private void setDarkMode() {
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                FlatAnimatedLafChange.showSnapshot();
-                FlatDarculaLaf.setup(); // Tema oscuro
-                FlatLaf.updateUI();
-                FlatAnimatedLafChange.hideSnapshotWithAnimation();
-                
-                
-                styleButtonPrincipal(true);
-                styleButtonGestiondeProductos(true);
-                styleButtonCompras(true);
-                styleButtonVentas(true);
-                styleButtonClientes(true);
-                styleButtonProveedores(true);
-                
-                // Actualizar botón
-                JToggleButton.setText("Dark Mode");
-                JToggleButton.setIcon(LunaIcon);  // Cambia al icono de luna
-                
-                logoletras.setIcon(LogoLetrasBlancoIcon);
-                
-                
-                // Personalizar colores del botón para modo oscuro
-                JToggleButton.setBackground(Color.DARK_GRAY);
-                JToggleButton.setForeground(Color.WHITE);
-             
-                
-                // Cambiar el color del fondo (background)
-                setPanelColor(BackGround, 60, 63, 65);
-                setPanelColor(PanelMenu, 60, 63, 65);
-                
-                //juepucha
-                // Actualizar el color de los paneles dentro de 'content'
-                updatePanelColors(content, Color.getHSBColor(0.9444f, 0.8846f, 0.1020f), Color.WHITE);
-                updateTableColors(content, Color.getHSBColor(0.3966f, 0.1000f, 1.0000f), Color.WHITE);
-            }
+            EventQueue.invokeLater(() -> {
+            FlatAnimatedLafChange.showSnapshot();
+            FlatDarculaLaf.setup(); // Tema oscuro
+            FlatLaf.updateUI();
+            FlatAnimatedLafChange.hideSnapshotWithAnimation();
+            
+            
+            styleButtonPrincipal(true);
+            styleButtonGestiondeProductos(true);
+            styleButtonCompras(true);
+            styleButtonVentas(true);
+            styleButtonClientes(true);
+            styleButtonProveedores(true);
+            
+            // Actualizar botón
+            JToggleButton.setText("Dark Mode");
+            JToggleButton.setIcon(LunaIcon);  // Cambia al icono de luna
+            
+            logoletras.setIcon(LogoLetrasBlancoIcon);
+            
+            
+            // Personalizar colores del botón para modo oscuro
+            JToggleButton.setBackground(Color.DARK_GRAY);
+            JToggleButton.setForeground(Color.WHITE);
+            
+            
+            // Cambiar el color del fondo (background)
+            setPanelColor(BackGround, 60, 63, 65);
+            setPanelColor(PanelMenu, 60, 63, 65);
+            
+            //juepucha
+            // Actualizar el color de los paneles dentro de 'content'
+            updatePanelColors(content, Color.getHSBColor(0.9444f, 0.8846f, 0.1020f), Color.WHITE);
         });
     }
     
@@ -623,25 +569,28 @@ public class dashboard extends JFrame {
     }
   
     
-    
-    
+    /*
     public static void main(String args[]) {
         
         FlatRobotoFont.install();
-        UIManager.put("defaultFont", new Font (FlatRobotoFont.FAMILY, Font.PLAIN, 13));
+        //UIManager.put("defaultFont", new Font (FlatRobotoFont.FAMILY, Font.PLAIN, 13));
         
         
         FlatIntelliJLaf.setup(); 
         UIManager.put("TextField.placeholderForeground", Color.GRAY); 
         
+        // Abrir la ventana de login como primer paso
+        java.awt.EventQueue.invokeLater(() -> {
+             new login().setVisible(true);
+        });
+        
+        /*
         java.awt.EventQueue.invokeLater(() -> {
             dashboard.getInstance().setVisible(true);
         });
-    }
-    
-     
+        
+    } */
 
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackGround;
