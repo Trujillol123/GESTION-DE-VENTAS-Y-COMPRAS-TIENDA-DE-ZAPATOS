@@ -263,6 +263,7 @@ public class NewCliente extends javax.swing.JPanel {
                 date.setDate(cliente.getFecha_registro());
         }
     }
+    
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
@@ -323,9 +324,7 @@ public class NewCliente extends javax.swing.JPanel {
 }                                          
 
 
-        //Método para obtener y formatear la fecha del JDateChooser
-
-   
+    //Método para obtener y formatear la fecha del JDateChooser
     private java.sql.Date obtenerFechaSQL(JDateChooser dateChooser) {
     java.util.Date fechaUtil = dateChooser.getDate();
     if (fechaUtil != null) {
@@ -335,9 +334,8 @@ public class NewCliente extends javax.swing.JPanel {
 
 }
 
-    /**
-     * Método para validar los campos
-     */
+   
+    // Método para validar los campos   
     private boolean validarCampos(String nombre, String email, String telefono, String direccion, java.sql.Date fecha) {
         return !(nombre.isEmpty() || email.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || fecha == null);
     }//GEN-LAST:event_btnSubirActionPerformed

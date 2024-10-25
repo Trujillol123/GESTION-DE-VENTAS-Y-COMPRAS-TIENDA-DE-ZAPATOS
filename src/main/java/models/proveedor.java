@@ -85,4 +85,11 @@ public class proveedor {
         this.nombre_proveedor = nombre_proveedor; // Inicializar el nombre de la marca
     }
     
+     public proveedor(int id_proveedor, int id_marca, String nombre_proveedor) {
+        
+        this.id_proveedor = id_proveedor;
+        this.id_marca = id_marca;
+        this.nombre_proveedor = nombre_proveedor;
+    }
+    
 }

@@ -568,7 +568,7 @@ public class dashboard extends JFrame {
         panel.setBackground(new Color(red, green, blue));
     }
   
-    
+    /*
     public static void main(String args[]) {
         
         FlatRobotoFont.install();
@@ -588,7 +588,7 @@ public class dashboard extends JFrame {
             dashboard.getInstance().setVisible(true);
         });
         
-    } 
+    } */
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

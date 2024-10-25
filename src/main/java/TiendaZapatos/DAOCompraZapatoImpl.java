@@ -19,16 +19,16 @@ import models.zapato;
 public class DAOCompraZapatoImpl extends Database implements DAOComprazapato {
 
     @Override
-    public void create(comprazapato compraZapato) throws Exception {
+    public void create(comprazapato compraZapato, int id_facturacompra) throws Exception {
 
    
     try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("INSERT INTO comprazapato (id_comprazpato, id_zapato, id_facturacompra, id_color, id_talla) VALUES (?, ?, ?, ?, ?)");
+            PreparedStatement st = this.conexion.prepareStatement("INSERT INTO comprazapato (id_zapato, id_facturacompra, id_color, id_talla) VALUES (?, ?, ?, ?)");
         
             
-        st.setInt(1, compraZapato.getId_comprazapato()); 
-        st.setInt(2, compraZapato.getId_zapato());
+       
+        st.setInt(1, compraZapato.getId_zapato());
         st.setInt(2, compraZapato.getId_facturacompra()); 
         st.setInt(3, compraZapato.getId_color());
         st.setInt(4, compraZapato.getId_talla());

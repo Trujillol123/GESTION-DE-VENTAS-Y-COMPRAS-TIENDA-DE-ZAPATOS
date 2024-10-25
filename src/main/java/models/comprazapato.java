@@ -15,6 +15,16 @@ public class comprazapato {
     private int id_facturacompra;
     private int id_color;
     private int id_talla;
+    
+    
+    // Constructor
+    public comprazapato(int id_zapato, int id_facturacompra, int id_color, int id_talla) {
+        this.id_zapato = id_zapato;
+        this.id_facturacompra = id_facturacompra;
+        this.id_color = id_color;
+        this.id_talla = id_talla;
+    }
+    
 
     public int getId_comprazapato() {
         return id_comprazapato;

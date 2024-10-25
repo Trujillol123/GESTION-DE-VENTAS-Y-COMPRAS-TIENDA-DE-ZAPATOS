@@ -11,7 +11,7 @@ public class Database {
     
     public Connection conexion;
     private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    private final String DB_URL = "jdbc:mysql://localhost:3306/tiendadezapatos1";
+    private final String DB_URL = "jdbc:mysql://localhost:3306/tiendazapatos1";
     private final String USER = "root";
     private final String PASS = "";
     

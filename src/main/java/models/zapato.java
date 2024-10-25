@@ -14,9 +14,137 @@ public class zapato {
     private int id_categoria;
     private int id_marca;
     private int id_proveedor;
-    private float precio;
-    private int stock;
+    private int id_talla;
+    private String numero_talla;
+    private String nombre_categoria;
+    private float precio_venta;
+    private float precio_compra;
+    private int id_color;
+    private String nombre_color;
+    private int cantidad;
     private String descripcion;
+    private String nombre_marca;
+    private String nombre_proveedor;
+
+    public int getId_talla() {
+        return id_talla;
+    }
+
+    public int getId_color() {
+        return id_color;
+    }
+
+    public void setId_color(int id_color) {
+        this.id_color = id_color;
+    }
+
+    public String getNombre_color() {
+        return nombre_color;
+    }
+
+    public void setNombre_color(String nombre_color) {
+        this.nombre_color = nombre_color;
+    }
+
+    public void setId_talla(int id_talla) {
+        this.id_talla = id_talla;
+    }
+
+    public String getNumero_talla() {
+        return numero_talla;
+    }
+
+    public void setNumero_talla(String numero_talla) {
+        this.numero_talla = numero_talla;
+    }
+  
+
+    public zapato(int idZapato, float precio_compra) {
+        this.id_zapato = idZapato;
+        this.precio_compra = precio_compra;
+    }
+
+    public zapato(int idZapato, int idProveedor, String descripcion, float precio_compra) {
+        this.id_zapato = id_zapato;
+        this.id_proveedor = id_proveedor;
+        this.descripcion = descripcion;
+        this.precio_compra = precio_compra;
+    }
+   
+    
+    
+    
+    
+    public float getPrecio_venta() {
+        return precio_venta;
+    }
+
+    public void setPrecio_venta(float precio_venta) {
+        this.precio_venta = precio_venta;
+    }
+
+    public float getPrecio_compra() {
+        return precio_compra;
+    }
+
+    public void setPrecio_compra(float precio_compra) {
+        this.precio_compra = precio_compra;
+    }
+  
+    
+     @Override
+    public String toString() {
+        return descripcion; 
+    }
+    
+    
+    
+     public zapato(int id_zapato, int id_proveedor, String descripcion) {
+        this.id_zapato = id_zapato;
+        this.id_proveedor = id_proveedor;
+        this.descripcion = descripcion;
+    }
+    
+    
+    // Constructor que inicializa los atributos
+    public zapato(int id_zapato, String descripcion) {
+        this.id_zapato = id_zapato;
+        this.descripcion = descripcion; // Inicializar el nombre de la marca
+    }
+    
+     public zapato() {
+        // Constructor vacío para permitir la creación de objetos sin parámetros
+    }
+    
+ 
+
+    public String getNombre_marca() {
+        return nombre_marca;
+    }
+
+    public void setNombre_marca(String nombre_marca) {
+        this.nombre_marca = nombre_marca;
+    }
+
+    public String getNombre_proveedor() {
+        return nombre_proveedor;
+    }
+
+    public void setNombre_proveedor(String nombre_proveedor) {
+        this.nombre_proveedor = nombre_proveedor;
+    }
+
+    public String getNombre_categoria() {
+        return nombre_categoria;
+    }
+
+    public void setNombre_categoria(String nombre_categoria) {
+        this.nombre_categoria = nombre_categoria;
+        
+}   
+     public int getid_proveedor() {
+        return id_proveedor;
+    }    
 
     public int getId_zapato() {
         return id_zapato;
@@ -26,10 +154,14 @@ public class zapato {
         this.id_zapato = id_zapato;
     }
 
+    public int getId_categoria(int id_categoria) {
+        return id_categoria;
+    }
+    
     public int getId_categoria() {
         return id_categoria;
     }
-
+    
     public void setId_categoria(int id_categoria) {
         this.id_categoria = id_categoria;
     }
@@ -51,19 +183,19 @@ public class zapato {
     }
 
     public float getPrecio() {
-        return precio;
+        return precio_compra;
     }
 
     public void setPrecio(float precio) {
-        this.precio = precio;
+        this.precio_compra = precio;
     }
 
-    public int getStock() {
-        return stock;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
     public String getDescripcion() {
@@ -74,13 +206,11 @@ public class zapato {
         this.descripcion = descripcion;
     }
 
-    public String getImagen_url() {
-        return imagen_url;
+    public zapato(String descripcion, float precio_compra) {
+        this.descripcion = descripcion;
+        this.precio_compra = precio_compra;
     }
 
-    public void setImagen_url(String imagen_url) {
-        this.imagen_url = imagen_url;
-    }
-    private String imagen_url;
     
+   
 }

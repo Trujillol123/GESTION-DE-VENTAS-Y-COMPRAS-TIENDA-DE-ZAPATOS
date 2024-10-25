@@ -22,7 +22,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import views.login;
 
-
+//HOLA DANNA
 /* @author David Grijalba  */
 
 public class dashboard2 extends javax.swing.JFrame {
@@ -484,7 +484,7 @@ public class dashboard2 extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -494,7 +494,6 @@ public class dashboard2 extends javax.swing.JFrame {
                 .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(32, 32, 32))
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
                 .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -624,7 +623,7 @@ public class dashboard2 extends javax.swing.JFrame {
         // Quitar foco de todos los botones
         PanelMenu.requestFocusInWindow();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-/*
+
     public static void main(String args[]) {
         
         FlatCarbonIJTheme.setup();
@@ -642,13 +641,12 @@ public class dashboard2 extends javax.swing.JFrame {
              new login().setVisible(true);
         });
         
-        
+        /*
             java.awt.EventQueue.invokeLater(() -> {
             dashboard2.getInstance().setVisible(true);
-        });
+        }); */
         
     }
-*/
     
     // Metodo para cambiar estilo de componentes
     private void initStyle() {

@@ -4,9 +4,17 @@
  */
 package views;
 
+import TiendaZapatos.DAOClienteImpl;
+import TiendaZapatos.DAOGestionProductosImpl;
+
 import TiendaZapatos.dashboard;
+import interfaces.DAOCliente;
+import interfaces.DAOZapato;
 import java.awt.Color;
+import java.util.List;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import models.zapato;
 
 /**
  *
@@ -20,9 +28,36 @@ public class GestionProductos extends javax.swing.JPanel {
     public GestionProductos() {
         initComponents();
         initStyles ();
+        loadZapatos ();
     }
 
-   
+    private void loadZapatos (){
+        try {
+        DAOZapato dao = new DAOGestionProductosImpl();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        model.setRowCount(0); // Limpia el modelo antes de cargar nuevos datos
+        
+        List<zapato> zapatos = dao.ReadNames();
+        System.out.println("Cantidad de zapatos obtenidos: " + zapatos.size());
+        
+        zapatos.forEach(z -> model.addRow(new Object[]{
+            z.getId_zapato(),
+            z.getNombre_categoria(),
+            z.getNombre_marca(),
+            z.getNombre_proveedor(),
+            z.getPrecio_compra(),
+            z.getPrecio_venta(),
+            
+            z.getCantidad(),
+            z.getDescripcion()
+            
+        }));
+        
+    } catch (Exception e) {
+        e.printStackTrace(); // Muestra el error en la consola
+    }
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -35,8 +70,8 @@ public class GestionProductos extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setToolTipText("");
@@ -65,13 +100,10 @@ public class GestionProductos extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "CATEGORIA", "MARCA", "PROVEEDOR", "PRECIO", "STOCK", "DESCRIPCION", "IMAGEN"
+                "ID", "CATEGORIA", "MARCA", "PROVEEDOR", "PRECIO COMPRA", "PRECIO VENTA", "CANTIDAD", "DESCRIPCION"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -83,17 +115,17 @@ public class GestionProductos extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("ELIMINAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrar.setText("ELIMINAR");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnBorrarActionPerformed(evt);
             }
         });
 
-        jButton3.setText("EDITAR");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnEditar.setText("EDITAR");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -104,33 +136,34 @@ public class GestionProductos extends javax.swing.JPanel {
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(backgroundLayout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(44, 44, 44)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                        .addGap(376, 376, 376))
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(zapatosearch))
                     .addGroup(backgroundLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1)
                         .addGap(18, 18, 18)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(35, 35, 35))
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(34, 34, 34))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(backgroundLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
+                .addGap(18, 18, 18)
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
@@ -141,13 +174,13 @@ public class GestionProductos extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)))
-                .addGap(45, 45, 45))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)))
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -161,17 +194,15 @@ public class GestionProductos extends javax.swing.JPanel {
             .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-         private void initStyles() {
+    
+    
+    
+    private void initStyles() {
         Titulo.putClientProperty("FlatLaf.styleClass", "h3");
         
         zapatosearch.putClientProperty("JTextField.placeholderText", "Ingrese algun dato revelevante del producto a buscar."); 
       
          }
- 
- 
-        
-      
-  
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
      
@@ -181,13 +212,41 @@ public class GestionProductos extends javax.swing.JPanel {
         dashboard.getInstance().showJpanel(new NewZapato());
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        
+        DAOZapato dao = new DAOGestionProductosImpl();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+        for (int i : jTable1.getSelectedRows()){
+            try {
+                
+                dao.delete((int) jTable1.getValueAt(i, 0));
+                model.removeRow(i);
+                } catch (Exception e) {
+             System.out.println(e.getMessage());        
+            }
+        }
+    
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        
+                 if (jTable1.getSelectedRow()> -1 ){
+            try {
+            int id_zapato = (int) jTable1.getValueAt(jTable1.getSelectedRow(),0);
+            DAOZapato dao = new DAOGestionProductosImpl ();
+            dashboard.getInstance().showJpanel(new NewZapato(dao.readById(id_zapato)));
+
+         
+            } catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, "Debe Seleccionar un cliente a Editar \n","AVISO",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+        }
+
+    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void zapatosearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zapatosearchActionPerformed
         // TODO add your handling code here:
@@ -197,10 +256,10 @@ public class GestionProductos extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
     private TiendaZapatos.PanelRound background;
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNuevo;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;

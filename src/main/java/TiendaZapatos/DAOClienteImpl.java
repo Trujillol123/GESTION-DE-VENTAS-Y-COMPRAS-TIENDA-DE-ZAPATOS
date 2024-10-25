@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import models.cliente;
 import views.Clientes;
 
@@ -33,7 +34,7 @@ public class DAOClienteImpl extends Database implements DAOCliente{
             st.setString(3, cliente.getTelefono());
             st.setString(4, cliente.getDireccion());
             
-            // Aquí ya tienes un objeto java.util.Date en el cliente, lo conviertes directamente a java.sql.Date
+            //  un objeto java.util.Date en el cliente, e convierte directamente a java.sql.Date
         java.util.Date fechaRegistro = cliente.getFecha_registro();
         if (fechaRegistro != null) {
             java.sql.Date sqlDate = new java.sql.Date(fechaRegistro.getTime()); // Convertir util.Date a sql.Date
@@ -100,14 +101,27 @@ public class DAOClienteImpl extends Database implements DAOCliente{
 
     @Override
     public void delete(int id_cliente)throws Exception {
-         try {
+         
+        // Pregunta al usuario si está seguro de borrar el zapato
+
+        int respuesta = JOptionPane.showConfirmDialog(null, 
+            "¿Estás seguro de que deseas borrar el cliente seleccionado?", 
+            "Confirmar Borrado", 
+            JOptionPane.YES_NO_OPTION);
+
+        // Si el usuario selecciona "Si"
+
+        if (respuesta == JOptionPane.YES_OPTION) {   
+
+        try {
             this.Conectar();
             PreparedStatement st = this.conexion.prepareStatement("DELETE FROM cliente WHERE id_cliente = ?;");
            
             st.setInt(1, id_cliente);
             st.executeUpdate();
             st.close();
-                    
+            JOptionPane.showMessageDialog(null, "Cliente borrado con éxito.");        
+            
         } catch (Exception e) {
             
            throw  e;
@@ -115,6 +129,11 @@ public class DAOClienteImpl extends Database implements DAOCliente{
             
             this.Cerrar();
         }
+      } else {
+        // Si el usuario selecciona "No"
+        JOptionPane.showMessageDialog(null, "Operación de borrado cancelada.");
+    }
+       
     }
 
     @Override
