@@ -6,7 +6,7 @@ package views;
 
 import TiendaZapatos.DAOClienteImpl;
 import TiendaZapatos.DAOGestionProductosImpl;
-import TiendaZapatos.DAOZapatoImpl;
+
 import TiendaZapatos.dashboard;
 import interfaces.DAOCliente;
 import interfaces.DAOZapato;
@@ -46,9 +46,12 @@ public class GestionProductos extends javax.swing.JPanel {
             z.getNombre_categoria(),
             z.getNombre_marca(),
             z.getNombre_proveedor(),
-            z.getPrecio(),
+            z.getPrecio_compra(),
+            z.getPrecio_venta(),
+            
             z.getCantidad(),
             z.getDescripcion()
+            
         }));
         
     } catch (Exception e) {
@@ -100,7 +103,7 @@ public class GestionProductos extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "CATEGORIA", "MARCA", "PROVEEDOR", "PRECIO", "CANTIDAD", "DESCRIPCION"
+                "ID", "CATEGORIA", "MARCA", "PROVEEDOR", "PRECIO COMPRA", "PRECIO VENTA", "CANTIDAD", "DESCRIPCION"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -176,8 +179,8 @@ public class GestionProductos extends javax.swing.JPanel {
                         .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)))
-                .addGap(24, 24, 24))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)))
+                .addGap(23, 23, 23))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

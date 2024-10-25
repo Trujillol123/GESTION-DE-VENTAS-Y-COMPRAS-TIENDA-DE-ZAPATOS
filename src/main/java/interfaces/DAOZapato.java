@@ -29,4 +29,11 @@ public interface DAOZapato {
     public void delete(int id)throws Exception;
     
     public  List<zapato> ReadNames() throws Exception;
+    
+    public List<zapato> getallZapatos () throws Exception;
+
+   
+
+     public float getPrecioCompraPorZapato(int idZapato) throws Exception;
+     
 }

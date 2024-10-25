@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import models.marca;
 import models.proveedor;
+import models.zapato;
 
 /**
  *
@@ -115,23 +116,31 @@ public class DAOProveedoresImpl extends Database implements DAOProveedor {
 
     @Override
     public List<proveedor> getAllProveedores() throws Exception {
-            List<proveedor> lista = new ArrayList<>();
-        try {
-            this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("SELECT * FROM proveedor;");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                proveedor proveedor = new proveedor(rs.getInt("id_proveedor"), rs.getString("nombre_proveedor"));
-                lista.add(proveedor);
+        
+    List<proveedor> lista = new ArrayList<>();
+            try {
+                this.Conectar();
+                 PreparedStatement st = this.conexion.prepareStatement("SELECT id_proveedor, nombre_proveedor, id_marca FROM proveedor;"); 
+        ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                               
+                       int idProveedor = rs.getInt("id_proveedor"); 
+                       int id_marca = rs.getInt("id_marca"); // Asegúrate de que esta columna exista en la base de datos
+                       String nombre_proveedor = rs.getString("nombre_proveedor");
+                       
+
+                       proveedor proveedor = new proveedor(idProveedor,  id_marca, nombre_proveedor); // Constructor modificado
+            lista.add(proveedor);
+                }
+                rs.close();
+                st.close();
+            } catch (SQLException e) {
+                throw new Exception("Error al obtener marcas: " + e.getMessage(), e);
+            } finally {
+                this.Cerrar();
             }
-            rs.close();
-            st.close();
-        } catch (SQLException e) {
-            throw new Exception("Error al obtener marcas: " + e.getMessage(), e);
-        } finally {
-            this.Cerrar();
+            return lista;
+    }  
         }
-        return lista;
-    }    }
     
 

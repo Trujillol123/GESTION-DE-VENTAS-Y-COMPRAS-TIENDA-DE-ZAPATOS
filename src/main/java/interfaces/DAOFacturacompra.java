@@ -27,5 +27,8 @@
 
         // Método para eliminar una factura por su ID
         public void delete(int id)throws Exception;
+        
+        public int Crear (facturacompra facturacompra) throws Exception;
+        
 
     }
