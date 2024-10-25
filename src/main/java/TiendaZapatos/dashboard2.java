@@ -1,26 +1,48 @@
 package TiendaZapatos;
 
 
+import CustomComponents.RoundedBorder;
+import com.formdev.flatlaf.intellijthemes.FlatArcIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatGruvboxDarkHardIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatMaterialDesignDarkIJTheme;
-import java.awt.Color;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.ActionEvent;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import views.login;
 
 
 /* @author David Grijalba  */
 
 public class dashboard2 extends javax.swing.JFrame {
+    
+    // Cargar todos los iconos usados con rutas absoluta
+    
+    private final ImageIcon CasaBlancoIcon;
+    private final ImageIcon CasaNegroIcon;
+    private final ImageIcon GestionBlancoIcon;
+    private final ImageIcon GestionNegroIcon;
+    private final ImageIcon ComprasBlancoIcon;
+    private final ImageIcon ComprasNegroIcon;
+    private final ImageIcon VentasBlancoIcon;
+    private final ImageIcon VentasNegroIcon;
+    private final ImageIcon ClientesBlancoIcon;
+    private final ImageIcon ClientesNegroIcon;
+    private final ImageIcon ProveedoresBlancoIcon;
+    private final ImageIcon ProveedoresNegroIcon;
+    private final ImageIcon LogoutBlancoIcon;
+    private final ImageIcon LogoutNegroIcon;
     
     private static dashboard2 instance;
     
@@ -28,9 +50,44 @@ public class dashboard2 extends javax.swing.JFrame {
     private dashboard2() {
         
         // Configuración de la ventana dashboard2
-        setTitle("StockBussinessAdmin");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("BussinessManagement v1.1");
+        setSize(900, 550);
+        setLocationRelativeTo(null);
+        setVisible(true);
         
+        // Depuración de carga de recursos
+        URL casablancoUrl = getClass ().getResource("/icons/casablanco.png");
+        URL casanegroUrl = getClass ().getResource("/icons/casanegro.png");
+        URL gestionblancoUrl = getClass().getResource("/icons/gestionblanco.png");
+        URL gestionnegroUrl = getClass().getResource("/icons/gestionnegro.png");
+        URL comprasblancoUrl = getClass().getResource("/icons/comprasblanco.png");
+        URL comprasnegroUrl = getClass().getResource("/icons/comprasnegro.png");
+        URL ventasblancoUrl = getClass().getResource("/icons/ventasblanco.png");
+        URL ventasnegroUrl = getClass().getResource("/icons/ventasnegro.png");
+        URL clientesblancoUrl = getClass().getResource("/icons/clientesblanco.png");
+        URL clientesnegroUrl = getClass().getResource("/icons/clientesnegro.png");
+        URL proveedoresblancoUrl = getClass().getResource("/icons/proveedoresblanco.png");
+        URL proveedoresnegroUrl = getClass().getResource("/icons/proveedoresnegro.png");
+        URL logoutblancoUrl = getClass().getResource("/icons/logoutblanco.png");
+        URL logoutnegroUrl = getClass().getResource("/icons/logoutnegro.png");
+        
+        
+        CasaBlancoIcon = new ImageIcon (casablancoUrl);
+        CasaNegroIcon = new ImageIcon(casanegroUrl);
+        GestionBlancoIcon = new ImageIcon(gestionblancoUrl);
+        GestionNegroIcon = new ImageIcon(gestionnegroUrl);
+        ComprasBlancoIcon = new ImageIcon(comprasblancoUrl);
+        ComprasNegroIcon = new ImageIcon(comprasnegroUrl);
+        VentasBlancoIcon = new ImageIcon(ventasblancoUrl);
+        VentasNegroIcon =  new ImageIcon(ventasnegroUrl);
+        ClientesBlancoIcon = new ImageIcon(clientesblancoUrl);
+        ClientesNegroIcon = new ImageIcon(clientesnegroUrl);
+        ProveedoresBlancoIcon = new ImageIcon(proveedoresblancoUrl);
+        ProveedoresNegroIcon = new ImageIcon(proveedoresnegroUrl);
+        LogoutBlancoIcon = new ImageIcon(logoutblancoUrl);
+        LogoutNegroIcon = new ImageIcon(logoutnegroUrl);
+        
+        /*
         // Mostrar programa en pantalla completa
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice gd = ge.getDefaultScreenDevice();
@@ -41,69 +98,310 @@ public class dashboard2 extends javax.swing.JFrame {
             gd.setFullScreenWindow(this);
         } else {
             // Si no se soporta, simplemente mostrar la ventana normalmente
-            setSize(900, 850);
+            setSize(900, 550);
             setLocationRelativeTo(null);
             setVisible(true);
-        }
-        
+        } */
         
         // Metodo predeterminado para iniciar los componentes
         initComponents();
-        agregarBotonCerrar();
-        agregarBotonMaximizar();
         initStyle();
         
         // Quitar foco de todos los botones
         PanelMenu.requestFocusInWindow();
         
     }
-
- public static dashboard2 getInstance() {
-    if (instance == null) {
-        instance = new dashboard2(); // Crea la instancia si no existe
-        instance.setVisible(true); // Muestra la ventana
-    } else {
-        instance.toFront(); // Lleva la ventana al frente si ya está abierta
+    
+    public static dashboard2 getInstance() {
+        if (instance == null) {
+            instance = new dashboard2(); // Crea la instancia si no existe
+            instance.setVisible(true); // Muestra la ventana
+        } else {
+            instance.toFront(); // Lleva la ventana al frente si ya está abierta
+        }
+        return instance; // Devuelve la instancia
     }
-    return instance; // Devuelve la instancia
-}
+    
+    private void styleButtonPrincipal(boolean isDarkMode) {
+        btnPrincipal.setHorizontalAlignment(SwingConstants.LEFT);
+        btnPrincipal.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnPrincipal.setVerticalTextPosition(SwingConstants.CENTER);
+        btnPrincipal.setIconTextGap(15); 
+        btnPrincipal.setOpaque(true);
+        
+        if (isDarkMode) {
+            btnPrincipal.setIcon(CasaBlancoIcon);
+        } else {
+            btnPrincipal.setIcon(CasaNegroIcon);
+        }
+    }
+    
+    private void styleButtonGestion(boolean isDarkMode) {
+        btnGestion.setHorizontalAlignment(SwingConstants.LEFT);
+        btnGestion.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnGestion.setVerticalTextPosition(SwingConstants.CENTER);
+        btnGestion.setIconTextGap(15); 
 
+        if (isDarkMode) {
+            btnGestion.setIcon(GestionBlancoIcon);
+        } else {
+            btnGestion.setIcon(GestionNegroIcon);
+        }
+    }
+    
+    private void styleButtonCompras(boolean isDarkMode) {
+        btnCompras.setHorizontalAlignment(SwingConstants.LEFT);
+        btnCompras.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnCompras.setVerticalTextPosition(SwingConstants.CENTER);
+        btnCompras.setIconTextGap(15); 
+
+        if (isDarkMode) {
+            btnCompras.setIcon(ComprasBlancoIcon);
+        } else {
+            btnCompras.setIcon(ComprasNegroIcon);
+        }
+    }
+    
+    private void styleButtonVentas(boolean isDarkMode) {
+        btnVentas.setHorizontalAlignment(SwingConstants.LEFT);
+        btnVentas.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnVentas.setVerticalTextPosition(SwingConstants.CENTER);
+        btnVentas.setIconTextGap(15); 
+
+        if (isDarkMode) {
+            btnVentas.setIcon(VentasBlancoIcon);
+        } else {
+            btnVentas.setIcon(VentasNegroIcon);
+        }
+    }
+    
+    private void styleButtonClientes(boolean isDarkMode) {
+        btnClientes.setHorizontalAlignment(SwingConstants.LEFT);
+        btnClientes.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnClientes.setVerticalTextPosition(SwingConstants.CENTER);
+        btnClientes.setIconTextGap(15); 
+
+        if (isDarkMode) {
+            btnClientes.setIcon(ClientesBlancoIcon);
+        } else {
+            btnClientes.setIcon(ClientesNegroIcon);
+        }
+    }
+    
+    private void styleButtonProveedores(boolean isDarkMode) {
+        btnProveedores.setHorizontalAlignment(SwingConstants.LEFT);
+        btnProveedores.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnProveedores.setVerticalTextPosition(SwingConstants.CENTER);
+        btnProveedores.setIconTextGap(15); 
+
+        if (isDarkMode) {
+            btnProveedores.setIcon(ProveedoresBlancoIcon);
+        } else {
+            btnProveedores.setIcon(ProveedoresNegroIcon);
+        }
+    }
+    
+    private void styleButtonLogout(boolean isDarkMode) {
+        btnLogout.setHorizontalAlignment(SwingConstants.LEFT);
+        btnLogout.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnLogout.setVerticalTextPosition(SwingConstants.CENTER);
+        btnLogout.setIconTextGap(15); 
+
+        if (isDarkMode) {
+            btnLogout.setIcon(LogoutBlancoIcon);
+        } else {
+            btnLogout.setIcon(LogoutNegroIcon);
+        }
+    }
+ 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BackGround = new javax.swing.JPanel();
         PanelMenu = new javax.swing.JPanel();
-        RoundedMenu = new TiendaZapatos.PanelRound();
+        RoundedMenu = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnPrincipal = new javax.swing.JButton();
+        btnGestion = new javax.swing.JButton();
+        btnCompras = new javax.swing.JButton();
+        btnVentas = new javax.swing.JButton();
+        btnClientes = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
+        btnProveedores = new javax.swing.JButton();
+        PanelCabezera = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         content = new javax.swing.JPanel();
         MenuBar = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        MenuFile = new javax.swing.JMenu();
         MenuThemes = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         GruvboxDarkHard = new javax.swing.JMenuItem();
         MaterialDesignDark = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
 
-        BackGround.setBackground(new java.awt.Color(51, 0, 0));
-
         RoundedMenu.setBackground(new java.awt.Color(0, 102, 102));
-        RoundedMenu.setRoundBottomLeft(70);
-        RoundedMenu.setRoundBottomRight(70);
-        RoundedMenu.setRoundTopLeft(70);
-        RoundedMenu.setRoundTopRight(70);
+        RoundedMenu.setOpaque(false);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/bussinesslogo_blanco.png"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel2.setText("Bussiness Management");
+
+        btnPrincipal.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
+        btnPrincipal.setText("Principal");
+        btnPrincipal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPrincipal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrincipalActionPerformed(evt);
+            }
+        });
+
+        btnGestion.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
+        btnGestion.setText("Gestion de productos");
+        btnGestion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnGestion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnGestion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGestionActionPerformed(evt);
+            }
+        });
+
+        btnCompras.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
+        btnCompras.setText("Compras");
+        btnCompras.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnCompras.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnCompras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnComprasActionPerformed(evt);
+            }
+        });
+
+        btnVentas.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
+        btnVentas.setText("Ventas");
+        btnVentas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnVentas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVentasActionPerformed(evt);
+            }
+        });
+
+        btnClientes.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
+        btnClientes.setText("Clientes");
+        btnClientes.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClientesActionPerformed(evt);
+            }
+        });
+
+        btnLogout.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
+        btnLogout.setText("Log Out");
+        btnLogout.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnLogout.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
+        btnProveedores.setFont(new java.awt.Font("Rubik", 0, 12)); // NOI18N
+        btnProveedores.setText("Empleados");
+        btnProveedores.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnProveedores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProveedoresActionPerformed(evt);
+            }
+        });
+
+        PanelCabezera.setBackground(new java.awt.Color(51, 0, 0));
+        PanelCabezera.setOpaque(false);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logozapato_40x40.png"))); // NOI18N
+        jLabel3.setToolTipText("");
+
+        javax.swing.GroupLayout PanelCabezeraLayout = new javax.swing.GroupLayout(PanelCabezera);
+        PanelCabezera.setLayout(PanelCabezeraLayout);
+        PanelCabezeraLayout.setHorizontalGroup(
+            PanelCabezeraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelCabezeraLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PanelCabezeraLayout.setVerticalGroup(
+            PanelCabezeraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout RoundedMenuLayout = new javax.swing.GroupLayout(RoundedMenu);
         RoundedMenu.setLayout(RoundedMenuLayout);
         RoundedMenuLayout.setHorizontalGroup(
             RoundedMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 208, Short.MAX_VALUE)
+            .addGroup(RoundedMenuLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1)
+                .addGap(6, 6, 6)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(RoundedMenuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(PanelCabezera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
+            .addGroup(RoundedMenuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(btnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(RoundedMenuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(btnGestion, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+            .addGroup(RoundedMenuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(btnCompras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(RoundedMenuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(btnVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(RoundedMenuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(RoundedMenuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(btnProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(RoundedMenuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         RoundedMenuLayout.setVerticalGroup(
             RoundedMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGroup(RoundedMenuLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(RoundedMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RoundedMenuLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel1))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(PanelCabezera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(btnGestion, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(btnCompras, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(btnVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(btnClientes, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
+                .addComponent(btnProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
+                .addGap(90, 90, 90)
+                .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout PanelMenuLayout = new javax.swing.GroupLayout(PanelMenu);
@@ -111,49 +409,35 @@ public class dashboard2 extends javax.swing.JFrame {
         PanelMenuLayout.setHorizontalGroup(
             PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(RoundedMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(10, 10, 10)
+                .addComponent(RoundedMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         PanelMenuLayout.setVerticalGroup(
             PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(RoundedMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(RoundedMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
+
+        content.setBackground(new java.awt.Color(0, 51, 102));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 680, Short.MAX_VALUE)
+            .addGap(0, 429, Short.MAX_VALUE)
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout BackGroundLayout = new javax.swing.GroupLayout(BackGround);
-        BackGround.setLayout(BackGroundLayout);
-        BackGroundLayout.setHorizontalGroup(
-            BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BackGroundLayout.createSequentialGroup()
-                .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        BackGroundLayout.setVerticalGroup(
-            BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 344, Short.MAX_VALUE)
         );
 
         MenuBar.setFont(new java.awt.Font("Rubik Medium", 0, 12)); // NOI18N
         MenuBar.setMargin(new java.awt.Insets(10, 10, 10, 10));
+        MenuBar.setPreferredSize(new java.awt.Dimension(118, 38));
 
-        jMenu1.setText("File");
-        MenuBar.add(jMenu1);
+        MenuFile.setText("File");
+        MenuBar.add(MenuFile);
 
         MenuThemes.setText("Themes");
 
@@ -182,6 +466,14 @@ public class dashboard2 extends javax.swing.JFrame {
         });
         MenuThemes.add(MaterialDesignDark);
 
+        jMenuItem2.setText("Arc");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        MenuThemes.add(jMenuItem2);
+
         MenuBar.add(MenuThemes);
 
         setJMenuBar(MenuBar);
@@ -190,51 +482,28 @@ public class dashboard2 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BackGround, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PanelMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(86, 86, 86)
+                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BackGround, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(32, 32, 32))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(916, 558));
+        setSize(new java.awt.Dimension(914, 507));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-     // Metodo para crear un boton de cerrar y ponerlo en la MenuBar   
-    private void agregarBotonCerrar() {
-        
-        JButton btnCerrar = new JButton("X");
-        
-        btnCerrar.setForeground(Color.RED);  // Puedes personalizar el estilo aquí
 
-        // Añadir funcionalidad al botón de cerrar
-        btnCerrar.addActionListener((ActionEvent e) -> {
-            System.exit(0);  // Cerrar la aplicación al hacer clic en el botón
-        });
-        // Añadir el "glue" para alinear el botón a la derecha
-        MenuBar.add(Box.createHorizontalGlue());
-    
-         // Añadir el botón de cerrar a la barra de menú
-        MenuBar.add(btnCerrar);
-    }
-
-    private void agregarBotonMaximizar() {
-        
-        JButton btnMaximizar = new JButton("M");
-        
-        btnMaximizar.setForeground(Color.WHITE);  // Puedes personalizar el estilo aquí
-
-        // Añadir funcionalidad al botón de cerrar
-        btnMaximizar.addActionListener((ActionEvent e) -> {
-            this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        });
-        // Añadir el "glue" para alinear el botón a la derecha
-        MenuBar.add(Box.createHorizontalGlue());
-    
-         // Añadir el botón de cerrar a la barra de menú
-        MenuBar.add(btnMaximizar);
-    }
     
     private void GruvboxDarkHardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GruvboxDarkHardActionPerformed
         SwingUtilities.invokeLater(()->{
@@ -247,6 +516,13 @@ public class dashboard2 extends javax.swing.JFrame {
             }
             
         });
+        
+        styleButtonPrincipal(true);
+        styleButtonGestion(true);
+        styleButtonCompras(true);
+        styleButtonVentas(true);
+        styleButtonClientes(true);
+        styleButtonProveedores(true);
         
         // Quitar foco de todos los botones
         PanelMenu.requestFocusInWindow();
@@ -264,6 +540,13 @@ public class dashboard2 extends javax.swing.JFrame {
             
         });
         
+        styleButtonPrincipal(true);
+        styleButtonGestion(true);
+        styleButtonCompras(true);
+        styleButtonVentas(true);
+        styleButtonClientes(true);
+        styleButtonProveedores(true);
+        
         // Quitar foco de todos los botones
         PanelMenu.requestFocusInWindow();
     }//GEN-LAST:event_MaterialDesignDarkActionPerformed
@@ -280,12 +563,68 @@ public class dashboard2 extends javax.swing.JFrame {
             
         });
         
+        styleButtonPrincipal(true);
+        styleButtonGestion(true);
+        styleButtonCompras(true);
+        styleButtonVentas(true);
+        styleButtonClientes(true);
+        styleButtonProveedores(true);
+        
         // Quitar foco de todos los botones
         PanelMenu.requestFocusInWindow();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    
-    
+    private void btnComprasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnComprasActionPerformed
+
+    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVentasActionPerformed
+
+    private void btnGestionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGestionActionPerformed
+
+    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClientesActionPerformed
+
+    private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProveedoresActionPerformed
+
+    private void btnPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrincipalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPrincipalActionPerformed
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        SwingUtilities.invokeLater(()->{
+            
+            try {
+                UIManager.setLookAndFeel(new FlatArcIJTheme());
+                SwingUtilities.updateComponentTreeUI(this);
+            } catch (UnsupportedLookAndFeelException ex) {
+                Logger.getLogger(dashboard2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        });
+        
+        styleButtonPrincipal(false);
+        styleButtonGestion(false);
+        styleButtonCompras(false);
+        styleButtonVentas(false);
+        styleButtonClientes(false);
+        styleButtonProveedores(false);
+        
+        // Quitar foco de todos los botones
+        PanelMenu.requestFocusInWindow();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+/*
     public static void main(String args[]) {
         
         FlatCarbonIJTheme.setup();
@@ -297,37 +636,84 @@ public class dashboard2 extends javax.swing.JFrame {
         //FlatIntelliJLaf.setup(); 
         //UIManager.put("TextField.placeholderForeground", Color.GRAY); 
         
-        /*
+        
         // Abrir la ventana de login como primer paso
         java.awt.EventQueue.invokeLater(() -> {
              new login().setVisible(true);
-        }); */
+        });
         
         
-        java.awt.EventQueue.invokeLater(() -> {
+            java.awt.EventQueue.invokeLater(() -> {
             dashboard2.getInstance().setVisible(true);
         });
         
     }
+*/
     
     // Metodo para cambiar estilo de componentes
     private void initStyle() {
         
+        // Estilo menu lateral izquierdo
+        RoundedMenu.setBorder(new RoundedBorder(40));
         RoundedMenu.setBackground(new java.awt.Color(255,255,255,15));
+        
+        // Especificacion
+        PanelCabezera.setBorder(new RoundedBorder(30));
+        PanelCabezera.setBackground(new java.awt.Color(0,0,0,1));
+        
+        // Estilo botones del PanelMenu al inicializar el programa
+        btnPrincipal.setBackground(new java.awt.Color(0,0,0,1));
+        btnPrincipal.setIcon(CasaBlancoIcon);
+        btnPrincipal.setIconTextGap(15); 
+        
+        btnGestion.setBackground(new java.awt.Color(0,0,0,1));
+        btnGestion.setIcon(GestionBlancoIcon);
+        btnGestion.setIconTextGap(15); 
+        
+        btnCompras.setBackground(new java.awt.Color(0,0,0,1));
+        btnCompras.setIcon(ComprasBlancoIcon);
+        btnCompras.setIconTextGap(15); 
+        
+        btnVentas.setBackground(new java.awt.Color(0,0,0,1));
+        btnVentas.setIcon(VentasBlancoIcon);
+        btnVentas.setIconTextGap(15); 
+        
+        btnClientes.setBackground(new java.awt.Color(0,0,0,1));
+        btnClientes.setIcon(ClientesBlancoIcon);
+        btnClientes.setIconTextGap(15); 
+        
+        btnProveedores.setBackground(new java.awt.Color(0,0,0,1));
+        btnProveedores.setIcon(ProveedoresBlancoIcon);
+        btnProveedores.setIconTextGap(15);
+        
+        btnLogout.setBackground(new java.awt.Color(0,0,0,1));
+        btnLogout.setIcon(LogoutBlancoIcon);
+        btnLogout.setIconTextGap(15);
         
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel BackGround;
     private javax.swing.JMenuItem GruvboxDarkHard;
     private javax.swing.JMenuItem MaterialDesignDark;
     private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JMenu MenuFile;
     private javax.swing.JMenu MenuThemes;
+    private javax.swing.JPanel PanelCabezera;
     private javax.swing.JPanel PanelMenu;
-    private TiendaZapatos.PanelRound RoundedMenu;
+    private javax.swing.JPanel RoundedMenu;
+    private javax.swing.JButton btnClientes;
+    private javax.swing.JButton btnCompras;
+    private javax.swing.JButton btnGestion;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnPrincipal;
+    private javax.swing.JButton btnProveedores;
+    private javax.swing.JButton btnVentas;
     private javax.swing.JPanel content;
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }

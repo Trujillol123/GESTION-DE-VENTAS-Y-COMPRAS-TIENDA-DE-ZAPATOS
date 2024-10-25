@@ -2,6 +2,7 @@ package views;
 
 import DataBase.Database;
 import TiendaZapatos.dashboard;
+import TiendaZapatos.dashboard2;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.awt.Image;
@@ -285,7 +286,7 @@ public class login extends javax.swing.JFrame {
                             
                             // Abrimos el dashboard (esto lo haremos también en segundo plano)
                             java.awt.EventQueue.invokeLater(() -> {
-                                dashboard.getInstance().setVisible(true);
+                                dashboard2.getInstance().setVisible(true);
                                 
                             });
                             

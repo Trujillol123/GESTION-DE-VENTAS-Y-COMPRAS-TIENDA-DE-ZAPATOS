@@ -32,15 +32,15 @@ public class dashboard extends JFrame {
     private final ImageIcon LunaIcon;
     private final ImageIcon LogoLetrasNegroIcon;
     private final ImageIcon LogoLetrasBlancoIcon;
-    private final ImageIcon CasaIcon;
-    private final ImageIcon CasaNegraIcon;
+    private final ImageIcon CasaBlancoIcon;
+    private final ImageIcon CasaNegroIcon;
     private final ImageIcon GestionBlancoIcon;
     private final ImageIcon GestionNegroIcon;
     private final ImageIcon ComprasBlancoIcon;
     private final ImageIcon ComprasNegroIcon;
-    private final ImageIcon SignoPesosBlancoIcon;
+    private final ImageIcon VentasBlancoIcon;
     private final ImageIcon VentasNegroIcon;
-    private final ImageIcon PersonaBlancoIcon;
+    private final ImageIcon ClientesBlancoIcon;
     private final ImageIcon ClientesNegroIcon;
     private final ImageIcon ProveedoresBlancoIcon;
     private final ImageIcon ProveedoresNegroIcon;
@@ -62,15 +62,15 @@ public class dashboard extends JFrame {
         URL lunaUrl = getClass().getResource("/icons/luna.png");
         URL logoletrasnegroUrl = getClass().getResource("/images/logoletrasnegro.png");
         URL logoletrasblancoUrl = getClass().getResource("/images/logoletrasblanco.png");
-        URL Casaurl = getClass ().getResource("/icons/casablanco.png");
-        URL casanegraurl = getClass ().getResource("/icons/casanegro.png");
+        URL casablancoUrl = getClass ().getResource("/icons/casablanco.png");
+        URL casanegroUrl = getClass ().getResource("/icons/casanegro.png");
         URL gestionblancoUrl = getClass().getResource("/icons/gestionblanco.png");
         URL gestionnegroUrl = getClass().getResource("/icons/gestionnegro.png");
         URL comprasblancoUrl = getClass().getResource("/icons/comprasblanco.png");
         URL comprasnegroUrl = getClass().getResource("/icons/comprasnegro.png");
-        URL signopesosblancoUrl = getClass().getResource("/icons/signopesosblanco.png");
+        URL ventasblancoUrl = getClass().getResource("/icons/ventasblanco.png");
         URL ventasnegroUrl = getClass().getResource("/icons/ventasnegro.png");
-        URL personablancoUrl = getClass().getResource("/icons/personablanco.png");
+        URL clientesblancoUrl = getClass().getResource("/icons/clientesblanco.png");
         URL clientesnegroUrl = getClass().getResource("/icons/clientesnegro.png");
         URL proveedoresblancoUrl = getClass().getResource("/icons/proveedoresblanco.png");
         URL proveedoresnegroUrl = getClass().getResource("/icons/proveedoresnegro.png");
@@ -79,15 +79,15 @@ public class dashboard extends JFrame {
         LunaIcon = new ImageIcon(lunaUrl);
         LogoLetrasNegroIcon = new ImageIcon(logoletrasnegroUrl);
         LogoLetrasBlancoIcon = new ImageIcon(logoletrasblancoUrl);
-        CasaNegraIcon = new ImageIcon(casanegraurl);
-        CasaIcon = new ImageIcon (Casaurl);
+        CasaBlancoIcon = new ImageIcon (casablancoUrl);
+        CasaNegroIcon = new ImageIcon(casanegroUrl);
         GestionBlancoIcon = new ImageIcon(gestionblancoUrl);
         GestionNegroIcon = new ImageIcon(gestionnegroUrl);
         ComprasBlancoIcon = new ImageIcon(comprasblancoUrl);
         ComprasNegroIcon = new ImageIcon(comprasnegroUrl);
-        SignoPesosBlancoIcon = new ImageIcon(signopesosblancoUrl);
+        VentasBlancoIcon = new ImageIcon(ventasblancoUrl);
         VentasNegroIcon =  new ImageIcon(ventasnegroUrl);
-        PersonaBlancoIcon = new ImageIcon(personablancoUrl);
+        ClientesBlancoIcon = new ImageIcon(clientesblancoUrl);
         ClientesNegroIcon = new ImageIcon(clientesnegroUrl);
         ProveedoresBlancoIcon = new ImageIcon(proveedoresblancoUrl);
         ProveedoresNegroIcon = new ImageIcon(proveedoresnegroUrl);
@@ -118,9 +118,9 @@ public class dashboard extends JFrame {
     btnPrinciapl.setBackground(Color.yellow);
     
     if (isDarkMode) {
-        btnPrinciapl.setIcon(CasaIcon);
+        btnPrinciapl.setIcon(CasaBlancoIcon);
     } else {
-        btnPrinciapl.setIcon(CasaNegraIcon);
+        btnPrinciapl.setIcon(CasaNegroIcon);
     }
 }
     
@@ -138,56 +138,56 @@ public class dashboard extends JFrame {
 }
     
     private void styleButtonCompras(boolean isDarkMode) {
-    btnCompras.setHorizontalAlignment(SwingConstants.LEFT);
-    btnCompras.setHorizontalTextPosition(SwingConstants.RIGHT);
-    btnCompras.setVerticalTextPosition(SwingConstants.CENTER);
-    btnCompras.setIconTextGap(10); 
-    
-    if (isDarkMode) {
-        btnCompras.setIcon(ComprasBlancoIcon);
-    } else {
-        btnCompras.setIcon(ComprasNegroIcon);
+        btnCompras.setHorizontalAlignment(SwingConstants.LEFT);
+        btnCompras.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnCompras.setVerticalTextPosition(SwingConstants.CENTER);
+        btnCompras.setIconTextGap(10); 
+
+        if (isDarkMode) {
+            btnCompras.setIcon(ComprasBlancoIcon);
+        } else {
+            btnCompras.setIcon(ComprasNegroIcon);
+        }
     }
-}
     
     private void styleButtonVentas(boolean isDarkMode) {
-    btnVentas.setHorizontalAlignment(SwingConstants.LEFT);
-    btnVentas.setHorizontalTextPosition(SwingConstants.RIGHT);
-    btnVentas.setVerticalTextPosition(SwingConstants.CENTER);
-    btnVentas.setIconTextGap(10); 
-    
-    if (isDarkMode) {
-        btnVentas.setIcon(SignoPesosBlancoIcon);
-    } else {
-        btnVentas.setIcon(VentasNegroIcon);
+        btnVentas.setHorizontalAlignment(SwingConstants.LEFT);
+        btnVentas.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnVentas.setVerticalTextPosition(SwingConstants.CENTER);
+        btnVentas.setIconTextGap(10); 
+
+        if (isDarkMode) {
+            btnVentas.setIcon(VentasBlancoIcon);
+        } else {
+            btnVentas.setIcon(VentasNegroIcon);
+        }
     }
-}
-    
+
     private void styleButtonClientes(boolean isDarkMode) {
-    btnClientes.setHorizontalAlignment(SwingConstants.LEFT);
-    btnClientes.setHorizontalTextPosition(SwingConstants.RIGHT);
-    btnClientes.setVerticalTextPosition(SwingConstants.CENTER);
-    btnClientes.setIconTextGap(10); 
-    
-    if (isDarkMode) {
-        btnClientes.setIcon(PersonaBlancoIcon);
-    } else {
-        btnClientes.setIcon(ClientesNegroIcon);
+        btnClientes.setHorizontalAlignment(SwingConstants.LEFT);
+        btnClientes.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnClientes.setVerticalTextPosition(SwingConstants.CENTER);
+        btnClientes.setIconTextGap(10); 
+
+        if (isDarkMode) {
+            btnClientes.setIcon(ClientesBlancoIcon);
+        } else {
+            btnClientes.setIcon(ClientesNegroIcon);
+        }
     }
-}
     
     private void styleButtonProveedores(boolean isDarkMode) {
-    btnProveedores.setHorizontalAlignment(SwingConstants.LEFT);
-    btnProveedores.setHorizontalTextPosition(SwingConstants.RIGHT);
-    btnProveedores.setVerticalTextPosition(SwingConstants.CENTER);
-    btnProveedores.setIconTextGap(10); 
-    
-    if (isDarkMode) {
-        btnProveedores.setIcon(ProveedoresBlancoIcon);
-    } else {
-        btnProveedores.setIcon(ProveedoresNegroIcon);
+        btnProveedores.setHorizontalAlignment(SwingConstants.LEFT);
+        btnProveedores.setHorizontalTextPosition(SwingConstants.RIGHT);
+        btnProveedores.setVerticalTextPosition(SwingConstants.CENTER);
+        btnProveedores.setIconTextGap(10); 
+
+        if (isDarkMode) {
+            btnProveedores.setIcon(ProveedoresBlancoIcon);
+        } else {
+            btnProveedores.setIcon(ProveedoresNegroIcon);
+        }
     }
-}
     
    private void initContent() {
        showJpanel(new Compras());
@@ -569,7 +569,6 @@ public class dashboard extends JFrame {
     }
   
     
-    /*
     public static void main(String args[]) {
         
         FlatRobotoFont.install();
@@ -584,12 +583,12 @@ public class dashboard extends JFrame {
              new login().setVisible(true);
         });
         
-        /*
+        
         java.awt.EventQueue.invokeLater(() -> {
             dashboard.getInstance().setVisible(true);
         });
         
-    } */
+    } 
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
