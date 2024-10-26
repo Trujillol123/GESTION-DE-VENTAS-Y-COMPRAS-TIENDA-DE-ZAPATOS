@@ -289,78 +289,91 @@ public class NewZapato extends javax.swing.JPanel {
     }//GEN-LAST:event_combocategoriaActionPerformed
     private void btnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirActionPerformed
      
-        // Validación y obtención de categoría seleccionada
-        categoria categoriaSeleccionada = (categoria) combocategoria.getSelectedItem();
-        if (categoriaSeleccionada == null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una categoría", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        int id_categoria = categoriaSeleccionada.getId_categoria();
+       // Validación y obtención de categoría seleccionada
+categoria categoriaSeleccionada = (categoria) combocategoria.getSelectedItem();
+if (categoriaSeleccionada == null) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una categoría", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+    return;
+}
+int id_categoria = categoriaSeleccionada.getId_categoria();
 
-        // Validación y obtención de marca seleccionada
-        marca marcaSeleccionada = (marca) combomarcas.getSelectedItem();
-        if (marcaSeleccionada == null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una marca", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        int id_marca = marcaSeleccionada.getId_marca();
+// Validación y obtención de marca seleccionada
+marca marcaSeleccionada = (marca) combomarcas.getSelectedItem();
+if (marcaSeleccionada == null) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una marca", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+    return;
+}
+int id_marca = marcaSeleccionada.getId_marca();
 
-        // Validación y obtención de proveedor seleccionado
-        proveedor proveedorSeleccionado = (proveedor) comboproveedores.getSelectedItem();
-        if (proveedorSeleccionado == null) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un proveedor", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        int id_proveedor = proveedorSeleccionado.getId_proveedor();
+// Validación y obtención de proveedor seleccionado
+proveedor proveedorSeleccionado = (proveedor) comboproveedores.getSelectedItem();
+if (proveedorSeleccionado == null) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un proveedor", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+    return;
+}
+int id_proveedor = proveedorSeleccionado.getId_proveedor();
 
-        // Obtención y validación del precio (float)
-        String precioTexto = txtPrecio.getText().trim();
-        float precio_venta;
-        try {
-            precio_venta = Float.parseFloat(precioTexto);
-        } catch (NumberFormatException e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un precio válido", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+// Obtención y validación del precio (float)
+String precioTexto = txtPrecio.getText().trim();
+float precio_venta;
+try {
+    precio_venta = Float.parseFloat(precioTexto);
+} catch (NumberFormatException e) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un precio válido", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-        String descripcion = txtDescripcion.getText().trim();
+// Calcular el precio de compra (40% menos que el precio de venta)
+float precio_compra = precio_venta * 0.60f; // 60% del precio de venta
 
+String descripcion = txtDescripcion.getText().trim();
 
-        // Crear objeto zapato
-        models.zapato zapato = new models.zapato();
-        zapato.setId_categoria(id_categoria);
-        zapato.setId_marca(id_marca);
-        zapato.setId_proveedor(id_proveedor);
-        zapato.setPrecio_venta(precio_venta);
-        zapato.setDescripcion(descripcion);
+// Crear objeto zapato
+models.zapato zapato = new models.zapato();
+zapato.setId_categoria(id_categoria);
+zapato.setId_marca(id_marca);
+zapato.setId_proveedor(id_proveedor);
+zapato.setPrecio_venta(precio_venta);
+zapato.setPrecio_compra(precio_compra); // Establecer el precio de compra
+zapato.setDescripcion(descripcion);
 
-      // Intentar registrar zapato y compra
+// Intentar registrar zapato y compra
+try {
+    // DAO para manejar zapato
+    DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
+    daoZapato.create(zapato);
+    
+    javax.swing.JOptionPane.showMessageDialog(this, "Zapato Registrado Con Éxito", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    
+    // Mensaje de depuración para verificar que esta sección se está ejecutando
+    System.out.println("Limpieza de campos en proceso...");
+    
+    // Limpiar campos después de registrar el zapato
     try {
-        // DAO para manejar zapato
-        DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
-        daoZapato.create(zapato);
-       
-        javax.swing.JOptionPane.showMessageDialog(this, "Zapato Registrado Con Éxito", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-           
-        // Mensaje de depuración para verificar que esta sección se está ejecutando
-        System.out.println("Limpieza de campos en proceso...");
-        
-        // Limpiar campos después de registrar el zapato
-        txtPrecio.setText("");
-        txtDescripcion.setText("");
-        combocategoria.setSelectedIndex(0); 
-        combomarcas.setSelectedIndex(0);    
-        comboproveedores.setSelectedIndex(0);     
-            
-        
-  
-        
-        
-    } catch (Exception e) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al registrar el zapato o la compra", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-        e.printStackTrace();
+    // Limpiar campos después de registrar el zapato
+    txtPrecio.setText("");
+    txtDescripcion.setText("");
+    
+    if (combocategoria.getItemCount() > 0) {
+        combocategoria.setSelectedIndex(0);
     }
-
+    
+    if (combomarcas.getItemCount() > 0) {
+        combomarcas.setSelectedIndex(0);
+    }
+    
+    if (comboproveedores.getItemCount() > 0) {
+        comboproveedores.setSelectedIndex(0);
+    }
+    
+} catch (Exception e) {
+    System.out.println("Error al limpiar los campos: " + e.getMessage());
+    e.printStackTrace();
+}
+} catch (Exception e) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al registrar el zapato o la compra", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+    e.printStackTrace();
+}
      }//GEN-LAST:event_btnSubirActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed

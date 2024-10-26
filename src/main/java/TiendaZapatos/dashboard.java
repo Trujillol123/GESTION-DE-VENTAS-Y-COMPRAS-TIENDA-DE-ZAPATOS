@@ -70,7 +70,7 @@ public class dashboard extends JFrame {
         URL comprasnegroUrl = getClass().getResource("/icons/comprasnegro.png");
         URL ventasblancoUrl = getClass().getResource("/icons/ventasblanco.png");
         URL ventasnegroUrl = getClass().getResource("/icons/ventasnegro.png");
-        URL clientesblancoUrl = getClass().getResource("/icons/clientesblanco.png");
+        URL clientesblancoUrl = getClass().getResource("/icons/clienteblanco.png");
         URL clientesnegroUrl = getClass().getResource("/icons/clientesnegro.png");
         URL proveedoresblancoUrl = getClass().getResource("/icons/proveedoresblanco.png");
         URL proveedoresnegroUrl = getClass().getResource("/icons/proveedoresnegro.png");
@@ -578,10 +578,11 @@ public class dashboard extends JFrame {
         FlatIntelliJLaf.setup(); 
         UIManager.put("TextField.placeholderForeground", Color.GRAY); 
         
-        // Abrir la ventana de login como primer paso
+        /* Abrir la ventana de login como primer paso
         java.awt.EventQueue.invokeLater(() -> {
              new login().setVisible(true);
         });
+        */
         
         
         java.awt.EventQueue.invokeLater(() -> {

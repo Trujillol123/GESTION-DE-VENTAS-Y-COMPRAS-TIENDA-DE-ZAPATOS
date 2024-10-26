@@ -26,14 +26,15 @@ import models.zapato;
     public void create(zapato zapato) throws Exception {
     try {
             this.Conectar();
-            PreparedStatement st = this.conexion.prepareStatement("INSERT INTO zapato (id_categoria, id_marca, id_proveedor, precio_venta, cantidad, descripcion) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement st = this.conexion.prepareStatement("INSERT INTO zapato (id_categoria, id_marca, id_proveedor, precio_compra, precio_venta, cantidad, descripcion) VALUES (?, ?, ?, ?, ?, ?, ?)");
         
         st.setInt(1, zapato.getId_categoria()); // Asumiendo que id_marca es un entero    
         st.setInt(2, zapato.getId_marca()); // Asumiendo que id_marca es un entero
         st.setInt(3, zapato.getId_proveedor());
-        st.setFloat(4, zapato.getPrecio_venta());
-        st.setInt(5, zapato.getCantidad());
-        st.setString(6, zapato.getDescripcion());
+        st.setFloat(4, zapato.getPrecio_compra());
+        st.setFloat(5, zapato.getPrecio_venta());
+        st.setInt(6, zapato.getCantidad());
+        st.setString(7, zapato.getDescripcion());
         
             
         
@@ -261,9 +262,29 @@ import models.zapato;
 
                 return precioCompra; // Devolver el precio de compra
             }
-        
-        
-                    
+     
+    @Override
+    public int obtenerIdPorNombre(String nombreZapato) throws Exception {
+           int idZapato = -1;
+    String sql = "SELECT id_zapato FROM zapato WHERE descripcion = ?";
+
+    try {
+        this.Conectar(); 
+        PreparedStatement stmt = this.conexion.prepareStatement(sql);
+        stmt.setString(1, nombreZapato);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            idZapato = rs.getInt("id_zapato");
+        }
+        rs.close();
+        stmt.close();
+    } catch (SQLException e) {
+        throw new SQLException("Error al obtener el ID por nombre: " + e.getMessage(), e);
+    } finally {
+        this.Cerrar();
+    }
+    return idZapato;
                 
 
+    }
     }

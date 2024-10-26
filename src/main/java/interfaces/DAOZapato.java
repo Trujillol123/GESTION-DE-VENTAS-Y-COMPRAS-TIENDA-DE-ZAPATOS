@@ -13,6 +13,8 @@ import models.zapato;
  */
 public interface DAOZapato {
       
+    public int obtenerIdPorNombre(String nombreZapato) throws Exception ;
+    
     // Método para crear una nueva factura
     public void create(zapato zapato)throws Exception;
 
@@ -32,7 +34,7 @@ public interface DAOZapato {
     
     public List<zapato> getallZapatos () throws Exception;
 
-   
+        
 
      public float getPrecioCompraPorZapato(int idZapato) throws Exception;
      

@@ -1,3 +1,7 @@
+
+
+
+
 package TiendaZapatos;
 
 
@@ -23,7 +27,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import views.login;
 
 
-/* @author David Grijalba  */
+
 
 public class dashboard2 extends javax.swing.JFrame {
     
@@ -103,6 +107,16 @@ public class dashboard2 extends javax.swing.JFrame {
             setVisible(true);
         } */
         
+
+
+
+
+
+
+
+
+
+
         // Metodo predeterminado para iniciar los componentes
         initComponents();
         initStyle();
@@ -650,6 +664,16 @@ public class dashboard2 extends javax.swing.JFrame {
     }
 */
     
+
+
+
+
+
+
+
+
+
+
     // Metodo para cambiar estilo de componentes
     private void initStyle() {
         

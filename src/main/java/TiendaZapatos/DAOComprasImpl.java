@@ -31,8 +31,9 @@ public class DAOComprasImpl extends Database implements DAOComprazapato{
     }
 
     @Override
-    public void create(comprazapato compraZapato, int id_facturacompra) throws Exception {
+    public int obtenerUltimoId() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
     
 }

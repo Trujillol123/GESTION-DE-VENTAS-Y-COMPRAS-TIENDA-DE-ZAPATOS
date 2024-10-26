@@ -48,6 +48,32 @@ public class DAOTallaImpl  extends Database implements DAOTalla {
         }
         return lista;
     }
+
+    @Override
+    public int obtenerIdPorNumero(String numero_talla) throws Exception {
+ 
+    int idTalla = -1;
+    String sql = "SELECT id_talla FROM talla WHERE numero_talla = ?";
+
+    try {
+        this.Conectar(); 
+        PreparedStatement stmt = this.conexion.prepareStatement(sql);
+        stmt.setString(1, numero_talla);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next()) {
+            idTalla = rs.getInt("id_talla");
+        }
+        rs.close();
+        stmt.close();
+    } catch (SQLException e) {
+        throw new SQLException("Error al obtener el ID por nombre: " + e.getMessage(), e);
+    } finally {
+        this.Cerrar();
+    }
+    return idTalla;
+                
+
+            }
 }
     
     

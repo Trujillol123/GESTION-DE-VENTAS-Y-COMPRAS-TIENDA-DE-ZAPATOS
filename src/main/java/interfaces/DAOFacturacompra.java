@@ -6,6 +6,7 @@
 
     import java.util.List;
     import models.facturacompra;
+import models.zapato;
 
     /**
      *
@@ -14,7 +15,7 @@
     public interface DAOFacturacompra {
 
         // Método para crear una nueva factura
-        public void create(facturacompra facturacompra)throws Exception;
+        public int create(facturacompra factura)throws Exception;
 
         // Método para obtener una lista de todos los clientes
         public List<facturacompra> read()throws Exception;
@@ -28,7 +29,11 @@
         // Método para eliminar una factura por su ID
         public void delete(int id)throws Exception;
         
-        public int Crear (facturacompra facturacompra) throws Exception;
+        public List<facturacompra> ReadNames() throws Exception;
         
-
+        public int getLastInsertedId() throws Exception ;
+        
+         // Método para actualizar el total de la factura
+         public void actualizarTotal(int idFacturaCompra, float total, int totalCantidad) throws Exception ;
+       
     }

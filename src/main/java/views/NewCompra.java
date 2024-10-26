@@ -5,6 +5,8 @@
 package views;
 
 import TiendaZapatos.DAOColoresImpl;
+import TiendaZapatos.DAOCompraZapatoImpl;
+import TiendaZapatos.DAOFacturaCompraImpl;
 import TiendaZapatos.DAOGestionProductosImpl;
 import TiendaZapatos.DAOProveedoresImpl;
 import TiendaZapatos.DAOTallaImpl;
@@ -22,6 +24,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.colores;
+import models.comprazapato;
+import models.facturacompra;
 import models.proveedor;
 import models.talla;
 import models.zapato;
@@ -33,13 +37,12 @@ import views.Compras;
  */
 public class NewCompra extends javax.swing.JPanel {
 
-    private Date fechaProducto;
-    private String descripcionProducto;
-    private int cantidadProducto;
-    private float precioCompraProducto;
-    private DefaultTableModel tableModel; // Modelo de la tabla
-        
-        
+    private DAOFacturaCompraImpl daoFacturaCompraImpl = new DAOFacturaCompraImpl();
+    private DAOCompraZapatoImpl daoCompraZapatoImpl = new DAOCompraZapatoImpl();
+    private DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
+    private DAOColoresImpl daoColor = new DAOColoresImpl();
+    private DAOTallaImpl daoTalla = new DAOTallaImpl(); 
+
     public NewCompra() {
         initComponents();
         initStyles ();
@@ -82,7 +85,7 @@ public class NewCompra extends javax.swing.JPanel {
         txtCantidad = new javax.swing.JTextField();
         btnAgregarPrdocuto = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         Color = new javax.swing.JLabel();
@@ -136,9 +139,9 @@ public class NewCompra extends javax.swing.JPanel {
 
         jLabel7.setText("Producto  : ");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtTotalActionPerformed(evt);
             }
         });
 
@@ -182,7 +185,7 @@ public class NewCompra extends javax.swing.JPanel {
                         .addGap(38, 38, 38)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -270,7 +273,7 @@ public class NewCompra extends javax.swing.JPanel {
                     .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(19, 19, 19))
         );
@@ -295,7 +298,7 @@ public class NewCompra extends javax.swing.JPanel {
         txtCantidad.putClientProperty("JTextField.placeholderText", "Cantidad a comprar.");
         txtPrecioU.putClientProperty("JTextField.placeholderText", "Precio por unidad.");
 
-        
+        txtTotal.setEditable(false); // Hace que el txtTotal no sea editable
         
     }
     
@@ -326,9 +329,9 @@ public class NewCompra extends javax.swing.JPanel {
         dashboard.getInstance().showJpanel(new Compras());
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
+        
+    }//GEN-LAST:event_txtTotalActionPerformed
 
     private void comboZapatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboZapatoActionPerformed
       zapato zapatoSeleccionado = (zapato) comboZapato.getSelectedItem(); // Obtener el zapato seleccionado
@@ -355,7 +358,66 @@ public class NewCompra extends javax.swing.JPanel {
     }//GEN-LAST:event_comboZapatoActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
- 
+        
+            try {
+                int idProveedor = comboproveedores.getSelectedIndex() + 1; // Obtiene el ID del proveedor seleccionado
+                java.sql.Date fecha = obtenerFechaSQL(date); // Obtiene la fecha en formato SQL
+
+                // Crear una nueva factura y obtener el ID
+                facturacompra factura = new facturacompra(idProveedor, 0, fecha); // Inicializamos con 0 para el total
+                int idFacturaCompra = daoFacturaCompraImpl.create(factura);
+
+                double totalFactura = 0; // Inicializa el total
+                int totalCantidad = 0; // Inicializa la cantidad total
+
+                // Iterar sobre la JTable
+                for (int i = 0; i < jTable1.getRowCount(); i++) {
+                    String nombreZapato = jTable1.getValueAt(i, 0).toString(); // Nombre del zapato
+                    String nombreColor = jTable1.getValueAt(i, 2).toString(); // Nombre del color
+                    String numeroTalla = jTable1.getValueAt(i, 3).toString(); // Número de la talla
+                    int cantidad = (int) jTable1.getValueAt(i, 1); // Cantidad
+
+                    int idZapato = daoZapato.obtenerIdPorNombre(nombreZapato); // Obtiene el ID del zapato
+                    int idColor = daoColor.obtenerIdPorNombre(nombreColor); // Obtiene el ID del color
+                    int idTalla = daoTalla.obtenerIdPorNumero(numeroTalla); // Obtiene el ID de la talla
+
+                    if (idZapato != -1) { // Verifica que el zapato exista
+                        // Obtener el precio del zapato
+                        double precioZapato = daoZapato.getPrecioCompraPorZapato(idZapato); // Asegúrate de tener este método
+                        totalFactura += precioZapato * cantidad; // Actualiza el total
+                        totalCantidad += cantidad; // Sumar la cantidad total
+
+                        // Crear la compra de zapato
+                        comprazapato compraZapato = new comprazapato(idZapato, idFacturaCompra, idColor, idTalla, cantidad);
+
+                        // Registrar la compra en la base de datos
+                        daoCompraZapatoImpl.create(compraZapato); // Cambia aquí, ya no se pasa el ID
+                    } else {
+                        System.out.println("Zapato no encontrado: " + nombreZapato);
+                    }
+                }
+
+                // Actualizar el total y la cantidad en la factura
+                daoFacturaCompraImpl.actualizarTotal(idFacturaCompra, (float) totalFactura, totalCantidad); // Asegúrate de tener este método
+
+                // Limpiar la tabla jTable1
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setRowCount(0); // Elimina todas las filas
+
+                // Limpiar los campos del formulario
+                comboproveedores.setSelectedIndex(0); 
+                date.setDate(null); 
+                txtTotal.setText("0"); 
+                txtPrecioU.setText("0");
+                
+                
+                JOptionPane.showMessageDialog(this, "Registro completado exitosamente.");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al registrar la compra: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+       
+
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void comboTallasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTallasActionPerformed
@@ -367,7 +429,8 @@ public class NewCompra extends javax.swing.JPanel {
     }//GEN-LAST:event_combocolorActionPerformed
 
     private void btnAgregarPrdocutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPrdocutoActionPerformed
-                   // Obtener los datos del formulario
+   
+    // Obtener los datos del formulario
     zapato zapatoSeleccionado = (zapato) comboZapato.getSelectedItem();
 
     // Verificar que txtCantidad no esté vacío
@@ -409,8 +472,7 @@ public class NewCompra extends javax.swing.JPanel {
     Object[] rowData = { descripcion, cantidad, color, talla,  fechaProducto, precioCompra,precioCompra * cantidad}; 
     model.addRow(rowData);
 
-    // Guardar los datos para otra tabla 
-    guardarDatosParaOtraTabla(fechaProducto, descripcion, cantidad, precioCompra);
+       
 
     // Limpiar los campos del formulario
     txtCantidad.setText("");
@@ -418,22 +480,39 @@ public class NewCompra extends javax.swing.JPanel {
     comboZapato.setSelectedIndex(0); // Resetea los Combobox
     comboTallas.setSelectedIndex(0);
     combocolor.setSelectedIndex(0);
+    
+     // Actualizar el total
+    actualizarTotal();
+    
     }//GEN-LAST:event_btnAgregarPrdocutoActionPerformed
     
+   
     
-    private void guardarDatosParaOtraTabla(Date fecha, String descripcion, int cantidad, float precioCompra) {
+   
+   
+    // Metodo para actualizar el total sumando los valores de la columna subtotal
     
+    private void actualizarTotal() {   
+        
+          float total = 0;
+          int totalProductos = 0;
+          DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+          int rowCount = model.getRowCount();
 
+          // Sumar todos los valores de la columna "subtotal" y contar la cantidad de productos
+          for (int i = 0; i < rowCount; i++) {
+              total += (float) model.getValueAt(i, 6); //  "subtotal" está en la columna 6
+              totalProductos += (int) model.getValueAt(i, 1); // "cantidad" está en la columna 1
+          }
 
-// Puedes almacenar estos datos en atributos de clase o en otra estructura
-    this.fechaProducto = fecha; // Atributo de clase para almacenar la fecha
-    this.descripcionProducto = descripcion; // Atributo de clase para almacenar la descripción
-    this.cantidadProducto = cantidad; // Atributo de clase para almacenar la cantidad
-    this.precioCompraProducto = precioCompra; // Atributo de clase para almacenar el precio
-
+          // Mostrar el total en txtTotal con símbolo $ y cantidad de productos
+          txtTotal.setText(String.format("$%.2f (%d productos)", total, totalProductos));
+    }
+ 
     
-    // DAOFacturaImpl.insertarDatos(fecha, descripcion, cantidad, precioCompra);
-}
+   
+
+   // Metodos para manejo de las ComboBox y llamadas de datos 
     
     public List<proveedor> obtenerProveedores() {
         DAOProveedoresImpl daoProveedor = new DAOProveedoresImpl();
@@ -598,9 +677,9 @@ public class NewCompra extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtPrecioU;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 
    

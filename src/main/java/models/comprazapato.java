@@ -10,19 +10,40 @@ package models;
  */
 public class comprazapato {
     
+    
+    
+  
     private int id_comprazapato;
     private int id_zapato;
     private int id_facturacompra;
     private int id_color;
     private int id_talla;
+    private int cantidad;
+
+    public comprazapato(int ultimoIdComprazapato, int idZapato, int idFacturaCompra, int idColor, int idTalla, int cantidad1) {
+        this.id_zapato = idZapato;
+        this.id_facturacompra = idFacturaCompra;
+        this.id_color = idColor;
+        this.id_talla = idTalla;
+        this.cantidad = cantidad1;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
     
     
     // Constructor
-    public comprazapato(int id_zapato, int id_facturacompra, int id_color, int id_talla) {
-        this.id_zapato = id_zapato;
-        this.id_facturacompra = id_facturacompra;
-        this.id_color = id_color;
-        this.id_talla = id_talla;
+      public comprazapato(int idZapato, int idFacturaCompra, int idColor, int idTalla, int cantidad) {
+        this.id_zapato = idZapato;
+        this.id_facturacompra = idFacturaCompra;
+        this.id_color = idColor;
+        this.id_talla = idTalla;
+        this.cantidad = cantidad;
     }
     
 
@@ -65,4 +86,6 @@ public class comprazapato {
     public void setId_talla(int id_talla) {
         this.id_talla = id_talla;
     }
+    
+    
 }

@@ -18,4 +18,6 @@ public interface DAOColores {
     
     // Método para obtener un color específico por su ID
     public colores readById(int id)throws Exception;
+    
+    public int obtenerIdPorNombre(String nombre_color) throws Exception ;
 }

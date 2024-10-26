@@ -14,11 +14,13 @@ import models.comprazapato;
 public interface DAOComprazapato {
     
     // Método para registrar una nueva compra de zapato
-    public void create(comprazapato compraZapato, int id_facturacompra)throws Exception;
+    public void create(comprazapato compraZapato)throws Exception;
 
     // Método para obtener una lista de todas las compras de zapatos
     public List<comprazapato> read()throws Exception;
     
     // Método para obtener una compra específica por su ID
+    public int obtenerUltimoId () throws Exception;
+
     public comprazapato readById(int id)throws Exception;
 }

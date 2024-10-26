@@ -17,4 +17,7 @@ public interface DAOTalla {
     
     // Método para obtener un color específico por su ID
     public talla readById(int id)throws Exception;
+    
+     public int obtenerIdPorNumero (String numero_talla) throws Exception ;
+
 }
