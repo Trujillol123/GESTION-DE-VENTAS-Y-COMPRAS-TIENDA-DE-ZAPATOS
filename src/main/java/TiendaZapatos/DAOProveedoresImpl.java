@@ -86,8 +86,31 @@ public class DAOProveedoresImpl extends Database implements DAOProveedor {
         }
 
     @Override
-    public proveedor readById(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public proveedor readById(int id_proveedor) throws Exception {
+    proveedor proveedor = null; // Inicializar el objeto proveedor a null
+    try {
+        this.Conectar(); // Conectar a la base de datos
+        PreparedStatement st = this.conexion.prepareStatement("SELECT id_proveedor, nombre_proveedor, id_marca FROM proveedor WHERE id_proveedor = ?;");
+        st.setInt(1, id_proveedor); // Establecer el parámetro del ID del proveedor
+        ResultSet rs = st.executeQuery(); // Ejecutar la consulta
+        
+        if (rs.next()) { // Verificar si hay resultados
+            int idProveedor = rs.getInt("id_proveedor");
+            int idMarca = rs.getInt("id_marca"); // Asegúrate de que esta columna exista en la base de datos
+            String nombre_proveedor = rs.getString("nombre_proveedor");
+            
+            // Crear una nueva instancia de proveedor
+            proveedor = new proveedor(idProveedor, idMarca, nombre_proveedor); // Asegúrate de que el constructor esté definido
+        }
+        
+        rs.close();
+        st.close();
+    } catch (SQLException e) {
+        throw new Exception("Error al obtener el proveedor: " + e.getMessage(), e);
+    } finally {
+        this.Cerrar(); // Cerrar la conexión
+    }
+    return proveedor; // Retornar el proveedor encontrado (o null si no se encontró)
     }
 
     @Override

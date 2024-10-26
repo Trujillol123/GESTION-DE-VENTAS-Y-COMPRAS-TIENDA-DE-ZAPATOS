@@ -4,6 +4,8 @@
  */
 package models;
 
+import java.sql.Date;
+
 /**
  *
  * @author cland
@@ -13,12 +15,82 @@ public class comprazapato {
     
     
   
+  
     private int id_comprazapato;
+    private int id_proveedor;
+
+    public int getId_proveedor() {
+        return id_proveedor;
+    }
+
+    public void setId_proveedor(int id_proveedor) {
+        this.id_proveedor = id_proveedor;
+    }
     private int id_zapato;
     private int id_facturacompra;
     private int id_color;
     private int id_talla;
     private int cantidad;
+    private String nombre_zapato;
+    private float Precio_compra;
+    private String nombre_color;
+    private Date Fecha;
+    private Double SubTotal;
+
+    public Double getSubTotal() {
+        return SubTotal;
+    }
+
+    public void setSubTotal(Double SubTotal) {
+        this.SubTotal = SubTotal;
+    }
+    
+
+    public Date getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(Date Fecha) {
+        this.Fecha = Fecha;
+    }
+  
+
+    public String getNombre_color() {
+        return nombre_color;
+    }
+
+    public void setNombre_color(String nombre_color) {
+        this.nombre_color = nombre_color;
+    }
+
+    public String getNumero_talla() {
+        return numero_talla;
+    }
+
+    public void setNumero_talla(String numero_talla) {
+        this.numero_talla = numero_talla;
+    }
+    private String numero_talla;
+    
+
+    public float getPrecio_compra() {
+        return Precio_compra;
+    }
+
+    public void setPrecio_compra(float Precio_compra) {
+        this.Precio_compra = Precio_compra;
+    }
+
+    public String getNombre_zapato() {
+        return nombre_zapato;
+    }
+
+    public void setNombre_zapato(String nombre_zapato) {
+        this.nombre_zapato = nombre_zapato;
+    }
+    
+    
+    
 
     public comprazapato(int ultimoIdComprazapato, int idZapato, int idFacturaCompra, int idColor, int idTalla, int cantidad1) {
         this.id_zapato = idZapato;
@@ -26,6 +98,9 @@ public class comprazapato {
         this.id_color = idColor;
         this.id_talla = idTalla;
         this.cantidad = cantidad1;
+    }
+
+    public comprazapato() {
     }
 
     public int getCantidad() {
@@ -86,6 +161,16 @@ public class comprazapato {
     public void setId_talla(int id_talla) {
         this.id_talla = id_talla;
     }
+
+    public void setFecha_compra(Date date) {
+        this.Fecha = Fecha;
+    }
+
+    public void setSubtotal(Float subtotal) {
+        this.SubTotal = SubTotal;
+    }
+
+    
     
     
 }

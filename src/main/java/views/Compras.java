@@ -1,5 +1,6 @@
 package views;
 
+import TiendaZapatos.DAOCompraZapatoImpl;
 import TiendaZapatos.DAOGestionProductosImpl;
 import TiendaZapatos.dashboard;
 import interfaces.DAOZapato;
@@ -7,6 +8,12 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import models.zapato;
 import TiendaZapatos.DAOFacturaCompraImpl;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import models.comprazapato;
 import models.facturacompra;
 /**
  *
@@ -14,9 +21,11 @@ import models.facturacompra;
  */
 public class Compras extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Compras
-     */
+    private int idFacturaSeleccionada;
+    private DAOCompraZapatoImpl daoCompraZapatoImpl = new DAOCompraZapatoImpl();
+    private String Proveedor;
+    
+    
     public Compras() {
         initComponents();
         initStyles ();
@@ -69,7 +78,7 @@ public class Compras extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         Titulo = new javax.swing.JLabel();
         btnNuevaCompra = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnDetalles = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jDateChooser4 = new com.toedter.calendar.JDateChooser();
         jDateChooser5 = new com.toedter.calendar.JDateChooser();
@@ -119,6 +128,12 @@ public class Compras extends javax.swing.JPanel {
                 "ID Factura Compra", "Proveedor", "Cantidad", "Fecha", "Total"
             }
         ));
+        jTable1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         Titulo.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
@@ -131,10 +146,10 @@ public class Compras extends javax.swing.JPanel {
             }
         });
 
-        jButton4.setText("DETALLES");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnDetalles.setText("DETALLES");
+        btnDetalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnDetallesActionPerformed(evt);
             }
         });
 
@@ -184,7 +199,7 @@ public class Compras extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)))
                         .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnNuevaCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnDetalles, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jDateChooser5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -208,7 +223,7 @@ public class Compras extends javax.swing.JPanel {
                     .addGroup(BackgroundLayout.createSequentialGroup()
                         .addComponent(btnNuevaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -256,9 +271,23 @@ public class Compras extends javax.swing.JPanel {
         dashboard.getInstance().showJpanel(new NewCompra());
     }//GEN-LAST:event_btnNuevaCompraActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
+
+             Object[] facturaSeleccionada = obtenerFacturaSeleccionada(); // Cambié el nombre del método
+    if (facturaSeleccionada != null) {
+        // Obtener ID de factura y nombre del proveedor
+        int idFactura = Integer.parseInt(facturaSeleccionada[0].toString()); // Convertir el primer elemento a int
+        String nombreProveedor = (String) facturaSeleccionada[1]; // El segundo elemento ya es un String
+
+        // Aquí puedes crear una instancia de DetalleNewCompra
+        DetalleNewCompra detalleNewCompra = new DetalleNewCompra(idFactura, nombreProveedor); // Usa el constructor adecuado
+
+        // Mostrar el detalle en el panel correspondiente
+        dashboard.getInstance().showJpanel(detalleNewCompra);
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una factura.");
+    }
+    }//GEN-LAST:event_btnDetallesActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -272,14 +301,36 @@ public class Compras extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtbuscarActionPerformed
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // Obtener el ID de facturacompra de la fila seleccionada
+    int filaSeleccionada = jTable1.getSelectedRow();
+    if (filaSeleccionada != -1) {
+        idFacturaSeleccionada = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
+        String Proveedor = jTable1.getValueAt(filaSeleccionada, 1).toString(); // Suponiendo que el nombre del proveedor está en la segunda columna
+
+    }
+    }//GEN-LAST:event_jTable1MouseClicked
+
+     private Object[] obtenerFacturaSeleccionada() {
+        int filaSeleccionada = jTable1.getSelectedRow(); // Obtener la fila seleccionada
+        if (filaSeleccionada != -1) {
+            int idFactura = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
+            String nombreProveedor = jTable1.getValueAt(filaSeleccionada, 1).toString();
+            return new Object[]{idFactura, nombreProveedor}; // Retornar ambos valores
+        }
+        return null; // Retornar null si no se selecciona nada
+    }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private TiendaZapatos.PanelRound Background;
     private javax.swing.JLabel Titulo;
+    private javax.swing.JButton btnDetalles;
     private javax.swing.JButton btnNuevaCompra;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;

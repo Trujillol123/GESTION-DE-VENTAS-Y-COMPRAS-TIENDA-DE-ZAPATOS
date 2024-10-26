@@ -14,7 +14,6 @@ import TiendaZapatos.dashboard;
 import com.toedter.calendar.JDateChooser;
 import interfaces.DAOColores;
 import interfaces.DAOTalla;
-import java.sql.Date;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -42,7 +41,9 @@ public class NewCompra extends javax.swing.JPanel {
     private DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
     private DAOColoresImpl daoColor = new DAOColoresImpl();
     private DAOTallaImpl daoTalla = new DAOTallaImpl(); 
-
+    private DAOGestionProductosImpl DAOGestionProductosImpl = new DAOGestionProductosImpl();
+    
+    
     public NewCompra() {
         initComponents();
         initStyles ();
@@ -392,6 +393,12 @@ public class NewCompra extends javax.swing.JPanel {
 
                         // Registrar la compra en la base de datos
                         daoCompraZapatoImpl.create(compraZapato); // Cambia aquí, ya no se pasa el ID
+                        
+                        
+                        
+                        // Actualizar la cantidad en la tabla zapato
+                        DAOGestionProductosImpl.actualizarCantidadZapato(idZapato, cantidad); // 
+
                     } else {
                         System.out.println("Zapato no encontrado: " + nombreZapato);
                     }

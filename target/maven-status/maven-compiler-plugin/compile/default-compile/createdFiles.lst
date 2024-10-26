@@ -15,9 +15,11 @@ models\zapato_color.class
 interfaces\DAOCategoria.class
 TiendaZapatos\DAOCompraZapatoImpl.class
 views\NewVenta.class
+views\DetalleNewCompra$1.class
 views\GestionProductos$5.class
 views\login$6.class
 TiendaZapatos\DAOFacturaCompraImpl.class
+views\Compras$9.class
 models\facturacompra.class
 TiendaZapatos\DAOClienteImpl.class
 views\Ventas$5.class
@@ -33,6 +35,7 @@ interfaces\DAOZapatoColorTalla.class
 TiendaZapatos\dashboard$2.class
 interfaces\DAOCliente.class
 TiendaZapatos\PanelRound.class
+views\DetalleNewCompra$2.class
 views\GestionProductos$4.class
 views\NewProveedor$7.class
 TiendaZapatos\dashboard$3.class
@@ -77,6 +80,7 @@ interfaces\DAOZapato.class
 views\Compras$1.class
 views\login$4.class
 TiendaZapatos\dashboard$6.class
+views\DetalleNewCompra.class
 views\NewZapato$1.class
 views\Proveedores$1.class
 models\comprazapato.class
@@ -86,6 +90,7 @@ views\UpZapato$2.class
 models\metodopago.class
 TiendaZapatos\dashboard$5.class
 views\Clientes$3.class
+views\DetalleNewCompra$4.class
 views\GestionProductos$2.class
 views\NewZapato$7.class
 views\login$3.class
@@ -97,6 +102,7 @@ views\NewCompra$5.class
 views\Clientes$2.class
 TiendaZapatos\DAOColoresImpl.class
 CustomComponents\RoundedBorder.class
+views\DetalleNewCompra$3.class
 views\GestionProductos$3.class
 interfaces\DAOZapatoColor.class
 views\NewCompra$6.class

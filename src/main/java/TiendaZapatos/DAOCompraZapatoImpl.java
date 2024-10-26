@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import models.comprazapato;
 import models.zapato;
@@ -110,4 +111,49 @@ public class DAOCompraZapatoImpl extends Database implements DAOComprazapato {
             this.Cerrar();
           
     }}   
+
+    @Override
+    public List<comprazapato> getDetallesPorFactura(int idFacturaCompra) throws Exception{
+          List<comprazapato> detalles = new ArrayList<>();
+
+    try {
+        this.Conectar();
+        String query = "SELECT c.id_zapato, z.descripcion, c.cantidad, col.nombre_color, t.numero_talla, "
+                     + "z.precio_compra, f.fecha "
+                     + "FROM comprazapato c "
+                     + "JOIN zapato z ON c.id_zapato = z.id_zapato "
+                     + "JOIN facturacompra f ON c.id_facturacompra = f.id_facturacompra "
+                     + "JOIN colores col ON c.id_color = col.id_color "
+                     + "JOIN talla t ON c.id_talla = t.id_talla "
+                     + "WHERE c.id_facturacompra = ?";
+        
+        PreparedStatement st = this.conexion.prepareStatement(query);
+        st.setInt(1, idFacturaCompra);
+
+        ResultSet rs = st.executeQuery();
+
+        while (rs.next()) {
+            comprazapato detalle = new comprazapato();
+            
+            detalle.setNombre_zapato(rs.getString("descripcion"));  // Nombre del zapato
+            detalle.setCantidad(rs.getInt("cantidad"));             // Cantidad
+            detalle.setNombre_color(rs.getString("nombre_color"));         // Nombre del color
+            detalle.setNumero_talla(rs.getString("numero_talla"));  // Número de la talla
+            detalle.setFecha(rs.getDate("fecha"));           // Fecha de compra
+            detalle.setPrecio_compra(rs.getFloat("precio_compra")); // Precio unitario
+            
+            // Calcular el subtotal: precio_compra * cantidad
+            float subtotal = detalle.getPrecio_compra() * detalle.getCantidad();
+            detalle.setSubtotal(subtotal);
+
+            detalles.add(detalle);
+        }
+    } catch (Exception e) {
+        throw e;
+    } finally {
+        this.Cerrar();
+    }
+
+    return detalles;
+}
 }

@@ -122,8 +122,6 @@ import models.zapato;
             return zapato;
              }
 
-    
-
     @Override
     public void update(zapato zapato) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -265,26 +263,46 @@ import models.zapato;
      
     @Override
     public int obtenerIdPorNombre(String nombreZapato) throws Exception {
-           int idZapato = -1;
-    String sql = "SELECT id_zapato FROM zapato WHERE descripcion = ?";
+        
+        
+            int idZapato = -1;
+            String sql = "SELECT id_zapato FROM zapato WHERE descripcion = ?";
 
-    try {
-        this.Conectar(); 
-        PreparedStatement stmt = this.conexion.prepareStatement(sql);
-        stmt.setString(1, nombreZapato);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            idZapato = rs.getInt("id_zapato");
+             try {
+                 this.Conectar(); 
+                 PreparedStatement stmt = this.conexion.prepareStatement(sql);
+                 stmt.setString(1, nombreZapato);
+                 ResultSet rs = stmt.executeQuery();
+                 if (rs.next()) {
+                     idZapato = rs.getInt("id_zapato");
+                 }
+                 rs.close();
+                 stmt.close();
+             } catch (SQLException e) {
+                 throw new SQLException("Error al obtener el ID por nombre: " + e.getMessage(), e);
+             } finally {
+                 this.Cerrar();
+             }
+             return idZapato;
+
+
+    }
+
+    @Override
+    public void actualizarCantidadZapato(int idZapato, int cantidadComprada) throws Exception {
+        try {
+                this.Conectar();
+                PreparedStatement st = this.conexion.prepareStatement(
+                    "UPDATE zapato SET cantidad = cantidad + ? WHERE id_zapato = ?"
+                );
+                st.setInt(1, cantidadComprada);
+                st.setInt(2, idZapato);
+                st.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw e;
+            } finally {
+                this.Cerrar();
+            }    
         }
-        rs.close();
-        stmt.close();
-    } catch (SQLException e) {
-        throw new SQLException("Error al obtener el ID por nombre: " + e.getMessage(), e);
-    } finally {
-        this.Cerrar();
-    }
-    return idZapato;
-                
-
-    }
     }

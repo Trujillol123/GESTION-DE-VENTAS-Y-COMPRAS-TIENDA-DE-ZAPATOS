@@ -34,8 +34,8 @@ public interface DAOZapato {
     
     public List<zapato> getallZapatos () throws Exception;
 
-        
+    public void actualizarCantidadZapato(int idZapato, int cantidadComprada) throws Exception;    
 
-     public float getPrecioCompraPorZapato(int idZapato) throws Exception;
+    public float getPrecioCompraPorZapato(int idZapato) throws Exception;
      
 }

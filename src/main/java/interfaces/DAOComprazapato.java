@@ -22,5 +22,8 @@ public interface DAOComprazapato {
     // Método para obtener una compra específica por su ID
     public int obtenerUltimoId () throws Exception;
 
+    
+    public List<comprazapato> getDetallesPorFactura(int idFacturaCompra)throws Exception;
+    
     public comprazapato readById(int id)throws Exception;
 }
