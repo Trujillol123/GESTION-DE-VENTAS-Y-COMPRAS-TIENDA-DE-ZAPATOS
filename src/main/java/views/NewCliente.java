@@ -4,16 +4,9 @@ import TiendaZapatos.DAOClienteImpl;
 import TiendaZapatos.dashboard;
 import com.toedter.calendar.JDateChooser;
 import interfaces.DAOCliente;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import models.cliente;
-import static org.apache.xalan.lib.ExsltDatetime.date;
 
-/**
- *
- * @author David Grijalba
- */
+
 public class NewCliente extends javax.swing.JPanel {
 
     /**
@@ -323,19 +316,15 @@ public class NewCliente extends javax.swing.JPanel {
     }
 }                                          
 
-
-    //Método para obtener y formatear la fecha del JDateChooser
     private java.sql.Date obtenerFechaSQL(JDateChooser dateChooser) {
     java.util.Date fechaUtil = dateChooser.getDate();
     if (fechaUtil != null) {
-        return new java.sql.Date(fechaUtil.getTime()); // Convertir java.util.Date a java.sql.Date
+        return new java.sql.Date(fechaUtil.getTime()); 
     }
-    return null; // Si no hay fecha, retorna null
+    return null; 
 
 }
-
-   
-    // Método para validar los campos   
+  
     private boolean validarCampos(String nombre, String email, String telefono, String direccion, java.sql.Date fecha) {
         return !(nombre.isEmpty() || email.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || fecha == null);
     }//GEN-LAST:event_btnSubirActionPerformed

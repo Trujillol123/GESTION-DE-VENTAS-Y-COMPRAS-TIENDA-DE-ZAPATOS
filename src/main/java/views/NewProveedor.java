@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JComboBox;
 import models.marca;
 import views.Proveedores;
 
@@ -229,7 +227,7 @@ public class NewProveedor extends javax.swing.JPanel {
     }//GEN-LAST:event_txtfDomicilioActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
- // Obtener datos del formulario
+        // Obtener datos del formulario
         String nombre = txtfNombre.getText().trim();
         String email = txtemail.getText().trim();
         String telefono = txtTelefono.getText().trim();
@@ -256,15 +254,15 @@ public class NewProveedor extends javax.swing.JPanel {
         proveedor.setEmail(email);
         proveedor.setTelefono(telefono);
         proveedor.setDireccion(direccion);
-        proveedor.setid_marca(id_marca); // Aquí se establece la marca
+        proveedor.setid_marca(id_marca); // Aqui se establece la marca
 
         // Intentar registrar proveedor
         try {
             DAOProveedor dao = new DAOProveedoresImpl();
-            dao.create(proveedor); // Llamada al método para crear el proveedor en la base de datos
+            dao.create(proveedor); // Llamada al metodo para crear el proveedor en la base de datos
             javax.swing.JOptionPane.showMessageDialog(this, "El proveedor se registró con éxito", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
-            // Limpiar los campos del formulario después del registro
+            // Limpiar los campos del formulario despues del registro
             txtfNombre.setText("");
             txtemail.setText("");
             txtTelefono.setText("");
@@ -273,7 +271,7 @@ public class NewProveedor extends javax.swing.JPanel {
 
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al registrar al proveedor", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace(); // Mostrar el error en la consola para depuración
+            e.printStackTrace(); 
         }
     
     }//GEN-LAST:event_btnRegistrarActionPerformed
@@ -291,11 +289,11 @@ public class NewProveedor extends javax.swing.JPanel {
    
     }//GEN-LAST:event_combomarcasActionPerformed
  
-       private boolean validarCampos(String nombre, String email, String telefono, String direccion, String marca) {
+    private boolean validarCampos(String nombre, String email, String telefono, String direccion, String marca) {
         return !(marca.trim().isEmpty() || nombre.isEmpty() || email.isEmpty() || telefono.isEmpty() || direccion.isEmpty());
     }     
        
-         public List<marca> obtenerMarcas() {
+    public List<marca> obtenerMarcas() {
         DAOMarcaImpl daoMarca = new DAOMarcaImpl();
         List<marca> marcas = new ArrayList<>(); // Crear una lista para almacenar las marcas
 
@@ -308,10 +306,8 @@ public class NewProveedor extends javax.swing.JPanel {
 
         return marcas; // Retornar la lista de marcas
     }
-
     
-
-         private void cargarMarcas() {
+    private void cargarMarcas() {
         List<marca> listaMarcas = obtenerMarcas(); // Método que obtiene las marcas
         for (marca m : listaMarcas) {
             combomarcas.addItem(m); // Agregar cada marca al JComboBox

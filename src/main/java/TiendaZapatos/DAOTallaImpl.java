@@ -1,18 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package TiendaZapatos;
 
 import DataBase.Database;
-import interfaces.DAOProveedor;
 import interfaces.DAOTalla;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import models.marca;
 import models.talla;
 
 /**
@@ -20,13 +15,6 @@ import models.talla;
  * @author cland
  */
 public class DAOTallaImpl  extends Database implements DAOTalla {
-
-    
-
-    @Override
-    public talla readById(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
     public List<talla> getallTallas() throws Exception {

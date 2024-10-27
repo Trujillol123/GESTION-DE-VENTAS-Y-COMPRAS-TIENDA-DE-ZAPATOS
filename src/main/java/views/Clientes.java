@@ -6,9 +6,7 @@ import TiendaZapatos.DAOClienteImpl;
 import TiendaZapatos.dashboard;
 import interfaces.DAOCliente;
 import java.awt.Color;
-import java.util.List;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -17,9 +15,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Clientes extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Clientes
-     */
+   
     public Clientes() {
         initComponents();
         initStyles ();
@@ -170,7 +166,9 @@ public class Clientes extends javax.swing.JPanel {
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
-     private void initStyles () {
+    
+    
+    private void initStyles () {
         Titulo.putClientProperty( "FlatLaf.styleClass" , "h3" );
         
         txtbucarnombre.putClientProperty("JTextField.placeholderText", "Ingrese el nombre del cliente a buscar.");
@@ -178,12 +176,10 @@ public class Clientes extends javax.swing.JPanel {
         
     }
      
-     //DEFINIR COLORES CON METODO
+    //DEFINIR COLORES CON METODO
     static void setPanelColor(JPanel panel, int red, int green, int blue){
         panel.setBackground(new Color(red, green, blue));
-    }
-   
-     
+    }  
     
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
        
@@ -210,7 +206,7 @@ public class Clientes extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        //dashboard.getInstance().showJpanel(new NewCliente());
+      
         dashboard.getInstance().showJpanel(new NewCliente());
     }//GEN-LAST:event_btnNuevoActionPerformed
 

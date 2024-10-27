@@ -1,13 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package views;
 
-import TiendaZapatos.DAOClienteImpl;
 import TiendaZapatos.DAOProveedoresImpl;
 import TiendaZapatos.dashboard;
-import interfaces.DAOCliente;
 import interfaces.DAOProveedor;
 import javax.swing.table.DefaultTableModel;
 

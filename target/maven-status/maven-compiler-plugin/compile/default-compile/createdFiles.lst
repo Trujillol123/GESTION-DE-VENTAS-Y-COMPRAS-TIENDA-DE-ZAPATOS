@@ -27,7 +27,6 @@ views\NewProveedor$6.class
 views\login$7.class
 TiendaZapatos\DAOZapatoColorTallaImpl.class
 TiendaZapatos\DAOTallaImpl.class
-TiendaZapatos\DAOComprasImpl.class
 TiendaZapatos\GradientPanel.class
 views\Compras$3.class
 views\Compras.class

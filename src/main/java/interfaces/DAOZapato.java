@@ -15,19 +15,12 @@ public interface DAOZapato {
       
     public int obtenerIdPorNombre(String nombreZapato) throws Exception ;
     
-    // Método para crear una nueva factura
     public void create(zapato zapato)throws Exception;
-
-    // Método para obtener una lista de todos los clientes
+    
     public List<zapato> read()throws Exception;
-
-    // Método para obtener una factura por su ID
-    public zapato readById(int id_zapato)throws Exception;
-
-    // Método para actualizar los datos de una factura
-    public void update(zapato zapato)throws Exception;
-
-    // Método para eliminar una factura por su ID
+    
+    public zapato readById(int id_zapato)throws Exception;  
+   
     public void delete(int id)throws Exception;
     
     public  List<zapato> ReadNames() throws Exception;
@@ -37,5 +30,7 @@ public interface DAOZapato {
     public void actualizarCantidadZapato(int idZapato, int cantidadComprada) throws Exception;    
 
     public float getPrecioCompraPorZapato(int idZapato) throws Exception;
+    
+    public List<zapato> buscarZapato (String query) throws Exception; 
      
 }

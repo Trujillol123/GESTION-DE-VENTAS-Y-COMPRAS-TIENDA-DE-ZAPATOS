@@ -1,11 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package TiendaZapatos;
 
 import DataBase.Database;
-import interfaces.DAOProveedor;
 import interfaces.DAOZapato;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import models.proveedor;
+
 import models.zapato;
 
 /**
@@ -28,8 +24,8 @@ import models.zapato;
             this.Conectar();
             PreparedStatement st = this.conexion.prepareStatement("INSERT INTO zapato (id_categoria, id_marca, id_proveedor, precio_compra, precio_venta, cantidad, descripcion) VALUES (?, ?, ?, ?, ?, ?, ?)");
         
-        st.setInt(1, zapato.getId_categoria()); // Asumiendo que id_marca es un entero    
-        st.setInt(2, zapato.getId_marca()); // Asumiendo que id_marca es un entero
+        st.setInt(1, zapato.getId_categoria());  
+        st.setInt(2, zapato.getId_marca()); 
         st.setInt(3, zapato.getId_proveedor());
         st.setFloat(4, zapato.getPrecio_compra());
         st.setFloat(5, zapato.getPrecio_venta());
@@ -123,21 +119,16 @@ import models.zapato;
              }
 
     @Override
-    public void update(zapato zapato) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
     public void delete(int id_zapato) throws Exception {
         
-    // Pregunta al usuario si está seguro de borrar el zapato
+   
     
     int respuesta = JOptionPane.showConfirmDialog(null, 
         "¿Estás seguro de que deseas borrar el zapato seleccionado?", 
         "Confirmar Borrado", 
         JOptionPane.YES_NO_OPTION);
     
-    // Si el usuario selecciona "Si"
+    
     
     if (respuesta == JOptionPane.YES_OPTION) {
         try {
@@ -205,30 +196,27 @@ import models.zapato;
                  PreparedStatement st = this.conexion.prepareStatement("SELECT id_zapato, descripcion, id_proveedor FROM zapato;"); 
                  ResultSet rs = st.executeQuery();
                 while (rs.next()) {
-                                // Asegúrate de que tu clase zapato tenga un constructor que acepte el id_proveedor
                        int idZapato = rs.getInt("id_zapato");
                        String descripcion = rs.getString("descripcion");
-                       int idProveedor = rs.getInt("id_proveedor"); // Asegúrate de que esta columna exista en la base de datos
-                       
-                       
+                       int idProveedor = rs.getInt("id_proveedor");                      
                        
                        zapato zapato = new zapato(idZapato,  idProveedor, descripcion ); // Constructor modificado
-            lista.add(zapato);
-                }
-                rs.close();
-                st.close();
-            } catch (SQLException e) {
-                throw new Exception("Error al obtener marcas: " + e.getMessage(), e);
-            } finally {
-                this.Cerrar();
-            }
-            return lista;
-    }  
+                    lista.add(zapato);
+                        }
+                        rs.close();
+                        st.close();
+                    } catch (SQLException e) {
+                        throw new Exception("Error al obtener marcas: " + e.getMessage(), e);
+                    } finally {
+                        this.Cerrar();
+                    }
+                    return lista;
+                }  
 
     @Override
     public float getPrecioCompraPorZapato(int idZapato) throws Exception {
                 
-                    float precioCompra = 0; // Inicializamos el valor del precio de compra
+                    float precioCompra = 0; // iniocializo el valor de la compra 
 
                 try {
 
@@ -238,23 +226,23 @@ import models.zapato;
                     String sql = "SELECT precio_compra FROM zapato WHERE id_zapato = ?";
                     PreparedStatement st = this.conexion.prepareStatement(sql);
                     
-                    st.setInt(1, idZapato); // Se establece el ID del zapato en la consulta
+                    st.setInt(1, idZapato); 
 
                     ResultSet rs = st.executeQuery();
 
-                    // Si hay resultados, asignar el valor del precio de compra
+                  
                     if (rs.next()) {
                         precioCompra = rs.getFloat("precio_compra");
                     }
 
-                    // Cerrar ResultSet y PreparedStatement
+                
                     rs.close();
                     st.close();
 
                 } catch (SQLException e) {
                     throw new Exception("Error al obtener el precio de compra del zapato: " + e.getMessage(), e);
                 } finally {
-                    // Cerrar la conexión a la base de datos
+                    
                     this.Cerrar();
                 }
 
@@ -305,4 +293,63 @@ import models.zapato;
                 this.Cerrar();
             }    
         }
+
+    @Override
+    public List<zapato> buscarZapato(String query) throws Exception {
+        List<zapato> zapatos = new ArrayList<>();
+
+           try {
+               this.Conectar();
+               
+               
+               // SUPER QUERRY DEL DESTINO FINAL 2 
+               
+               
+              
+               String sql =  "SELECT z.id_zapato, c.nombre_categoria, m.nombre_marca, p.nombre_proveedor, " +
+                                "z.precio_compra, z.precio_venta, z.cantidad, z.descripcion " +
+                                "FROM zapato z " +
+                                "JOIN categoria c ON z.id_categoria = c.id_categoria " +
+                                "JOIN marca m ON z.id_marca = m.id_marca " +
+                                "JOIN proveedor p ON z.id_proveedor = p.id_proveedor " +
+                                "WHERE p.nombre_proveedor LIKE ? OR z.id_zapato LIKE ? OR " +
+                                "c.nombre_categoria LIKE ? OR m.nombre_marca LIKE ? OR " +
+                                "z.precio_compra LIKE ? OR z.precio_venta LIKE ? OR " +
+                                "z.cantidad LIKE ? OR z.descripcion LIKE ?";
+                            
+
+               PreparedStatement st = this.conexion.prepareStatement(sql);
+               String searchPattern = "%" + query + "%"; // Para buscar en todos los campos
+               st.setString(1, searchPattern); 
+               st.setString(2, searchPattern); 
+               st.setString(3, searchPattern); 
+               st.setString(4, searchPattern); 
+               st.setString(5, searchPattern);
+               st.setString(6, searchPattern);
+               st.setString(7, searchPattern);
+               st.setString(8, searchPattern);
+               ResultSet rs = st.executeQuery();
+
+               while (rs.next()) {
+                   zapato zapato = new zapato();
+                   zapato.setId_zapato(rs.getInt("id_zapato"));
+                   zapato.setNombre_categoria(rs.getNString ("nombre_categoria"));
+                   zapato.setNombre_marca(rs.getString("nombre_marca"));
+                   zapato.setNombre_proveedor(rs.getString("nombre_proveedor"));
+                   zapato.setPrecio_compra(rs.getFloat("precio_compra"));
+                   zapato.setPrecio_venta(rs.getFloat("precio_venta"));
+                   zapato.setCantidad(rs.getInt("cantidad"));
+                   zapato.setDescripcion(rs.getString("descripcion"));
+            
+
+                   zapatos.add(zapato);
+               }
+           } catch (SQLException e) {
+               System.out.println("Error al buscar las facturas: " + e.getMessage());
+           } finally {
+               this.Cerrar(); 
+           }
+
+           return zapatos;
+           }    
     }

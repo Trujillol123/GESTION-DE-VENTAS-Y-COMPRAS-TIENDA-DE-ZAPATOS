@@ -189,6 +189,9 @@ public class DetalleNewCompra extends javax.swing.JPanel {
         // Obtener los detalles de la compra
         List<comprazapato> detalles = daoCompraZapato.getDetallesPorFactura(idFactura);
         
+         double totalCompra = 0.0; 
+        
+        
         // Iterar sobre los detalles y agregarlos al modelo de la tabla
         for (comprazapato detalle : detalles) {
           
@@ -197,6 +200,7 @@ public class DetalleNewCompra extends javax.swing.JPanel {
             
             // Calcular subtotal
             float subtotal = cantidad * precioUnitario;
+            totalCompra +=subtotal;
             
             model.addRow(new Object[]{
                 detalle.getNombre_zapato(),           // Producto (nombre del zapato)
@@ -204,11 +208,12 @@ public class DetalleNewCompra extends javax.swing.JPanel {
                 detalle.getNombre_color(),                   // Color (nombre del color)
                 detalle.getNumero_talla(),            // Talla (número de la talla)
                 detalle.getFecha(),            // Fecha de compra
-                precioUnitario,           // Precio unitario
-                subtotal            // Subtotal calculado
+                String.format("$ %.2f", precioUnitario), // Precio unitario con formato
+                String.format("$ %.2f", subtotal)      // Subtotal con formato
             });
         }
         
+        txtTotal.setText(String.format("$ %.2f", totalCompra));
         System.out.println("Detalles de compra cargados en la tabla.");
         
     } catch (Exception e) {

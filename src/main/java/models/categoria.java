@@ -17,7 +17,7 @@ public class categoria {
     
      public categoria(int id_categoria, String nombre_categoria) {
         this.id_categoria = id_categoria;
-        this.nombre_categoria = nombre_categoria; // Inicializar el nombre de la marca
+        this.nombre_categoria = nombre_categoria; 
     }
 
     @Override

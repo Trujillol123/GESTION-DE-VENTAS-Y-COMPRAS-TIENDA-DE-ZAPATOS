@@ -6,12 +6,12 @@ package models;
 
 public class marca {
     private int id_marca;
-    private String nombre_marca; // O el nombre que uses para la marca
+    private String nombre_marca; 
 
     // Constructor que inicializa los atributos
     public marca(int id_marca, String nombre_marca) {
         this.id_marca = id_marca;
-        this.nombre_marca = nombre_marca; // Inicializar el nombre de la marca
+        this.nombre_marca = nombre_marca;
     }
 
     @Override

@@ -106,14 +106,13 @@ public class zapato {
     }
     
     
-    // Constructor que inicializa los atributos
     public zapato(int id_zapato, String descripcion) {
         this.id_zapato = id_zapato;
-        this.descripcion = descripcion; // Inicializar el nombre de la marca
+        this.descripcion = descripcion; 
     }
     
      public zapato() {
-        // Constructor vacío para permitir la creación de objetos sin parámetros
+      
     }
     
  

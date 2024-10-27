@@ -11,9 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import models.marca;
 import models.proveedor;
-import models.zapato;
 
 /**
  *
@@ -32,8 +30,8 @@ public class DAOProveedoresImpl extends Database implements DAOProveedor {
         st.setString(3, proveedor.getEmail());
         st.setString(4, proveedor.getDireccion());
         
-        // Aquí se asume que 'proveedor' tiene un método getId_marca()
-        st.setInt(5, proveedor.getid_marca()); // Asumiendo que id_marca es un entero
+       
+        st.setInt(5, proveedor.getid_marca()); 
             
         
 
@@ -89,18 +87,18 @@ public class DAOProveedoresImpl extends Database implements DAOProveedor {
     public proveedor readById(int id_proveedor) throws Exception {
     proveedor proveedor = null; // Inicializar el objeto proveedor a null
     try {
-        this.Conectar(); // Conectar a la base de datos
+        this.Conectar();
         PreparedStatement st = this.conexion.prepareStatement("SELECT id_proveedor, nombre_proveedor, id_marca FROM proveedor WHERE id_proveedor = ?;");
-        st.setInt(1, id_proveedor); // Establecer el parámetro del ID del proveedor
-        ResultSet rs = st.executeQuery(); // Ejecutar la consulta
+        st.setInt(1, id_proveedor); 
+        ResultSet rs = st.executeQuery(); 
         
-        if (rs.next()) { // Verificar si hay resultados
+        if (rs.next()) {
             int idProveedor = rs.getInt("id_proveedor");
-            int idMarca = rs.getInt("id_marca"); // Asegúrate de que esta columna exista en la base de datos
+            int idMarca = rs.getInt("id_marca"); 
             String nombre_proveedor = rs.getString("nombre_proveedor");
             
-            // Crear una nueva instancia de proveedor
-            proveedor = new proveedor(idProveedor, idMarca, nombre_proveedor); // Asegúrate de que el constructor esté definido
+          
+            proveedor = new proveedor(idProveedor, idMarca, nombre_proveedor);
         }
         
         rs.close();
@@ -108,14 +106,9 @@ public class DAOProveedoresImpl extends Database implements DAOProveedor {
     } catch (SQLException e) {
         throw new Exception("Error al obtener el proveedor: " + e.getMessage(), e);
     } finally {
-        this.Cerrar(); // Cerrar la conexión
+        this.Cerrar(); 
     }
-    return proveedor; // Retornar el proveedor encontrado (o null si no se encontró)
-    }
-
-    @Override
-    public void update(proveedor proveedor) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    return proveedor; 
     }
 
     @Override
@@ -148,11 +141,11 @@ public class DAOProveedoresImpl extends Database implements DAOProveedor {
                 while (rs.next()) {
                                
                        int idProveedor = rs.getInt("id_proveedor"); 
-                       int id_marca = rs.getInt("id_marca"); // Asegúrate de que esta columna exista en la base de datos
+                       int id_marca = rs.getInt("id_marca"); 
                        String nombre_proveedor = rs.getString("nombre_proveedor");
                        
 
-                       proveedor proveedor = new proveedor(idProveedor,  id_marca, nombre_proveedor); // Constructor modificado
+                       proveedor proveedor = new proveedor(idProveedor,  id_marca, nombre_proveedor); 
             lista.add(proveedor);
                 }
                 rs.close();

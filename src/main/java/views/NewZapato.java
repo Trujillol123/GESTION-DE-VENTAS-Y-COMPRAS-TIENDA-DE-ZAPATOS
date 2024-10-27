@@ -6,32 +6,18 @@ package views;
 
 import TiendaZapatos.DAOCategoriasImpl;
 import TiendaZapatos.DAOColoresImpl;
-import TiendaZapatos.DAOCompraZapatoImpl;
-import TiendaZapatos.DAOFacturaCompraImpl;
 import TiendaZapatos.DAOGestionProductosImpl;
 import TiendaZapatos.DAOMarcaImpl;
 import TiendaZapatos.DAOProveedoresImpl;
 import TiendaZapatos.DAOTallaImpl;
-import TiendaZapatos.DAOZapatoColorImpl;
-import TiendaZapatos.DAOZapatoColorTallaImpl;
 import TiendaZapatos.dashboard;
 import com.toedter.calendar.JDateChooser;
-import interfaces.DAOCategoria;
 import interfaces.DAOColores;
-import interfaces.DAOFacturacompra;
-import interfaces.DAOZapato;
-import interfaces.DAOZapatoColor;
-import interfaces.DAOZapatoColorTalla;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import models.categoria;
 import models.colores;
 import models.marca;
@@ -289,91 +275,91 @@ public class NewZapato extends javax.swing.JPanel {
     }//GEN-LAST:event_combocategoriaActionPerformed
     private void btnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirActionPerformed
      
-       // Validación y obtención de categoría seleccionada
-categoria categoriaSeleccionada = (categoria) combocategoria.getSelectedItem();
-if (categoriaSeleccionada == null) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una categoría", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    return;
-}
-int id_categoria = categoriaSeleccionada.getId_categoria();
+             // Validacion
+             categoria categoriaSeleccionada = (categoria) combocategoria.getSelectedItem();
+             if (categoriaSeleccionada == null) {
+                 javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una categoría", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                 return;
+             }
+             int id_categoria = categoriaSeleccionada.getId_categoria();
 
-// Validación y obtención de marca seleccionada
-marca marcaSeleccionada = (marca) combomarcas.getSelectedItem();
-if (marcaSeleccionada == null) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una marca", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    return;
-}
-int id_marca = marcaSeleccionada.getId_marca();
+             // validacion
+             marca marcaSeleccionada = (marca) combomarcas.getSelectedItem();
+             if (marcaSeleccionada == null) {
+                 javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar una marca", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                 return;
+             }
+             int id_marca = marcaSeleccionada.getId_marca();
 
-// Validación y obtención de proveedor seleccionado
-proveedor proveedorSeleccionado = (proveedor) comboproveedores.getSelectedItem();
-if (proveedorSeleccionado == null) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un proveedor", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    return;
-}
-int id_proveedor = proveedorSeleccionado.getId_proveedor();
+             // validacion
+             proveedor proveedorSeleccionado = (proveedor) comboproveedores.getSelectedItem();
+             if (proveedorSeleccionado == null) {
+                 javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un proveedor", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                 return;
+             }
+             int id_proveedor = proveedorSeleccionado.getId_proveedor();
 
-// Obtención y validación del precio (float)
-String precioTexto = txtPrecio.getText().trim();
-float precio_venta;
-try {
-    precio_venta = Float.parseFloat(precioTexto);
-} catch (NumberFormatException e) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un precio válido", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    return;
-}
+             // validacion y obtencion
+             String precioTexto = txtPrecio.getText().trim();
+             float precio_venta;
+             try {
+                 precio_venta = Float.parseFloat(precioTexto);
+             } catch (NumberFormatException e) {
+                 javax.swing.JOptionPane.showMessageDialog(this, "Debe ingresar un precio válido", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                 return;
+             }
 
-// Calcular el precio de compra (40% menos que el precio de venta)
-float precio_compra = precio_venta * 0.60f; // 60% del precio de venta
+             // Calcular el precio de compra (40% menos que el precio de venta)
+             float precio_compra = precio_venta * 0.60f; // 60% del precio de venta
 
-String descripcion = txtDescripcion.getText().trim();
+             String descripcion = txtDescripcion.getText().trim();
 
-// Crear objeto zapato
-models.zapato zapato = new models.zapato();
-zapato.setId_categoria(id_categoria);
-zapato.setId_marca(id_marca);
-zapato.setId_proveedor(id_proveedor);
-zapato.setPrecio_venta(precio_venta);
-zapato.setPrecio_compra(precio_compra); // Establecer el precio de compra
-zapato.setDescripcion(descripcion);
+             // Crear objeto zapato
+             models.zapato zapato = new models.zapato();
+             zapato.setId_categoria(id_categoria);
+             zapato.setId_marca(id_marca);
+             zapato.setId_proveedor(id_proveedor);
+             zapato.setPrecio_venta(precio_venta);
+             zapato.setPrecio_compra(precio_compra); // Establecer el precio de compra
+             zapato.setDescripcion(descripcion);
 
-// Intentar registrar zapato y compra
-try {
-    // DAO para manejar zapato
-    DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
-    daoZapato.create(zapato);
-    
-    javax.swing.JOptionPane.showMessageDialog(this, "Zapato Registrado Con Éxito", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-    
-    // Mensaje de depuración para verificar que esta sección se está ejecutando
-    System.out.println("Limpieza de campos en proceso...");
-    
-    // Limpiar campos después de registrar el zapato
-    try {
-    // Limpiar campos después de registrar el zapato
-    txtPrecio.setText("");
-    txtDescripcion.setText("");
-    
-    if (combocategoria.getItemCount() > 0) {
-        combocategoria.setSelectedIndex(0);
-    }
-    
-    if (combomarcas.getItemCount() > 0) {
-        combomarcas.setSelectedIndex(0);
-    }
-    
-    if (comboproveedores.getItemCount() > 0) {
-        comboproveedores.setSelectedIndex(0);
-    }
-    
-} catch (Exception e) {
-    System.out.println("Error al limpiar los campos: " + e.getMessage());
-    e.printStackTrace();
-}
-} catch (Exception e) {
-    javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al registrar el zapato o la compra", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-    e.printStackTrace();
-}
+             // Intentar registrar zapato y compra
+             try {
+                 // DAO para manejar zapato
+                 DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
+                 daoZapato.create(zapato);
+
+                 javax.swing.JOptionPane.showMessageDialog(this, "Zapato Registrado Con Éxito", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+                
+                 System.out.println("Limpieza de campos en proceso...");
+
+                 
+                 try {
+                 // Limpiar campos despues de registrar el zapato
+                 txtPrecio.setText("");
+                 txtDescripcion.setText("");
+
+                 if (combocategoria.getItemCount() > 0) {
+                     combocategoria.setSelectedIndex(0);
+                 }
+
+                 if (combomarcas.getItemCount() > 0) {
+                     combomarcas.setSelectedIndex(0);
+                 }
+
+                 if (comboproveedores.getItemCount() > 0) {
+                     comboproveedores.setSelectedIndex(0);
+                 }
+
+             } catch (Exception e) {
+                 System.out.println("Error al limpiar los campos: " + e.getMessage());
+                 e.printStackTrace();
+             }
+             } catch (Exception e) {
+                 javax.swing.JOptionPane.showMessageDialog(this, "Ocurrió un error al registrar el zapato o la compra", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+                 e.printStackTrace();
+             }
      }//GEN-LAST:event_btnSubirActionPerformed
 
     private void btnAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtrasActionPerformed
@@ -390,7 +376,8 @@ try {
     }//GEN-LAST:event_txtPrecioActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-          // Limpiar campos después de registrar el zapato
+       
+        // Limpiar campos despues de registrar el zapato
         txtPrecio.setText("");
         txtDescripcion.setText("");
         combocategoria.setSelectedIndex(00); 
@@ -403,19 +390,19 @@ try {
         
       marca marcaseleccionada = (marca) combomarcas.getSelectedItem(); // Obtén el proveedor seleccionado
     
-    if (marcaseleccionada != null) {
-        int id_marca = marcaseleccionada.getId_marca(); // Asegúrate de que este método exista en la clase proveedor
-        System.out.println("ID del proveedor seleccionado: " + id_marca);
+        if (marcaseleccionada != null) {
+            int id_marca = marcaseleccionada.getId_marca(); // Asegúrate de que este método exista en la clase proveedor
+            System.out.println("ID del proveedor seleccionado: " + id_marca);
 
-        // Filtra los proveedores por el ID de la marca
-        
-        List<proveedor> proveedores = obtenenrProveedoresPorMarca(id_marca);
-        if (proveedores.isEmpty()) {
-            System.out.println("No se encontraron proveedores para esta marca.");
-        } else {
-            System.out.println("Se encontraron proveedores para esta marca.");
-        }
-        cargarProveedores2(proveedores); // Llama a este método para cargar los proveedores filtrados
+            // Filtra los proveedores por el ID de la marca
+
+            List<proveedor> proveedores = obtenenrProveedoresPorMarca(id_marca);
+            if (proveedores.isEmpty()) {
+                System.out.println("No se encontraron proveedores para esta marca.");
+            } else {
+                System.out.println("Se encontraron proveedores para esta marca.");
+            }
+            cargarProveedores2(proveedores); // Llama a este metodo para cargar los proveedores filtrados
     }
     
     }//GEN-LAST:event_combomarcasActionPerformed
@@ -431,7 +418,7 @@ try {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las tallas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
 
-        return tallas; // Retornar la lista de tallas
+        return tallas; 
     }
   
     public List<marca> obtenerMarcas() {
@@ -445,12 +432,12 @@ try {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las marcas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
 
-        return marcas; // Retornar la lista de marcas
+        return marcas;
     }
 
     private void cargarMarcas() {
         combomarcas.removeAllItems(); // Limpia el JComboBox antes de llenarlo
-        List<marca> listaMarcas = obtenerMarcas(); // Método que obtiene las marcas
+        List<marca> listaMarcas = obtenerMarcas(); // metodo que obtiene las marcas
         for (marca m : listaMarcas) {
             combomarcas.addItem(m); // Agregar cada marca al JComboBox
         }
@@ -467,7 +454,7 @@ try {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las marcas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
 
-        return categorias; // Retornar la lista de marcas
+        return categorias; 
     }
 
     private void cargarCategorias() {
@@ -475,7 +462,7 @@ try {
          combocategoria.removeAllItems(); // Limpia el JComboBox antes de llenarlo
          
         
-        List<categoria> listaCategorias = obtenerCategorias(); // Método que obtiene las marcas
+        List<categoria> listaCategorias = obtenerCategorias(); // metodo que obtiene las marcas
         for (categoria c : listaCategorias) {
             combocategoria.addItem(c); // Agregar cada marca al JComboBox
         }
@@ -485,7 +472,7 @@ try {
     for (int i = 0; i < combocategoria.getItemCount(); i++) {
         categoria c = combocategoria.getItemAt(i);
         if (c.getId_categoria() == id_categoria) {
-            combocategoria.setSelectedItem(c); // Seleccionar el objeto de categoría correcto
+            combocategoria.setSelectedItem(c); // Seleccionar el objeto de cateogira correcto
             break;
         }
     }
@@ -495,7 +482,7 @@ try {
     for (int i = 0; i < combomarcas.getItemCount(); i++) {
         marca m = combomarcas.getItemAt(i);
         if (m.getId_marca()== id_marca) {
-            combomarcas.setSelectedItem(m); // Seleccionar el objeto de categoría correcto
+            combomarcas.setSelectedItem(m); 
             break;
         }
     }
@@ -505,7 +492,7 @@ try {
     for (int i = 0; i < comboproveedores.getItemCount(); i++) {
         proveedor p = comboproveedores.getItemAt(i);
         if (p.getId_proveedor()== id_proveedor) {
-            comboproveedores.setSelectedItem(p); // Seleccionar el objeto de categoría correcto
+            comboproveedores.setSelectedItem(p); 
             break;
         }
     }
@@ -522,69 +509,59 @@ try {
             javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las marcas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
 
-        return proveedores; // Retornar la lista de marcas
+        return proveedores; 
     }
     
     private void cargarProveedores() {
         
         
-    comboproveedores.removeAllItems(); // Limpia el JComboBox antes de llenarlo
-    comboproveedores.addItem(new proveedor(0, "")); // Agrega un valor en blanco o por defecto
-    
-    List<proveedor> listaproveedor = obtenerProveedores(); // Método que obtiene los proveedores
-    for (proveedor z : listaproveedor) {
-        comboproveedores.addItem(z); // Agregar cada proveedor al JComboBox
+        comboproveedores.removeAllItems(); // Limppiar el JComboBox antes de llenarlo
+        comboproveedores.addItem(new proveedor(0, "")); // Agrega un valor en blanco o por defecto
+
+        List<proveedor> listaproveedor = obtenerProveedores(); // Metodo que obtiene los proveedores
+        for (proveedor z : listaproveedor) {
+            comboproveedores.addItem(z); // Agregar cada proveedor al JComboBox
+        }
     }
-}
 
     public List<colores> obtenerColores() {
-        DAOColores daocolores = new DAOColoresImpl();
-        List<colores> colores = new ArrayList<>(); // Crear una lista para almacenar las tallas
+            DAOColores daocolores = new DAOColoresImpl();
+            List<colores> colores = new ArrayList<>(); // Crear una lista para almacenar las tallas
 
-        try {
-            colores = daocolores.getallColors(); 
-        } catch (Exception e) {
-            Logger.getLogger(NewProveedor.class.getName()).log(Level.SEVERE, null, e);
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener los colores", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
+            try {
+                colores = daocolores.getallColors(); 
+            } catch (Exception e) {
+                Logger.getLogger(NewProveedor.class.getName()).log(Level.SEVERE, null, e);
+                javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener los colores", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
 
-        return colores; // Retornar la lista de tallas
+            return colores; 
     }
     
     private void cargarProveedores2 (List<proveedor> proveedor) {
-          comboproveedores.removeAllItems(); // Limpia el JComboBox antes de llenarlo
-    for (proveedor z : proveedor) {
-        comboproveedores.addItem(z); // Agrega cada zapato al JComboBox
-    
-        }
-    
-    }
-    
+        
+                comboproveedores.removeAllItems(); // Limpia el JComboBox antes de llenarlo
+          for (proveedor z : proveedor) {
+              comboproveedores.addItem(z); // Agrega cada zapato al JComboBox
+
+              }
+
+          }  
         
     private List<proveedor> obtenenrProveedoresPorMarca(int id_marca) {
-      List<proveedor> todosProveedores = obtenerProveedores(); // Este método debe retornar todos los zapatos
+      List<proveedor> todosProveedores = obtenerProveedores(); // Este metodo debe retornar todos los zapatos
          List<proveedor> proovedoresfiltrados = new ArrayList<>();
 
     for (proveedor z : todosProveedores) {
-        if (z.getid_marca()== id_marca) { // Verifica si el ID del proveedor coincide
+        if (z.getid_marca()== id_marca) { // Se verifica si el id es igual
             proovedoresfiltrados.add(z);
         }
     }
 
-    // Agrega una impresión para verificar la cantidad de zapatos filtrados
+    // imprimo para ver cuantos se filtraron (no deja de darme error ) {
+    
     System.out.println("Zapatos filtrados: " + proovedoresfiltrados.size());
     return proovedoresfiltrados;   }
-  
-    
-    
-    private java.sql.Date obtenerFechaSQL(JDateChooser dateChooser) {
-    java.util.Date fechaUtil = dateChooser.getDate();
-    if (fechaUtil != null) {
-        return new java.sql.Date(fechaUtil.getTime()); // Convertir java.util.Date a java.sql.Date
-    }
-    return null; // Si no hay fecha, retorna null   
-    
-}
     
     private void limpiarFormulario() {
     txtPrecio.setText("");
@@ -594,6 +571,8 @@ try {
     comboproveedores.setSelectedIndex(0);
     
 }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Background;
     private javax.swing.JLabel Titulo;

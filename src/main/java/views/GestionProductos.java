@@ -1,18 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package views;
 
-import TiendaZapatos.DAOClienteImpl;
 import TiendaZapatos.DAOGestionProductosImpl;
-
 import TiendaZapatos.dashboard;
-import interfaces.DAOCliente;
 import interfaces.DAOZapato;
-import java.awt.Color;
 import java.util.List;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import models.zapato;
 
@@ -46,8 +38,8 @@ public class GestionProductos extends javax.swing.JPanel {
             z.getNombre_categoria(),
             z.getNombre_marca(),
             z.getNombre_proveedor(),
-            z.getPrecio_compra(),
-            z.getPrecio_venta(),
+            String.format("$ %.2f",z.getPrecio_compra()), //foramto para agregar $ al inicio del dato
+            String.format("$ %.2f", z.getPrecio_venta()),
             
             z.getCantidad(),
             z.getDescripcion()
@@ -55,7 +47,7 @@ public class GestionProductos extends javax.swing.JPanel {
         }));
         
     } catch (Exception e) {
-        e.printStackTrace(); // Muestra el error en la consola
+        e.printStackTrace(); 
     }
     }
     
@@ -65,7 +57,7 @@ public class GestionProductos extends javax.swing.JPanel {
 
         background = new TiendaZapatos.PanelRound();
         Titulo = new javax.swing.JLabel();
-        zapatosearch = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -85,9 +77,9 @@ public class GestionProductos extends javax.swing.JPanel {
         Titulo.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         Titulo.setText("Gestion de Productos");
 
-        zapatosearch.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                zapatosearchActionPerformed(evt);
+                txtBuscarActionPerformed(evt);
             }
         });
 
@@ -146,7 +138,7 @@ public class GestionProductos extends javax.swing.JPanel {
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
-                        .addComponent(zapatosearch))
+                        .addComponent(txtBuscar))
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addGap(18, 18, 18)
@@ -168,7 +160,7 @@ public class GestionProductos extends javax.swing.JPanel {
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(zapatosearch, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -200,12 +192,42 @@ public class GestionProductos extends javax.swing.JPanel {
     private void initStyles() {
         Titulo.putClientProperty("FlatLaf.styleClass", "h3");
         
-        zapatosearch.putClientProperty("JTextField.placeholderText", "Ingrese algun dato revelevante del producto a buscar."); 
+        txtBuscar.putClientProperty("JTextField.placeholderText", "Ingrese algun dato revelevante del producto a buscar."); 
       
          }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-     
+         
+        String query = txtBuscar.getText(); // Obtener el texto del campo de busqueda
+            DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
+
+        try {
+            List<zapato> zapatos = daoZapato.buscarZapato(query);
+
+            
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            model.setRowCount(0);
+
+            
+            for (zapato zapato : zapatos) {
+                model.addRow(new Object[]{
+                    zapato.getId_zapato(),
+                    zapato.getNombre_categoria(),
+                    zapato.getNombre_marca(),
+                    zapato.getNombre_proveedor(),
+                    zapato.getPrecio_compra(),
+                    zapato.getPrecio_venta(),             
+                    zapato.getCantidad(),
+                    zapato.getDescripcion()
+
+                });
+            }
+
+            System.out.println("Resultados de la busqueda mostrados.");
+
+        } catch (Exception e) {
+            System.out.println("Error al buscar zapatos: " + e.getMessage());
+        }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -247,10 +269,10 @@ public class GestionProductos extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void zapatosearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zapatosearchActionPerformed
+  
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_zapatosearchActionPerformed
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -263,6 +285,6 @@ public class GestionProductos extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField zapatosearch;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

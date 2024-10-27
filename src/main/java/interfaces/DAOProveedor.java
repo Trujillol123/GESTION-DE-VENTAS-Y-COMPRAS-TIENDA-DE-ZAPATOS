@@ -5,7 +5,6 @@
 package interfaces;
 
 import java.util.List;
-import models.marca;
 import models.proveedor;
 
 /**
@@ -17,13 +16,11 @@ public interface DAOProveedor {
     public void create(proveedor proveedor)throws Exception;
 
     public List<proveedor> read()throws Exception;
-
    
     public proveedor readById(int id)throws Exception;
-
-    public void update(proveedor proveedor)throws Exception;
 
     public void delete(int id)throws Exception;
     
     public List<proveedor> getAllProveedores()throws Exception;
+    
 }

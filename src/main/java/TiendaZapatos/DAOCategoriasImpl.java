@@ -2,7 +2,6 @@ package TiendaZapatos;
 
 import DataBase.Database;
 import interfaces.DAOCategoria;
-import interfaces.DAOMarca;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,10 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import models.categoria;
 
-/**
- *
- * @author cland
- */
+
 public class DAOCategoriasImpl extends Database implements DAOCategoria{
 
     @Override
@@ -37,8 +33,6 @@ public class DAOCategoriasImpl extends Database implements DAOCategoria{
         return lista;
     }    
 
-    public categoria readById(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
     
 }

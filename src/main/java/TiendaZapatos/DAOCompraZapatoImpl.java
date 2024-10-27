@@ -6,20 +6,13 @@ package TiendaZapatos;
 
 import DataBase.Database;
 import interfaces.DAOComprazapato;
-import interfaces.DAOZapato;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import models.comprazapato;
-import models.zapato;
 
-/**
- *
- * @author cland
- */
 public class DAOCompraZapatoImpl extends Database implements DAOComprazapato {
 
     @Override
@@ -51,16 +44,6 @@ public class DAOCompraZapatoImpl extends Database implements DAOComprazapato {
     }
     }
     
-    @Override
-    public List<comprazapato> read() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public comprazapato readById(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     @Override
     public int obtenerUltimoId() throws Exception {
           int ultimoId = 0;
@@ -135,14 +118,14 @@ public class DAOCompraZapatoImpl extends Database implements DAOComprazapato {
         while (rs.next()) {
             comprazapato detalle = new comprazapato();
             
-            detalle.setNombre_zapato(rs.getString("descripcion"));  // Nombre del zapato
-            detalle.setCantidad(rs.getInt("cantidad"));             // Cantidad
-            detalle.setNombre_color(rs.getString("nombre_color"));         // Nombre del color
-            detalle.setNumero_talla(rs.getString("numero_talla"));  // Número de la talla
-            detalle.setFecha(rs.getDate("fecha"));           // Fecha de compra
-            detalle.setPrecio_compra(rs.getFloat("precio_compra")); // Precio unitario
+            detalle.setNombre_zapato(rs.getString("descripcion"));  
+            detalle.setCantidad(rs.getInt("cantidad"));             
+            detalle.setNombre_color(rs.getString("nombre_color"));        
+            detalle.setNumero_talla(rs.getString("numero_talla"));  
+            detalle.setFecha(rs.getDate("fecha"));           
+            detalle.setPrecio_compra(rs.getFloat("precio_compra")); 
             
-            // Calcular el subtotal: precio_compra * cantidad
+            // Calcular el subtotal
             float subtotal = detalle.getPrecio_compra() * detalle.getCantidad();
             detalle.setSubtotal(subtotal);
 

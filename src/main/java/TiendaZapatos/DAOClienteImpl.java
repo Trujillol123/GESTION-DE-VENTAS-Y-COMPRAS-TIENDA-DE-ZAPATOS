@@ -6,21 +6,14 @@ package TiendaZapatos;
 
 import DataBase.Database;
 import interfaces.DAOCliente;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import models.cliente;
-import views.Clientes;
 
 
-/**
- *
- * @author cland
- */
 public class DAOClienteImpl extends Database implements DAOCliente{
 
     @Override
@@ -34,13 +27,14 @@ public class DAOClienteImpl extends Database implements DAOCliente{
             st.setString(3, cliente.getTelefono());
             st.setString(4, cliente.getDireccion());
             
-            //  un objeto java.util.Date en el cliente, e convierte directamente a java.sql.Date
+            //  un objeto java.util.Date en el cliente, que se convierte directamente a java.sql.Date
+            
         java.util.Date fechaRegistro = cliente.getFecha_registro();
         if (fechaRegistro != null) {
-            java.sql.Date sqlDate = new java.sql.Date(fechaRegistro.getTime()); // Convertir util.Date a sql.Date
-            st.setDate(5, sqlDate); // Establecer la fecha en el PreparedStatement
+            java.sql.Date sqlDate = new java.sql.Date(fechaRegistro.getTime()); // convertir util.Date a sql.Date
+            st.setDate(5, sqlDate); // establecer la fecha en el PreparedStatement
         } else {
-            st.setNull(5, java.sql.Types.DATE); // Manejo si no se proporciona fecha
+            st.setNull(5, java.sql.Types.DATE); // manejo si no se proporciona fecha
         }
 
         st.executeUpdate();
@@ -89,20 +83,11 @@ public class DAOClienteImpl extends Database implements DAOCliente{
      
     }
     
-    @Override
-    public cliente readById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void update(cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+   
     @Override
     public void delete(int id_cliente)throws Exception {
          
-        // Pregunta al usuario si está seguro de borrar el zapato
+        // Pregunta al usuario si esta seguro de borrar el zapato
 
         int respuesta = JOptionPane.showConfirmDialog(null, 
             "¿Estás seguro de que deseas borrar el cliente seleccionado?", 

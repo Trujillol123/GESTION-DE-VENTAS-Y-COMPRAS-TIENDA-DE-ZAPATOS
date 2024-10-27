@@ -6,8 +6,6 @@ package TiendaZapatos;
 
 import DataBase.Database;
 import interfaces.DAOMarca;
-import interfaces.DAOProveedor;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,18 +18,6 @@ import models.marca;
  * @author cland
  */
 public class DAOMarcaImpl extends Database implements DAOMarca{
-
-   
-
-    @Override
-    public marca readById(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-  
-    public List<marca> read() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     @Override
    

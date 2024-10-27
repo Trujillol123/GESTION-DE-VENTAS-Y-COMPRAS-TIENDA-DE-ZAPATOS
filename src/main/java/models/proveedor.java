@@ -22,7 +22,7 @@ public class proveedor {
     
     
     public proveedor() {
-        // Constructor vacío para permitir la creación de objetos sin parámetros
+        // Constructor vacio para permitir la cracion de objetos sin parametros
     }
     
 

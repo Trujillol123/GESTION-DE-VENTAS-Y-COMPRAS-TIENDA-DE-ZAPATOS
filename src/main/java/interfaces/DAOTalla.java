@@ -12,12 +12,9 @@ import models.talla;
  * @author cland
  */
 public interface DAOTalla {
-    // Método para obtener una lista de todos los colores disponibles
+    
     public List<talla> getallTallas ()throws Exception;
     
-    // Método para obtener un color específico por su ID
-    public talla readById(int id)throws Exception;
-    
-     public int obtenerIdPorNumero (String numero_talla) throws Exception ;
+    public int obtenerIdPorNumero (String numero_talla) throws Exception ;
 
 }

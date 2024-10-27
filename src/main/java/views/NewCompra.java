@@ -368,8 +368,8 @@ public class NewCompra extends javax.swing.JPanel {
                 facturacompra factura = new facturacompra(idProveedor, 0, fecha); // Inicializamos con 0 para el total
                 int idFacturaCompra = daoFacturaCompraImpl.create(factura);
 
-                double totalFactura = 0; // Inicializa el total
-                int totalCantidad = 0; // Inicializa la cantidad total
+                double totalFactura = 0; // Inicializo el total
+                int totalCantidad = 0; // Inicializo la cantidad total
 
                 // Iterar sobre la JTable
                 for (int i = 0; i < jTable1.getRowCount(); i++) {
