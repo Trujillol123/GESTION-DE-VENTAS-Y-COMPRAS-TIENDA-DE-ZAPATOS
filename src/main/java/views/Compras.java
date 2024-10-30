@@ -272,11 +272,11 @@ public class Compras extends javax.swing.JPanel {
              Object[] facturaSeleccionada = obtenerFacturaSeleccionada(); // Cambié el nombre del método
     if (facturaSeleccionada != null) {
         // Obtener ID de factura y nombre del proveedor
-        int idFactura = Integer.parseInt(facturaSeleccionada[0].toString()); // Convertir el primer elemento a int
+        int idFactura = Integer.parseInt(facturaSeleccionada[0].toString()); // Co  nvertir el primer elemento a int
         String nombreProveedor = (String) facturaSeleccionada[1]; // El segundo elemento ya es un String
 
         
-        DetalleNewCompra detalleNewCompra = new DetalleNewCompra(idFactura, nombreProveedor); // Usa el constructor adecuado
+        DetalleNewCompra detalleNewCompra = new DetalleNewCompra(idFactura, nombreProveedor); // Usa el constructor ya hehco
 
        
         dashboard.getInstance().showJpanel(detalleNewCompra);

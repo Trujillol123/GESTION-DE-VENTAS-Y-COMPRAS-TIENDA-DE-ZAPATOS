@@ -36,6 +36,15 @@ public class comprazapato {
     private String nombre_color;
     private Date Fecha;
     private Double SubTotal;
+    private int id_zapatocolor;
+
+    public int getId_zapatocolor() {
+        return id_zapatocolor;
+    }
+
+    public void setId_zapatocolor(int id_zapatocolor) {
+        this.id_zapatocolor = id_zapatocolor;
+    }
 
     public Double getSubTotal() {
         return SubTotal;
@@ -90,7 +99,12 @@ public class comprazapato {
     }
     
     
-    
+    public comprazapato(int idZapato, int idZapatoColor, int idTalla, int cantidad){
+        this.id_zapato = idZapato;
+        this.id_zapatocolor = idZapatoColor;
+        this.id_talla = idTalla;
+        this.cantidad = cantidad;
+    }
 
     public comprazapato(int ultimoIdComprazapato, int idZapato, int idFacturaCompra, int idColor, int idTalla, int cantidad1) {
         this.id_zapato = idZapato;

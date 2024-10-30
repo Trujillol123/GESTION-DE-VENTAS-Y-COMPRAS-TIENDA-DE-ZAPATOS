@@ -10,6 +10,8 @@ import TiendaZapatos.DAOFacturaCompraImpl;
 import TiendaZapatos.DAOGestionProductosImpl;
 import TiendaZapatos.DAOProveedoresImpl;
 import TiendaZapatos.DAOTallaImpl;
+import TiendaZapatos.DAOZapatoColorImpl;
+import TiendaZapatos.DAOZapatoColorTallaImpl;
 import TiendaZapatos.dashboard;
 import com.toedter.calendar.JDateChooser;
 import interfaces.DAOColores;
@@ -42,6 +44,8 @@ public class NewCompra extends javax.swing.JPanel {
     private DAOColoresImpl daoColor = new DAOColoresImpl();
     private DAOTallaImpl daoTalla = new DAOTallaImpl(); 
     private DAOGestionProductosImpl DAOGestionProductosImpl = new DAOGestionProductosImpl();
+    private DAOZapatoColorImpl daoZapatoColor = new DAOZapatoColorImpl ();
+    private DAOZapatoColorTallaImpl daoZapatoColorTalla = new DAOZapatoColorTallaImpl  ();
     
     
     public NewCompra() {
@@ -361,7 +365,7 @@ public class NewCompra extends javax.swing.JPanel {
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         
             try {
-                int idProveedor = comboproveedores.getSelectedIndex() + 1; // Obtiene el ID del proveedor seleccionado
+                int idProveedor = comboproveedores.getSelectedIndex(); // Obtiene el ID del proveedor seleccionado
                 java.sql.Date fecha = obtenerFechaSQL(date); // Obtiene la fecha en formato SQL
 
                 // Crear una nueva factura y obtener el ID
@@ -381,7 +385,8 @@ public class NewCompra extends javax.swing.JPanel {
                     int idZapato = daoZapato.obtenerIdPorNombre(nombreZapato); // Obtiene el ID del zapato
                     int idColor = daoColor.obtenerIdPorNombre(nombreColor); // Obtiene el ID del color
                     int idTalla = daoTalla.obtenerIdPorNumero(numeroTalla); // Obtiene el ID de la talla
-
+                    int idZapatoColor = daoZapatoColor.obtenerIdporcantidad(cantidad);
+                    
                     if (idZapato != -1) { // Verifica que el zapato exista
                         // Obtener el precio del zapato
                         double precioZapato = daoZapato.getPrecioCompraPorZapato(idZapato); // Asegúrate de tener este método
@@ -392,13 +397,19 @@ public class NewCompra extends javax.swing.JPanel {
                         comprazapato compraZapato = new comprazapato(idZapato, idFacturaCompra, idColor, idTalla, cantidad);
 
                         // Registrar la compra en la base de datos
-                        daoCompraZapatoImpl.create(compraZapato); // Cambia aquí, ya no se pasa el ID
-                        
-                        
+                        daoCompraZapatoImpl.create(compraZapato);                                        
                         
                         // Actualizar la cantidad en la tabla zapato
-                        DAOGestionProductosImpl.actualizarCantidadZapato(idZapato, cantidad); // 
+                        DAOGestionProductosImpl.actualizarCantidadZapato(idZapato, cantidad); 
+                        
+                         // Actualizar la cantidad en zapato_color
+                        daoCompraZapatoImpl.actualizarCantidadZapatoColor(idZapato, idColor, cantidad); 
 
+                        
+                        // Actualizar la cantidad en zapatocolor_talla
+                        daoZapatoColorTalla.actualizarCantidadTalla(idZapato, idTalla,idColor, cantidad); 
+                        
+                        
                     } else {
                         System.out.println("Zapato no encontrado: " + nombreZapato);
                     }
@@ -650,7 +661,6 @@ public class NewCompra extends javax.swing.JPanel {
 
         return precioCompra; // Retorna el precio de compra
     }
-
     
     private java.sql.Date obtenerFechaSQL(JDateChooser dateChooser) {
     java.util.Date fechaUtil = dateChooser.getDate();

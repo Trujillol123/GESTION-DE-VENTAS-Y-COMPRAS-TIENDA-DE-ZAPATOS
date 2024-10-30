@@ -21,6 +21,7 @@ import views.Principal;
 import views.Proveedores;
 import javax.swing.JButton;
 import javax.swing.UIManager;
+import views.NewVenta;
 
 import views.Ventas;
 import views.login;
@@ -190,7 +191,7 @@ public class dashboard extends JFrame {
     }
     
    private void initContent() {
-       showJpanel(new Compras());
+       showJpanel(new NewVenta());
 }
    
    public void showJpanel (JPanel p){

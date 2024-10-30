@@ -24,5 +24,7 @@ public interface DAOComprazapato {
     
     public List<comprazapato> getDetallesPorFactura(int idFacturaCompra)throws Exception;
     
+    public void actualizarCantidadZapatoColor(int idZapato, int idColor, int cantidad) throws Exception;
     
+    public void actualizarCantidadZapatoColorTalla(int idZapato, int idColor, int idTalla, int cantidad) throws Exception;
 }

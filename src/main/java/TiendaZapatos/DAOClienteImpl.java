@@ -8,6 +8,7 @@ import DataBase.Database;
 import interfaces.DAOCliente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -122,7 +123,7 @@ public class DAOClienteImpl extends Database implements DAOCliente{
     }
 
     @Override
-        public cliente getclientebyid(int id_cliente) throws Exception {
+    public cliente getclientebyid(int id_cliente) throws Exception {
 
             cliente cliente = new cliente();
 
@@ -154,6 +155,36 @@ public class DAOClienteImpl extends Database implements DAOCliente{
             }   
             return cliente;
              }
+
+    @Override
+    public List<cliente> getAllClientes() throws Exception {
+             
+    List<cliente> lista = new ArrayList<>();
+            try {
+                this.Conectar();
+                 PreparedStatement st = this.conexion.prepareStatement("SELECT id_cliente, nombre FROM cliente;"); 
+        ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                               
+                       int id_cliente = rs.getInt("id_cliente");                     
+                       String nombre = rs.getString("nombre");
+                       
+
+                       cliente cliente = new cliente(id_cliente, nombre  ); 
+                       
+            lista.add(cliente);
+                }
+                rs.close();
+                st.close();
+            } catch (SQLException e) {
+                throw new Exception("Error al obtener marcas: " + e.getMessage(), e);
+            } finally {
+                this.Cerrar();
+            }
+            return lista;
+    }  
+        
+    
 
 
     }

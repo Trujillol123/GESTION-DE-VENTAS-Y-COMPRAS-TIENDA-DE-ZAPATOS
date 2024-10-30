@@ -5,6 +5,7 @@ import TiendaZapatos.DAOGestionProductosImpl;
 import TiendaZapatos.dashboard;
 import interfaces.DAOZapato;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.zapato;
 
@@ -65,6 +66,7 @@ public class GestionProductos extends javax.swing.JPanel {
         btnBorrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnDescripcion = new javax.swing.JButton();
 
         setToolTipText("");
         setOpaque(false);
@@ -123,6 +125,13 @@ public class GestionProductos extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logozapato_75_77.png"))); // NOI18N
 
+        btnDescripcion.setText("DESCRIPCION");
+        btnDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescripcionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
@@ -145,7 +154,8 @@ public class GestionProductos extends javax.swing.JPanel {
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(34, 34, 34))
         );
         backgroundLayout.setVerticalGroup(
@@ -168,10 +178,12 @@ public class GestionProductos extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(btnDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(backgroundLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addGap(23, 23, 23))
         );
 
@@ -183,15 +195,15 @@ public class GestionProductos extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     
     
     
     private void initStyles() {
-        Titulo.putClientProperty("FlatLaf.styleClass", "h3");
         
+        Titulo.putClientProperty("FlatLaf.styleClass", "h3");    
         txtBuscar.putClientProperty("JTextField.placeholderText", "Ingrese algun dato revelevante del producto a buscar."); 
       
          }
@@ -203,12 +215,10 @@ public class GestionProductos extends javax.swing.JPanel {
 
         try {
             List<zapato> zapatos = daoZapato.buscarZapato(query);
-
             
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0);
-
-            
+          
             for (zapato zapato : zapatos) {
                 model.addRow(new Object[]{
                     zapato.getId_zapato(),
@@ -274,12 +284,36 @@ public class GestionProductos extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscarActionPerformed
 
+    private void btnDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescripcionActionPerformed
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+         int selectedRow = jTable1.getSelectedRow();
+
+         if (selectedRow != -1) {
+             // Obtener el ID del zapato seleccionado
+             int idZapato = (int) model.getValueAt(selectedRow, 0); // Asumiendo que el ID del zapato está en la primera columna
+             System.out.println("ID del zapato seleccionado: " + idZapato);
+
+             
+             
+             // Crear una nueva instancia de la vista DetalleProductos
+             DetalleProductos detalleProductos = new DetalleProductos(idZapato);
+
+             // Cargar los colores del zapato en la tabla de DetalleProductos
+             detalleProductos.loadZapatoColors(idZapato);
+
+             dashboard.getInstance().showJpanel(detalleProductos);
+         } else {
+             JOptionPane.showMessageDialog(this, "Por favor, selecciona un zapato.", "Seleccionar zapato", JOptionPane.WARNING_MESSAGE);
+         }
+    }//GEN-LAST:event_btnDescripcionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Titulo;
     private TiendaZapatos.PanelRound background;
     private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDescripcion;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JLabel jLabel1;

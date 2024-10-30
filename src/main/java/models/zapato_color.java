@@ -14,6 +14,37 @@ public class zapato_color {
     private int id_zapato;
     private int id_color;
     private int cantidad;
+    private String nombre_zapato;
+    private String nombreColor;
+    
+    
+    
+    
+    
+    public int getId_zapatocolor() {
+        return id_zapatocolor;
+    }
+
+    public void setId_zapatocolor(int id_zapatocolor) {
+        this.id_zapatocolor = id_zapatocolor;
+    }
+
+    public String getnombre_zapato() {
+        return nombre_zapato;
+    }
+
+    public void setnombre_zapato(String nombre_zapato) {
+        this.nombre_zapato = nombre_zapato;
+    }
+
+    public String getNombreColor() {
+        return nombreColor;
+    }
+
+    public void setNombreColor(String nombreColor) {
+        this.nombreColor = nombreColor;
+    }
+   
 
     public int getid_zapatocolor() {
         return id_zapatocolor;

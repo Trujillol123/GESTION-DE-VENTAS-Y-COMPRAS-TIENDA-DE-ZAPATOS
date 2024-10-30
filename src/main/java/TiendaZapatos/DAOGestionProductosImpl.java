@@ -352,4 +352,41 @@ import models.zapato;
 
            return zapatos;
            }    
+
+    @Override
+    public float getPrecioVentaPorZapato(int idZapato) throws Exception {
+
+           
+                    float precioVenta = 0; // iniocializo el valor de la compra 
+
+                try {
+
+                    this.Conectar();
+
+                    // Consulta para obtener el precio de compra del zapato por su ID
+                    String sql = "SELECT precio_venta FROM zapato WHERE id_zapato = ?";
+                    PreparedStatement st = this.conexion.prepareStatement(sql);
+                    
+                    st.setInt(1, idZapato); 
+
+                    ResultSet rs = st.executeQuery();
+
+                  
+                    if (rs.next()) {
+                        precioVenta = rs.getFloat("precio_venta");
+                    }
+
+                
+                    rs.close();
+                    st.close();
+
+                } catch (SQLException e) {
+                    throw new Exception("Error al obtener el precio de venta del zapato: " + e.getMessage(), e);
+                } finally {
+                    
+                    this.Cerrar();
+                }
+
+                return precioVenta; // Devolver el precio de compra
+    }
     }

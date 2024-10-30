@@ -139,4 +139,72 @@ public class DAOCompraZapatoImpl extends Database implements DAOComprazapato {
 
     return detalles;
 }
+
+    @Override
+    public void actualizarCantidadZapatoColor(int idZapato, int idColor, int cantidad) throws Exception {
+        try {
+               this.Conectar();
+               PreparedStatement st = this.conexion.prepareStatement(
+                   "UPDATE zapato_color SET cantidad = cantidad + ? WHERE id_zapato = ? AND id_color = ?"
+               );
+               st.setInt(1, cantidad);
+               st.setInt(2, idZapato);
+               st.setInt(3, idColor);
+
+               // Ejecuta la actualización en zapato_color
+               int rowsUpdated = st.executeUpdate();
+
+               // Si no se encontró una entrada existente, inserta una nueva
+               if (rowsUpdated == 0) {
+                   st = this.conexion.prepareStatement(
+                       "INSERT INTO zapato_color (id_zapato, id_color, cantidad) VALUES (?, ?, ?)"
+                   );
+                   st.setInt(1, idZapato);
+                   st.setInt(2, idColor);
+                   st.setInt(3, cantidad);
+                   st.executeUpdate();
+               }
+
+           } catch (Exception e) {
+               throw new Exception("Error al actualizar o insertar en zapato_color: " + e.getMessage());
+           } finally {
+               this.Cerrar();
+           }  
+
+    }
+
+    @Override
+    public void actualizarCantidadZapatoColorTalla(int idZapato, int idZapatoColor, int idTalla, int cantidad)throws Exception {
+       try {
+        this.Conectar(); // Conexión a la base de datos
+
+        // Actualizar la cantidad en zapatocolor_talla
+        PreparedStatement st = this.conexion.prepareStatement(
+            "UPDATE zapatocolor_talla SET cantidad = cantidad + ? WHERE id_zapato = ? AND id_zapatocolor = ? AND id_talla = ?"
+        );
+        st.setInt(1, cantidad);
+        st.setInt(2, idZapato);
+        st.setInt(3, idZapatoColor);
+        st.setInt(4, idTalla);
+
+        // Ejecuta la actualización
+        int rowsUpdated = st.executeUpdate();
+
+        // Si no se encontra una entrada existente, inserta una nueva
+        if (rowsUpdated == 0) {
+            st = this.conexion.prepareStatement(
+                "INSERT INTO zapatocolor_talla (id_zapato, id_zapatocolor, id_talla, cantidad) VALUES (?, ?, ?, ?)"
+            );
+            st.setInt(1, idZapato);
+            st.setInt(2, idZapatoColor);
+            st.setInt(3, idTalla);
+            st.setInt(4, cantidad);
+            st.executeUpdate();       }
+
+        } catch (Exception e) {
+            throw new Exception("Error al actualizar o insertar en zapatocolor_talla: " + e.getMessage());
+        } finally {
+            this.Cerrar(); // Cierra la conexión
+        }
+        }
 }

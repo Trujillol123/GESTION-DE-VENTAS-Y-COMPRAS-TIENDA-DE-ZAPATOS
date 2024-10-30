@@ -6,11 +6,9 @@ C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\m
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOCategoriasImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\dashboard.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOMarcaImpl.java
-C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\UpZapato.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\cliente.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\comprazapato.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOTalla.java
-C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\DetalleCompra.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOZapato.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\DataBase\Database.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\GradientPanel.java
@@ -33,6 +31,7 @@ C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\T
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\marca.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\proveedor.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\DetalleVenta.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\DetalleProductos.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOCompraZapatoImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\facturaventa.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOComprazapato.java

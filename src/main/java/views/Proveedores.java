@@ -161,7 +161,8 @@ public class Proveedores extends javax.swing.JPanel {
                 .addGap(5, 5, 5))
         );
     }// </editor-fold>//GEN-END:initComponents
-     private void loadProveedor (){
+    
+    private void loadProveedor (){
         try {
             DAOProveedor dao = new DAOProveedoresImpl();
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();

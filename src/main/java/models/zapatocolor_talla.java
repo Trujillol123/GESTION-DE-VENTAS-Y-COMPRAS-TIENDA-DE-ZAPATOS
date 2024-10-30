@@ -16,12 +16,21 @@ public class zapatocolor_talla {
     private int id_talla;
     private int id_zapatocolor;
     private int cantidad;
+    private String numero_talla;
 
+    public String getNumero_talla() {
+        return numero_talla;
+    }
+
+    public void setNumero_talla(String numero_talla) {
+        this.numero_talla = numero_talla;
+    }
+    
     public int getId_zapatocolortalla() {
         return id_zapatocolortalla;
     }
 
-    public void setId_zapatocolortalla(int id_talla_z) {
+    public void setId_zapatocolortalla(int id_zapatoColorTalla) {
         this.id_zapatocolortalla = id_zapatocolortalla;
     }
 

@@ -18,4 +18,7 @@ public interface DAOCliente {
     public void delete(int id_cliente) throws Exception;
     
     public cliente getclientebyid (int id_cliente) throws Exception;
+    
+    public List<cliente> getAllClientes () throws Exception;
+    
 }

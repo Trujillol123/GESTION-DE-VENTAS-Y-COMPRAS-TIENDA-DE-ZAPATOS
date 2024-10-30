@@ -33,4 +33,5 @@ public interface DAOZapato {
     
     public List<zapato> buscarZapato (String query) throws Exception; 
      
+    public float getPrecioVentaPorZapato (int idZapato) throws Exception;
 }

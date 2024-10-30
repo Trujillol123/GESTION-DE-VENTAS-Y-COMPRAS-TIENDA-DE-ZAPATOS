@@ -19,6 +19,14 @@ public class cliente {
     private String direccion;
     private Date fecha_registro;
 
+    public cliente(int id_cliente, String nombre) {
+        this.id_cliente = id_cliente;
+        this.nombre = nombre;
+    }
+
+    public cliente() {
+    }
+
     public int getId_cliente() {
         return id_cliente;
     }
@@ -67,6 +75,9 @@ public class cliente {
         this.fecha_registro = fecha_registro;
     }
    
+        @Override
+    public String toString() {
+        return this.nombre;
+    }
 
-   
 }

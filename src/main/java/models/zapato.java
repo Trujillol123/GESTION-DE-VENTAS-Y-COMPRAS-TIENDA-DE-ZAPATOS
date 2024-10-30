@@ -25,6 +25,12 @@ public class zapato {
     private String descripcion;
     private String nombre_marca;
     private String nombre_proveedor;
+  
+
+    public zapato(int id_zapato, String descripcion) {
+        this.id_zapato = id_zapato;
+        this.descripcion = descripcion;
+    }
 
     public int getId_talla() {
         return id_talla;
@@ -106,11 +112,7 @@ public class zapato {
     }
     
     
-    public zapato(int id_zapato, String descripcion) {
-        this.id_zapato = id_zapato;
-        this.descripcion = descripcion; 
-    }
-    
+ 
      public zapato() {
       
     }

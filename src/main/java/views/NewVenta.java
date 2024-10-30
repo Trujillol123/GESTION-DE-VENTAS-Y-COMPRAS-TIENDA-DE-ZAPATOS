@@ -4,12 +4,23 @@
  */
 package views;
 
+import TiendaZapatos.DAOClienteImpl;
+import TiendaZapatos.DAOGestionProductosImpl;
 import TiendaZapatos.dashboard;
+import com.toedter.calendar.JDateChooser;
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import models.cliente;
+import models.zapato;
 
-/**
- *
- * @author cland
- */
+
+
 public class NewVenta extends javax.swing.JPanel {
 
     /**
@@ -18,6 +29,8 @@ public class NewVenta extends javax.swing.JPanel {
     public NewVenta() {
         initComponents();
         initStyles ();
+        cargarClientes();
+        cargarZapatos();
     }
 
     /**
@@ -32,20 +45,20 @@ public class NewVenta extends javax.swing.JPanel {
         BackGround = new javax.swing.JPanel();
         Titulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboCliente = new javax.swing.JComboBox<>();
         btnNuevo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        date = new com.toedter.calendar.JDateChooser();
+        comboZapato = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        txtcantidad = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        txtCantidad = new javax.swing.JTextField();
+        txtPrecioU = new javax.swing.JTextField();
         btnAgregarPrdocuto = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jTextField3 = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -56,7 +69,11 @@ public class NewVenta extends javax.swing.JPanel {
 
         jLabel2.setText("Cliente : ");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboClienteActionPerformed(evt);
+            }
+        });
 
         btnNuevo.setText("NUEVO CLIENTE");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -67,32 +84,46 @@ public class NewVenta extends javax.swing.JPanel {
 
         jLabel3.setText("FECHA DE VENTA : ");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboZapato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboZapatoActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Precio Unitario");
 
         jLabel5.setText("Cantidad");
 
         btnAgregarPrdocuto.setText("AGREGAR PRODUCTO");
+        btnAgregarPrdocuto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarPrdocutoActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Producto a Vender:");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Producto", "Cantidad", "Precio Unitario", "Subtotal"
+                "Producto", "Cantidad", "Precio Unitario", "Fecha Venta", "Subtotal"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtTotalActionPerformed(evt);
             }
         });
 
@@ -123,7 +154,7 @@ public class NewVenta extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackGroundLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(12, 12, 12)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -134,11 +165,11 @@ public class NewVenta extends javax.swing.JPanel {
                             .addGroup(BackGroundLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(12, 12, 12)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(comboZapato, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(BackGroundLayout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(BackGroundLayout.createSequentialGroup()
@@ -146,18 +177,18 @@ public class NewVenta extends javax.swing.JPanel {
                                 .addGap(25, 25, 25)
                                 .addComponent(jLabel3)
                                 .addGap(28, 28, 28)
-                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(BackGroundLayout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(12, 12, 12)
                                 .addComponent(btnAgregarPrdocuto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         BackGroundLayout.setVerticalGroup(
             BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,13 +200,13 @@ public class NewVenta extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
                         .addComponent(btnAgregarPrdocuto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BackGroundLayout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -184,7 +215,7 @@ public class NewVenta extends javax.swing.JPanel {
                             .addGroup(BackGroundLayout.createSequentialGroup()
                                 .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(comboZapato, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(25, 25, 25)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -198,11 +229,11 @@ public class NewVenta extends javax.swing.JPanel {
                                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(BackGroundLayout.createSequentialGroup()
                                             .addGap(10, 10, 10)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtcantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -210,22 +241,19 @@ public class NewVenta extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BackGround, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
+            .addComponent(BackGround, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
-                .addComponent(BackGround, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, 0)
+                .addComponent(BackGround, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
      private void initStyles () {
         Titulo.putClientProperty( "FlatLaf.styleClass" , "h3" );
-       txtcantidad.putClientProperty("JTextField.placeholderText", "Cantidad Vendida.");
+       txtCantidad.putClientProperty("JTextField.placeholderText", "Cantidad Vendida.");
 
     }
     
@@ -236,9 +264,9 @@ public class NewVenta extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtTotalActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -248,17 +276,206 @@ public class NewVenta extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void comboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClienteActionPerformed
+
+      
+        
+        
+    }//GEN-LAST:event_comboClienteActionPerformed
+
+    private void comboZapatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboZapatoActionPerformed
+      
+        zapato zapatoSeleccionado = (zapato) comboZapato.getSelectedItem(); // Obtener el zapato seleccionado
+
+        if (zapatoSeleccionado != null) {
+            // Imprimir el zapato seleccionado para depuracion
+            System.out.println("Zapato seleccionado: " + zapatoSeleccionado.getDescripcion());
+
+            try {
+                // Obtener el precio de compra del zapato seleccionado
+                float precioCompra = obtenerPrecioVenta(zapatoSeleccionado.getId_zapato());
+
+                // Formatear el precio a dos decimales y asignarlo al campo txtPrecioU
+                txtPrecioU.setText(String.format("%.2f", precioCompra));
+
+
+                txtPrecioU.setEditable(false); // Esto hace que el JTextField no sea editable
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error al obtener el precio de compra del zapato.");
+            }
+        }
+    }//GEN-LAST:event_comboZapatoActionPerformed
+
+    private void btnAgregarPrdocutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPrdocutoActionPerformed
+                 
+
+        
+              cliente clienteSeleccionado = (cliente) comboCliente.getSelectedItem();
+              
+                // Obtener los datos del formulario
+              zapato zapatoSeleccionado = (zapato) comboZapato.getSelectedItem();
+
+              // Verificar que txtCantidad no esté vacío
+            if (txtCantidad.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingresa una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la cantidad es inválida
+            }
+
+              // Verificar que date no esté vacío
+            if (date.getDate() == null) {
+                JOptionPane.showMessageDialog(this, "Por favor, selecciona una fecha.", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // Salir del método si la fecha no está seleccionada
+            }
+              
+              int cantidad = Integer.parseInt(txtCantidad.getText());
+
+              // Manejo del precio con formato adecuado
+              float precioVenta = 0;
+              try {
+                  NumberFormat format = NumberFormat.getInstance();
+                  precioVenta = format.parse(txtPrecioU.getText()).floatValue();
+              } catch (ParseException e) {
+                  // Manejar el error de formato
+                  JOptionPane.showMessageDialog(this, "Formato de precio no válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                  return; // Salir del método si el formato es incorrecto
+              }
+
+              // Obtener la fecha desde el JDateChooser
+              java.sql.Date fechaProducto = obtenerFechaSQL(date);
+
+              // Aseggurarse que el zapato no este en blanco
+              if (zapatoSeleccionado == null) {
+                  JOptionPane.showMessageDialog(this, "Por favor, selecciona un zapato.", "Error", JOptionPane.ERROR_MESSAGE);
+                  return;
+              }
+
+             
+              String cliente = clienteSeleccionado.getNombre();
+              String descripcion = zapatoSeleccionado.getDescripcion();
+
+
+              // Agregar la fila a la tabla
+              DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); 
+              Object[] rowData = { descripcion, cantidad, cliente ,  fechaProducto, precioVenta * cantidad}; 
+              model.addRow(rowData);
+
+
+
+              // Limpiar los campos del formulario
+              txtCantidad.setText("");
+              txtPrecioU.setText("");
+              comboZapato.setSelectedIndex(0); // Resetea los Combobox
+             comboCliente.setSelectedIndex(0);
+             
+
+               // Actualizar el total
+              actualizarTotal();
+
+    }//GEN-LAST:event_btnAgregarPrdocutoActionPerformed
+
+    private void actualizarTotal() {   
+        
+          float total = 0;
+          int totalProductos = 0;
+          DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+          int rowCount = model.getRowCount();
+
+          // Sumar todos los valores de la columna "subtotal" y contar la cantidad de productos
+          for (int i = 0; i < rowCount; i++) {
+              total += (float) model.getValueAt(i, 4); //  "subtotal" está en la columna 6
+              totalProductos += (int) model.getValueAt(i, 1); // "cantidad" está en la columna 1
+          }
+
+          // Mostrar el total en txtTotal con símbolo $ y cantidad de productos
+          txtTotal.setText(String.format("$%.2f (%d productos)", total, totalProductos));
+    }
+    
+    // Metodos para manejo de las ComboBox y llamadas de datos 
+    
+    public List<cliente> obtenenrClientes() {
+        DAOClienteImpl daoClientes = new DAOClienteImpl();
+        List<cliente> clientes = new ArrayList<>(); // Crear una lista para almacenar los proveedores
+
+        try {
+            clientes = daoClientes.getAllClientes(); 
+        } catch (Exception e) {
+            Logger.getLogger(NewCliente.class.getName()).log(Level.SEVERE, null, e);
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las marcas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+        return clientes; // Retornar la lista de proveedores
+    }
+    
+    private void cargarClientes() {
+    comboCliente.addItem(new cliente(0, "")); // Agregar un valor en blanco o por defecto
+    
+    List<cliente> listaClientes = obtenenrClientes(); // Método que obtiene los proveedores
+    for (cliente c : listaClientes) {
+        comboCliente.addItem(c); // Agregar cada proveedor al JComboBox
+    }
+}
+    
+    public List<zapato> ObtenerZapatos () {
+         
+        DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
+        List<zapato> zapatos = new ArrayList<>(); // Crear una lista para almacenar los proveedores
+
+        try {
+            zapatos = daoZapato.getallZapatos(); 
+        } catch (Exception e) {
+            Logger.getLogger(NewCliente.class.getName()).log(Level.SEVERE, null, e);
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener las marcas", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+        return zapatos; // Retornar la lista de zapatos
+    }
+    
+    private void cargarZapatos() {
+    comboZapato.addItem(new zapato(0, "")); // Agregar un valor en blanco o por defecto
+    
+    List<zapato> listaZapatos = ObtenerZapatos(); // Método que obtiene los proveedores
+    for (zapato z : listaZapatos) {
+        comboZapato.addItem(z); // Agregar cada proveedor al JComboBox
+    }
+}
+    
+    private float obtenerPrecioVenta (int idZapato) {
+        DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
+        float precioVenta = 0;
+
+        try {
+            // Aquí haces la consulta para obtener el precio_compra basado en el idZapato
+            precioVenta = daoZapato.getPrecioVentaPorZapato(idZapato);
+        } catch (Exception e) {
+            Logger.getLogger(zapato.class.getName()).log(Level.SEVERE, null, e);
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener el precio del zapato", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+
+        return precioVenta; // Retorna el precio de compra
+    }
+    
+    
+    private java.sql.Date obtenerFechaSQL(JDateChooser dateChooser) {
+    java.util.Date fechaUtil = dateChooser.getDate();
+    if (fechaUtil != null) {
+        return new java.sql.Date(fechaUtil.getTime()); // Convertir java.util.Date a java.sql.Date
+    }
+    return null; // Si no hay fecha, retorna null   
+    
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackGround;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnAgregarPrdocuto;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JComboBox<cliente> comboCliente;
+    private javax.swing.JComboBox<zapato> comboZapato;
+    private com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -267,8 +484,8 @@ public class NewVenta extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField txtcantidad;
+    private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtPrecioU;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }
