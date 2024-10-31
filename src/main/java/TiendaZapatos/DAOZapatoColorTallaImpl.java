@@ -112,4 +112,84 @@ public class DAOZapatoColorTallaImpl extends Database implements DAOZapatoColorT
 
             return tallasZapato;
         }
-}
+    
+        @Override
+    public List<zapatocolor_talla> getTallasPorZapatoColor(int idZapatoColor) throws Exception {
+        
+        List<zapatocolor_talla> tallas = new ArrayList<>();
+        
+        
+        try {
+            this.Conectar();
+            String query = "SELECT zct.id_zapatocolortalla, zct.id_zapatocolor, t.id_talla, t.numero_talla, zct.cantidad " +
+                            "FROM zapatocolor_talla zct " +
+                            "JOIN talla t ON zct.id_talla = t.id_talla " +
+                            "JOIN zapato_color zc ON zct.id_zapatocolor = zc.id_zapatocolor " +
+                            "WHERE zct.id_zapatocolor = ? AND zct.cantidad > 0";
+                  
+          
+               PreparedStatement st = this.conexion.prepareStatement(query);
+               
+                st.setInt(1, idZapatoColor);
+                
+                
+                ResultSet rs = st.executeQuery();
+                
+                while (rs.next()) {
+                    
+                   zapatocolor_talla talla = new zapatocolor_talla();
+                   
+                   talla.setId_zapatocolortalla(rs.getInt("id_zapatocolortalla"));
+                   talla.setId_zapatocolor(rs.getInt("id_zapatocolor"));
+                   talla.setNumero_talla(rs.getString("numero_talla"));
+                   talla.setCantidad(rs.getInt("cantidad"));
+                   
+                  
+                    tallas.add(talla);
+                }
+            } catch (Exception e) {
+            throw e;
+        } finally {
+            this.Cerrar();
+        }
+
+        return tallas;
+
+
+        }
+
+    
+    @Override
+    public int getCantidadDisponible(int id_zapatocolortalla) throws Exception {
+       int cantidad = 0;
+
+    try {
+        this.Conectar();
+        
+        // Consulta para obtener la cantidad disponible de zapatocolor_talla
+        String query = "SELECT cantidad FROM zapatocolor_talla WHERE id_zapatocolortalla = ?";
+        PreparedStatement st = this.conexion.prepareStatement(query);
+        st.setInt(1, id_zapatocolortalla);
+
+        ResultSet rs = st.executeQuery();
+        
+        // Verifica si se obtuvo un resultado
+        if (rs.next()) {
+            cantidad = rs.getInt("cantidad");
+            System.out.println("Cantidad encontrada en la base de datos: " + cantidad);
+        } else {
+            System.out.println("No se encontró un resultado para el ID: " + id_zapatocolortalla);
+        }
+
+        rs.close();
+        st.close();
+    } catch (SQLException e) {
+        throw new SQLException("Error al obtener la cantidad disponible en zapatocolor_talla: " + e.getMessage(), e);
+    } finally {
+        this.Cerrar();
+    }
+
+    // Imprimir cantidad para verificar el resultado
+    System.out.println("Cantidad disponible: " + cantidad);
+    return cantidad;
+}}

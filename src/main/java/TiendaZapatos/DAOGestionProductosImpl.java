@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import models.zapato;
+import models.zapato_color;
 
 /**
  *
@@ -389,4 +390,42 @@ import models.zapato;
 
                 return precioVenta; // Devolver el precio de compra
     }
+
+    @Override
+    public List<zapato_color> obtenerColoresZapatoConCantidad(int idZapato) throws Exception {
+        
+         List<zapato_color> coloresZapato = new ArrayList<>();
+
+        try {
+            this.Conectar();
+            String query = "SELECT zc.id_zapatocolor, zc.id_zapato, z.descripcion, zc.cantidad, col.nombre_color " +
+                           "FROM zapato_color zc " +
+                           "JOIN zapato z ON zc.id_zapato = z.id_zapato " +
+                           "JOIN colores col ON zc.id_color = col.id_color " +
+                           "WHERE zc.id_zapato = ? AND zc.cantidad > 0";
+
+            PreparedStatement st = this.conexion.prepareStatement(query);
+            st.setInt(1, idZapato);
+
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                zapato_color color = new zapato_color();
+                color.setId_zapatocolor(rs.getInt("id_zapatocolor"));
+                color.setId_zapato(rs.getInt("id_zapato"));
+                color.setnombre_zapato(rs.getString("descripcion"));
+                color.setCantidad(rs.getInt("cantidad"));
+                color.setNombreColor(rs.getString("nombre_color"));
+                coloresZapato.add(color);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            this.Cerrar();
+        }
+
+        return coloresZapato;
+
+
+        }
     }

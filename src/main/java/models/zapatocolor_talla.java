@@ -18,6 +18,23 @@ public class zapatocolor_talla {
     private int cantidad;
     private String numero_talla;
 
+    
+    
+     @Override
+    public String toString() {
+        return numero_talla; 
+    }
+    
+    
+    
+    public zapatocolor_talla(int idTalla, String numerotalla) {
+        this.id_talla = idTalla;
+        this.numero_talla = numerotalla;
+    }
+
+    public zapatocolor_talla() {
+    }
+
     public String getNumero_talla() {
         return numero_talla;
     }
@@ -30,7 +47,7 @@ public class zapatocolor_talla {
         return id_zapatocolortalla;
     }
 
-    public void setId_zapatocolortalla(int id_zapatoColorTalla) {
+    public void setId_zapatocolortalla(int id_zapatocolorTalla) {
         this.id_zapatocolortalla = id_zapatocolortalla;
     }
 

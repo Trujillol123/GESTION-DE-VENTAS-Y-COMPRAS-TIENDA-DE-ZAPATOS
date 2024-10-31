@@ -19,7 +19,10 @@ public class zapato_color {
     
     
     
-    
+     @Override
+    public String toString() {
+        return nombreColor; 
+    }
     
     public int getId_zapatocolor() {
         return id_zapatocolor;

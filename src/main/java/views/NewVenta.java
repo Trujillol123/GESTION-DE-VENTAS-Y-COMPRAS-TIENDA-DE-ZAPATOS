@@ -6,8 +6,12 @@ package views;
 
 import TiendaZapatos.DAOClienteImpl;
 import TiendaZapatos.DAOGestionProductosImpl;
+import TiendaZapatos.DAOZapatoColorImpl;
+import TiendaZapatos.DAOZapatoColorTallaImpl;
 import TiendaZapatos.dashboard;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -17,7 +21,11 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.cliente;
+import models.colores;
+import models.talla;
 import models.zapato;
+import models.zapato_color;
+import models.zapatocolor_talla;
 
 
 
@@ -62,6 +70,12 @@ public class NewVenta extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        comboColor = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        comboTalla = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        txtDisponobles = new javax.swing.JTextField();
 
         BackGround.setBackground(new java.awt.Color(255, 153, 153));
 
@@ -143,14 +157,31 @@ public class NewVenta extends javax.swing.JPanel {
 
         jLabel4.setText("Total Venta : ");
 
+        jLabel8.setText("Color");
+
+        comboColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboColorActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Talla");
+
+        comboTalla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboTallaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Disponibles : ");
+
         javax.swing.GroupLayout BackGroundLayout = new javax.swing.GroupLayout(BackGround);
         BackGround.setLayout(BackGroundLayout);
         BackGroundLayout.setHorizontalGroup(
             BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackGroundLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackGroundLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(12, 12, 12)
@@ -158,7 +189,9 @@ public class NewVenta extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1051, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(BackGroundLayout.createSequentialGroup()
                         .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,26 +202,39 @@ public class NewVenta extends javax.swing.JPanel {
                             .addGroup(BackGroundLayout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(BackGroundLayout.createSequentialGroup()
-                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(25, 25, 25)
-                                .addComponent(jLabel3)
-                                .addGap(28, 28, 28)
-                                .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(BackGroundLayout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
-                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)
-                                .addComponent(txtPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(12, 12, 12)
-                                .addComponent(btnAgregarPrdocuto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(48, Short.MAX_VALUE))
+                                .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(BackGroundLayout.createSequentialGroup()
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAgregarPrdocuto, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(BackGroundLayout.createSequentialGroup()
+                                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(25, 25, 25)
+                                    .addComponent(jLabel3)
+                                    .addGap(28, 28, 28)
+                                    .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(BackGroundLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboColor, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboTalla, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(32, 32, 32)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDisponobles, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30))
         );
         BackGroundLayout.setVerticalGroup(
             BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,9 +246,7 @@ public class NewVenta extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(19, 19, 19)
-                        .addComponent(btnAgregarPrdocuto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(BackGroundLayout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -212,28 +256,37 @@ public class NewVenta extends javax.swing.JPanel {
                                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(BackGroundLayout.createSequentialGroup()
-                                .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboZapato, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(25, 25, 25)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(BackGroundLayout.createSequentialGroup()
-                                            .addGap(6, 6, 6)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(BackGroundLayout.createSequentialGroup()
-                                            .addGap(10, 10, 10)
-                                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(comboZapato, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8)
+                                .addComponent(comboColor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9)
+                                .addComponent(comboTalla, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1)
+                                .addComponent(txtDisponobles, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(24, 24, 24)
+                .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAgregarPrdocuto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(BackGroundLayout.createSequentialGroup()
+                            .addGap(6, 6, 6)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(BackGroundLayout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -284,28 +337,60 @@ public class NewVenta extends javax.swing.JPanel {
     }//GEN-LAST:event_comboClienteActionPerformed
 
     private void comboZapatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboZapatoActionPerformed
-      
-        zapato zapatoSeleccionado = (zapato) comboZapato.getSelectedItem(); // Obtener el zapato seleccionado
+          zapato zapatoSeleccionado = (zapato) comboZapato.getSelectedItem();
 
-        if (zapatoSeleccionado != null) {
-            // Imprimir el zapato seleccionado para depuracion
-            System.out.println("Zapato seleccionado: " + zapatoSeleccionado.getDescripcion());
+if (zapatoSeleccionado != null) {
+    System.out.println("Zapato seleccionado: " + zapatoSeleccionado.getDescripcion());
 
-            try {
-                // Obtener el precio de compra del zapato seleccionado
-                float precioCompra = obtenerPrecioVenta(zapatoSeleccionado.getId_zapato());
+    try {
+        // Obtener el precio de venta del zapato seleccionado
+        float precioVenta = obtenerPrecioVenta(zapatoSeleccionado.getId_zapato());
+        txtPrecioU.setText(String.format("%.2f", precioVenta));
+        txtPrecioU.setEditable(false);
 
-                // Formatear el precio a dos decimales y asignarlo al campo txtPrecioU
-                txtPrecioU.setText(String.format("%.2f", precioCompra));
+        // Limpiar el comboColor antes de llenarlo
+        comboColor.removeAllItems();
+        comboTalla.removeAllItems(); // Limpiar el comboTalla también
+        txtDisponobles.setText(""); // Limpiar el campo de cantidad disponible
 
+        List<zapato_color> coloresDisponibles = obtenerColoresDisponibles(zapatoSeleccionado.getId_zapato());
 
-                txtPrecioU.setEditable(false); // Esto hace que el JTextField no sea editable
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("Error al obtener el precio de compra del zapato.");
-            }
+        // Agregar colores disponibles al comboColor
+        for (zapato_color color : coloresDisponibles) {
+            comboColor.addItem(color); // Agregar el objeto zapato_color al comboBox
         }
+
+        // Si hay colores disponibles, seleccionar el primero y llenar las tallas
+        if (!coloresDisponibles.isEmpty()) {
+            comboColor.setSelectedIndex(0); // Seleccionar el primer color
+
+            // Llenar las tallas para el primer color seleccionado
+            zapato_color colorSeleccionado = (zapato_color) comboColor.getSelectedItem();
+            if (colorSeleccionado != null) {
+                List<zapatocolor_talla> tallasDisponibles = cargarTallasPorZapatoColor(colorSeleccionado.getId_zapatocolor());
+                comboTalla.removeAllItems(); // Limpiar el comboTalla
+
+                for (zapatocolor_talla talla : tallasDisponibles) {
+                    comboTalla.addItem(talla); // Agregar tallas al comboTalla
+                }
+
+                // Verificar si hay tallas disponibles
+                if (!tallasDisponibles.isEmpty()) {
+                    comboTalla.setSelectedIndex(0); // Seleccionar la primera talla
+                    // Mostrar la cantidad disponible en el textField
+                    txtDisponobles.setText(String.valueOf(tallasDisponibles.get(0).getCantidad()));
+                } else {
+                    txtDisponobles.setText("0"); // Si no hay tallas, mostrar 0
+                }
+            }
+        } else {
+            txtDisponobles.setText("0"); // Si no hay colores, mostrar 0
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println("Error al obtener el precio de venta o colores disponibles del zapato.");
+    }}
     }//GEN-LAST:event_comboZapatoActionPerformed
 
     private void btnAgregarPrdocutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPrdocutoActionPerformed
@@ -358,7 +443,7 @@ public class NewVenta extends javax.swing.JPanel {
 
               // Agregar la fila a la tabla
               DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); 
-              Object[] rowData = { descripcion, cantidad, cliente ,  fechaProducto, precioVenta * cantidad}; 
+              Object[] rowData = { descripcion, cantidad, fechaProducto, precioVenta * cantidad}; 
               model.addRow(rowData);
 
 
@@ -366,8 +451,8 @@ public class NewVenta extends javax.swing.JPanel {
               // Limpiar los campos del formulario
               txtCantidad.setText("");
               txtPrecioU.setText("");
-              comboZapato.setSelectedIndex(0); // Resetea los Combobox
-             comboCliente.setSelectedIndex(0);
+             comboZapato.setSelectedIndex(0); // Resetea los Combobox
+             
              
 
                // Actualizar el total
@@ -375,6 +460,99 @@ public class NewVenta extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnAgregarPrdocutoActionPerformed
 
+    private void comboColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColorActionPerformed
+    
+        // Evento para el ComboBox de colores
+     comboColor.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             zapato_color colorSeleccionado = (zapato_color) comboColor.getSelectedItem();
+
+             if (colorSeleccionado != null) {
+                 System.out.println("color seleccionado: " + colorSeleccionado.getnombre_zapato());
+
+                 try {
+                     // Limpiar el comboTalla antes de llenarlo
+                     comboTalla.removeAllItems();
+                     List<zapatocolor_talla> tallasDisponibles = cargarTallasPorZapatoColor(colorSeleccionado.getId_zapatocolor());
+
+                     // Agregar tallas disponibles al comboTalla
+                     for (zapatocolor_talla talla : tallasDisponibles) {
+                         comboTalla.addItem(talla); // Agregar el objeto zapatocolor_talla al comboBox
+                     }
+
+                     // Verificar si hay tallas disponibles y seleccionar la primera
+                     if (!tallasDisponibles.isEmpty()) {
+                         comboTalla.setSelectedIndex(0); // Selecciona la primera talla automáticamente
+                         // Actualizar la cantidad en el textField
+                         int cantidadDisponible = tallasDisponibles.get(0).getCantidad(); // Obtener cantidad de la primera talla
+                         txtDisponobles.setText(String.valueOf(cantidadDisponible)); // Mostrar en el TextField
+                     } else {
+                         txtDisponobles.setText("0"); // Si no hay tallas, mostrar 0
+                     }
+
+                 } catch (Exception ex) {
+                     ex.printStackTrace();
+                     System.out.println("Error al obtener el precio de venta o colores disponibles del zapato.");
+                 }
+             }
+         }
+     });
+
+     // Evento para el ComboBox de tallas
+     comboTalla.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+             zapatocolor_talla tallaSeleccionada = (zapatocolor_talla) comboTalla.getSelectedItem();
+             if (tallaSeleccionada != null) {
+                 int cantidadDisponible = tallaSeleccionada.getCantidad(); // Obtener cantidad
+                 txtDisponobles.setText(String.valueOf(cantidadDisponible)); // Mostrar en el TextField
+             }
+         }
+     });
+    }//GEN-LAST:event_comboColorActionPerformed
+
+    
+    private List<zapatocolor_talla> cargarTallasPorZapatoColor(int idZapatoColor) {
+        
+        
+      DAOZapatoColorTallaImpl daoZCT = new DAOZapatoColorTallaImpl();
+    List<zapatocolor_talla> tallasDisponibles = new ArrayList<>();
+
+    try {
+        tallasDisponibles = daoZCT.getTallasPorZapatoColor(idZapatoColor);
+    } catch (Exception e) {
+        Logger.getLogger(NewVenta.class.getName()).log(Level.SEVERE, null, e);
+        JOptionPane.showMessageDialog(this, "Error al obtener tallas disponibles", "AVISO", JOptionPane.ERROR_MESSAGE);
+    }
+
+    return tallasDisponibles;
+}
+    
+    
+    private void comboTallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboTallaActionPerformed
+   
+    comboTalla.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        // Obtener el objeto zapatocolor_talla seleccionado
+        zapatocolor_talla tallaSeleccionada = (zapatocolor_talla) comboTalla.getSelectedItem();
+
+        if (tallaSeleccionada != null) {
+            // Obtener la cantidad disponible y mostrarla en el JTextField
+            int cantidadDisponible = tallaSeleccionada.getCantidad(); // Asegúrate de que este método esté presente
+            txtDisponobles.setText(String.valueOf(cantidadDisponible));
+        } else {
+            // Limpiar el JTextField si no hay talla seleccionada
+            txtDisponobles.setText("");
+        }
+    }
+});
+    }//GEN-LAST:event_comboTallaActionPerformed
+
+    
+   
+    
     private void actualizarTotal() {   
         
           float total = 0;
@@ -441,12 +619,31 @@ public class NewVenta extends javax.swing.JPanel {
     }
 }
     
+    
+    public List<zapato_color> obtenerColoresDisponibles(int idZapato) {
+        
+    DAOGestionProductosImpl daoZapatoColor = new DAOGestionProductosImpl();
+    List<zapato_color> coloresDisponibles = new ArrayList<>();
+
+    try {
+        coloresDisponibles = daoZapatoColor.obtenerColoresZapatoConCantidad(idZapato);
+    } catch (Exception e) {
+        Logger.getLogger(NewVenta.class.getName()).log(Level.SEVERE, null, e);
+        JOptionPane.showMessageDialog(this, "Error al obtener colores disponibles", "AVISO", JOptionPane.ERROR_MESSAGE);
+    }
+
+    return coloresDisponibles;
+}
+    
+    
+    
+    
     private float obtenerPrecioVenta (int idZapato) {
         DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
         float precioVenta = 0;
 
         try {
-            // Aquí haces la consulta para obtener el precio_compra basado en el idZapato
+            // Aquí se hace la consulta para obtener el precio_compra basado en el idZapato
             precioVenta = daoZapato.getPrecioVentaPorZapato(idZapato);
         } catch (Exception e) {
             Logger.getLogger(zapato.class.getName()).log(Level.SEVERE, null, e);
@@ -472,19 +669,25 @@ public class NewVenta extends javax.swing.JPanel {
     private javax.swing.JButton btnAgregarPrdocuto;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JComboBox<cliente> comboCliente;
+    private javax.swing.JComboBox<zapato_color> comboColor;
+    private javax.swing.JComboBox<zapatocolor_talla> comboTalla;
     private javax.swing.JComboBox<zapato> comboZapato;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextField txtDisponobles;
     private javax.swing.JTextField txtPrecioU;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables

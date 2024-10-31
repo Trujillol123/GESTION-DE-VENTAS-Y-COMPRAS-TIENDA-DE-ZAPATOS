@@ -102,28 +102,25 @@ public class DAOZapatoColorImpl  extends Database implements DAOZapatoColor {
     
         @Override
     public int obtenerIdZapatoColor(int idZapato, int idColor) throws Exception {
-        int idZapatoColor = -1; // Valor por defecto si no se encuentra
-        String sql = "SELECT id_zapatocolor FROM zapato_color WHERE id_zapato = ? AND id_color = ?";
-
-        try {
-            this.Conectar();
-            PreparedStatement stmt = this.conexion.prepareStatement(sql);
-            stmt.setInt(1, idZapato); // Establece el ID del zapato
-            stmt.setInt(2, idColor);   // Establece el ID del color
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                idZapatoColor = rs.getInt("id_zapatocolor");
+           int idZapatoColor = -1;
+            try {
+                this.Conectar();
+                String query = "SELECT id_zapatocolor FROM zapato_color WHERE id_zapato = ? AND id_color = ?";
+                PreparedStatement st = this.conexion.prepareStatement(query);
+                st.setInt(1, idZapato);
+                st.setInt(2, idColor);
+                ResultSet rs = st.executeQuery();
+                if (rs.next()) {
+                    idZapatoColor = rs.getInt("id_zapatocolor");
+                }
+                rs.close();
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                this.Cerrar();
             }
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            throw new SQLException("Error al obtener el ID del zapato color: " + e.getMessage(), e);
-        } finally {
-            this.Cerrar();
-        }
-
-        return idZapatoColor;
+            return idZapatoColor;
     }
 
     int obtenerIdZapatoColor(int id_zapato) {

@@ -6,6 +6,7 @@ package interfaces;
 
 import java.util.List;
 import models.zapato;
+import models.zapato_color;
 
 /**
  *
@@ -34,4 +35,6 @@ public interface DAOZapato {
     public List<zapato> buscarZapato (String query) throws Exception; 
      
     public float getPrecioVentaPorZapato (int idZapato) throws Exception;
+    
+    public List<zapato_color> obtenerColoresZapatoConCantidad(int idZapato) throws Exception;
 }
