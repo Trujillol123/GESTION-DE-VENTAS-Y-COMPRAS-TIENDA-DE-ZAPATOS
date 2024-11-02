@@ -54,11 +54,8 @@
                       <Component id="Store" min="-2" pref="150" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <Group type="102" attributes="0">
-                  <EmptySpace min="280" pref="280" max="-2" attributes="0"/>
-                  <Component id="loginContent" min="-2" max="-2" attributes="0"/>
-              </Group>
               <Component id="Pattern" min="-2" max="-2" attributes="0"/>
+              <Component id="loginContent" alignment="1" min="-2" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -177,7 +174,7 @@
                               <Component id="btnLogin" min="-2" pref="216" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="31" max="32767" attributes="0"/>
+                      <EmptySpace pref="40" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

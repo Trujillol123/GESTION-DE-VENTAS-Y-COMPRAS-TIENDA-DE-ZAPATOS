@@ -19,6 +19,8 @@ public class login extends javax.swing.JFrame {
     
     public login() {
         
+        setLocationRelativeTo(null);
+        
         Image logoImage = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/images/logozapato.png"));
         icono = new ImageIcon(logoImage); // Crear ImageIcon usando la variable icono
         setIconImage(icono.getImage()); // Establecer la imagen del ícono
@@ -168,7 +170,7 @@ public class login extends javax.swing.JFrame {
                     .addGroup(loginContentLayout.createSequentialGroup()
                         .addGap(149, 149, 149)
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         loginContentLayout.setVerticalGroup(
             loginContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,10 +214,8 @@ public class login extends javax.swing.JFrame {
                 .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ShoeRack, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Store, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(BackgroundLayout.createSequentialGroup()
-                .addGap(280, 280, 280)
-                .addComponent(loginContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(Pattern)
+            .addComponent(loginContent, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         BackgroundLayout.setVerticalGroup(
             BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
