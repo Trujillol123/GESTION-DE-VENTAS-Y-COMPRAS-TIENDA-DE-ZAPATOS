@@ -217,4 +217,50 @@ import models.facturacompra;
 
         return facturas;
         }
+        
+        
+        @Override
+        public List<facturacompra> buscarFacturaPorFechas(Date fechaInicio, Date fechaFin) throws Exception {
+            List<facturacompra> facturas = new ArrayList<>();
+
+            try {
+                this.Conectar();
+
+                String sql = "SELECT f.id_facturacompra, p.nombre_proveedor, f.cantidad, f.fecha, f.total " +
+                             "FROM facturacompra f " +
+                             "JOIN proveedor p ON f.id_proveedor = p.id_proveedor " +
+                             "WHERE f.fecha >= ? AND f.fecha <= ? " +
+                             "ORDER BY f.fecha";
+
+                PreparedStatement st = this.conexion.prepareStatement(sql);
+                st.setDate(1, fechaInicio);
+                st.setDate(2, fechaFin);
+
+                ResultSet rs = st.executeQuery();
+
+                while (rs.next()) {
+                    facturacompra factura = new facturacompra();
+                    factura.setId_facturacompra(rs.getInt("id_facturacompra"));
+                    factura.setNombre_proveedor(rs.getString("nombre_proveedor"));
+                    factura.setCantidad(rs.getInt("cantidad"));
+                    factura.setFecha(rs.getDate("fecha"));
+                    factura.setTotal(rs.getFloat("total"));
+
+                    facturas.add(factura);
+                }
+
+                rs.close();
+                st.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw e;
+            } finally {
+                this.Cerrar();
+            }
+
+            return facturas;
+        }
+
+        
+        
     }

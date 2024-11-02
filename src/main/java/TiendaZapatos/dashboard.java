@@ -10,6 +10,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -191,7 +193,11 @@ public class dashboard extends JFrame {
     }
     
    private void initContent() {
-       showJpanel(new NewVenta());
+        try {
+            showJpanel(new Principal());
+        } catch (Exception ex) {
+            Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
 }
    
    public void showJpanel (JPanel p){
@@ -443,7 +449,11 @@ public class dashboard extends JFrame {
     }//GEN-LAST:event_JToggleButtonActionPerformed
 
     private void btnPrinciaplActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrinciaplActionPerformed
-           showJpanel(new Principal()); 
+        try { 
+            showJpanel(new Principal());
+        } catch (Exception ex) {
+            Logger.getLogger(dashboard.class.getName()).log(Level.SEVERE, null, ex);
+        }
            btnPrinciapl.putClientProperty("JButton.buttonType", "roundRect"); // Aplicar borde redondeado
 
     }//GEN-LAST:event_btnPrinciaplActionPerformed

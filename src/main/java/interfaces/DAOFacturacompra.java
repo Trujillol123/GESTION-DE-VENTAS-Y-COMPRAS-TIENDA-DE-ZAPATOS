@@ -1,6 +1,7 @@
  
     package interfaces;
 
+import java.sql.Date;
     import java.util.List;
     import models.facturacompra;
 import models.zapato;
@@ -23,4 +24,6 @@ import models.zapato;
         public List<facturacompra> buscarFactura(String query) throws Exception; 
         
         public List<facturacompra> getAllFacturas() throws Exception ;
+        
+        public List<facturacompra> buscarFacturaPorFechas(Date fechaInicio, Date fechaFin) throws Exception;
     }

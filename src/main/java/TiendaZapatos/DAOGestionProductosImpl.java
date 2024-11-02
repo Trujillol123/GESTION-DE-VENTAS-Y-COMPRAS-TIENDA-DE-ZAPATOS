@@ -449,4 +449,38 @@ import models.zapato_color;
         
         
     }
+    
+    
+    
+    @Override
+    public List<zapato> obtenerZapatosSinStock() throws Exception {
+            List<zapato> zapatosSinStock = new ArrayList<>();
+
+            try {
+                this.Conectar();
+
+                String sql = "SELECT descripcion, cantidad FROM zapato WHERE cantidad = 0";
+                PreparedStatement st = this.conexion.prepareStatement(sql);
+                ResultSet rs = st.executeQuery();
+
+                while (rs.next()) {
+                    zapato zapato = new zapato();
+                    zapato.setDescripcion(rs.getString("descripcion"));
+                    zapato.setCantidad(rs.getInt("cantidad"));
+                    zapatosSinStock.add(zapato);
+                }
+
+                rs.close();
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new Exception("Error al obtener zapatos sin stock", e);
+            } finally {
+                this.Cerrar();
+            }
+
+            return zapatosSinStock;
+        }
+    
+    
     }

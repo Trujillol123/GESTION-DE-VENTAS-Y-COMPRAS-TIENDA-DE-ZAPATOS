@@ -85,7 +85,7 @@ public class NewVenta extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         txtTotal = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -161,10 +161,10 @@ public class NewVenta extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("CANCELAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -217,7 +217,7 @@ public class NewVenta extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48))
                     .addGroup(BackGroundLayout.createSequentialGroup()
                         .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,7 +319,7 @@ public class NewVenta extends javax.swing.JPanel {
                 .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(BackGroundLayout.createSequentialGroup()
                             .addGap(6, 6, 6)
@@ -364,9 +364,11 @@ public class NewVenta extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTotalActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+            
+        dashboard.getInstance().showJpanel(new Ventas());
+
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
     try {
@@ -830,6 +832,7 @@ public class NewVenta extends javax.swing.JPanel {
     private javax.swing.JPanel BackGround;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnAgregarPrdocuto;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<cliente> comboCliente;
@@ -838,7 +841,6 @@ public class NewVenta extends javax.swing.JPanel {
     private javax.swing.JComboBox<zapatocolor_talla> comboTalla;
     private javax.swing.JComboBox<zapato> comboZapato;
     private com.toedter.calendar.JDateChooser date;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

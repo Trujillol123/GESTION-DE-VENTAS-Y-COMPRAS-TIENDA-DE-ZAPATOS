@@ -26,13 +26,20 @@ public interface DAOFacturaventa {
 
     public void delete(int id)throws Exception;
     
-     public void actualizarTotal(int idFacturaVenta, float cantidad_pagada, int totalCantidad) throws Exception ;
+    public void actualizarTotal(int idFacturaVenta, float cantidad_pagada, int totalCantidad) throws Exception ;
      
-     public List<facturaventa> ReadNames() throws Exception; 
+    public List<facturaventa> ReadNames() throws Exception; 
      
-     public List<facturaventa> buscarVenta (String query) throws Exception;
+    public List<facturaventa> buscarVenta (String query) throws Exception;
      
-     public Map<Date, Float> getVentasPorFecha() throws Exception;
+    public Map<Date, Float> getVentasPorFecha() throws Exception;
      
+    public List<facturaventa> buscarVentaPorFechas(Date fechaInicio, Date fechaFin) throws Exception;
+     
+    public Map<String, Object> obtenerVentasDelDia() throws Exception;
+     
+    public float obtenerVentasDelMes() throws Exception;
+    
+    public Map<String, Integer> obtenerProductoMasVendidoDelMes(int mes, int año) throws Exception;
      
 }

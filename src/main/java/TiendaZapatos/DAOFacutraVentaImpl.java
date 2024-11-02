@@ -10,7 +10,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -246,5 +248,163 @@ public class DAOFacutraVentaImpl extends DataBase.Database implements DAOFactura
             return ventasPorFecha;
         }
 
-    
+        @Override
+    public List<facturaventa> buscarVentaPorFechas(Date fechaInicio, Date fechaFin) throws Exception {
+        List<facturaventa> ventas = new ArrayList<>();
+
+        try {
+            this.Conectar();
+
+            String sql = "SELECT f.id_facturaventa, c.nombre AS nombre_cliente, m.nombre_metodopago, f.cantidad, f.fecha_pago, f.cantidad_pagada " +
+                         "FROM facturaventa f " +
+                         "JOIN cliente c ON f.id_cliente = c.id_cliente " +
+                         "JOIN metodopago m ON f.id_metodopago = m.id_metodopago " +
+                         "WHERE f.fecha_pago >= ? AND f.fecha_pago <= ? " +
+                         "ORDER BY f.fecha_pago";
+
+            PreparedStatement st = this.conexion.prepareStatement(sql);
+            st.setDate(1, fechaInicio);
+            st.setDate(2, fechaFin);
+
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                facturaventa venta = new facturaventa();
+                venta.setId_facturaventa(rs.getInt("id_facturaventa"));
+                venta.setNombre_cliente(rs.getString("nombre_cliente"));
+                venta.setNombre_metodopago(rs.getString("nombre_metodopago"));
+                venta.setCantidad(rs.getInt("cantidad"));
+                venta.setFecha(rs.getDate("fecha_pago"));
+                venta.setCantidad_Pagada(rs.getFloat("cantidad_pagada"));
+
+                ventas.add(venta);
+            }
+
+            rs.close();
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            this.Cerrar();
+        }
+
+        return ventas;
+}
+        @Override
+        public Map<String, Object> obtenerVentasDelDia() throws Exception {
+            Map<String, Object> ventasDelDia = new HashMap<>();
+
+            try {
+                this.Conectar();
+                java.sql.Date fechaActual = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+
+                PreparedStatement st = this.conexion.prepareStatement(
+                    "SELECT SUM(cantidad) AS total_zapatos, SUM(cantidad * cantidad_pagada) AS total_ventas " +
+                    "FROM facturaventa " +
+                    "WHERE fecha_pago = ?"
+                );
+                st.setDate(1, fechaActual);
+
+                ResultSet rs = st.executeQuery();
+
+                if (rs.next()) {
+                    ventasDelDia.put("total_zapatos", rs.getInt("total_zapatos"));  // int para total_zapatos
+                    ventasDelDia.put("total_ventas", rs.getFloat("total_ventas"));  // float para total_ventas
+                }
+
+                rs.close();
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new Exception("Error al obtener las ventas del día", e);
+            } finally {
+                this.Cerrar();
+            }
+
+            return ventasDelDia;
+        }
+        
+         @Override
+         public float obtenerVentasDelMes() throws Exception {
+             
+            float totalVentasMes = 0;
+
+            try {
+                this.Conectar();
+
+                // Consulta para obtener el total del mes actual
+                PreparedStatement st = this.conexion.prepareStatement(
+                    "SELECT SUM(cantidad_pagada) AS total_ventas_mes " +
+                    "FROM facturaventa " +
+                    "WHERE MONTH(fecha_pago) = MONTH(CURRENT_DATE()) AND YEAR(fecha_pago) = YEAR(CURRENT_DATE())"
+                );
+
+                ResultSet rs = st.executeQuery();
+
+                if (rs.next()) {
+                    totalVentasMes = rs.getFloat("total_ventas_mes");
+                }
+
+                rs.close();
+                st.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new Exception("Error al obtener las ventas del mes", e);
+            } finally {
+                this.Cerrar();
+            }
+
+            return totalVentasMes;
+        }
+
+         
+      @Override
+      public Map<String, Integer> obtenerProductoMasVendidoDelMes(int mes, int año) throws Exception {
+          Map<String, Integer> productoMasVendido = new HashMap<>();
+
+          try {
+              // Conecta a la base de datos
+              this.Conectar();
+
+              // Consulta para obtener el producto más vendido del mes
+              PreparedStatement st = this.conexion.prepareStatement(
+                  "SELECT z.descripcion AS zapato, SUM(dv.cantidad) AS total_vendido " +
+                  "FROM facturaventa fv " +
+                  "JOIN detalleventa dv ON fv.id_facturaventa = dv.id_facturaventa " +
+                  "JOIN zapato z ON dv.id_zapato = z.id_zapato " +
+                  "WHERE MONTH(fv.fecha_pago) = ? AND YEAR(fv.fecha_pago) = ? " +
+                  "GROUP BY z.id_zapato " +
+                  "ORDER BY total_vendido DESC " +
+                  "LIMIT 1"
+              );
+
+              // Asigna los parámetros de mes y año
+              st.setInt(1, mes);
+              st.setInt(2, año);
+
+              // Ejecuta la consulta
+              ResultSet rs = st.executeQuery();
+
+              // Procesa el resultado
+              if (rs.next()) {
+                  String nombreZapato = rs.getString("zapato");
+                  int cantidadVendida = rs.getInt("total_vendido");
+                  productoMasVendido.put(nombreZapato, cantidadVendida);
+              }
+
+              // Cierra el ResultSet y el PreparedStatement
+              rs.close();
+              st.close();
+
+          } catch (SQLException e) {
+              e.printStackTrace();
+              throw new Exception("Error al obtener el producto más vendido del mes", e);
+          } finally {
+              // Cierra la conexión
+              this.Cerrar();
+          }
+
+          return productoMasVendido;
+      }
 }

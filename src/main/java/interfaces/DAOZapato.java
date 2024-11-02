@@ -39,4 +39,8 @@ public interface DAOZapato {
     public List<zapato_color> obtenerColoresZapatoConCantidad(int idZapato) throws Exception;
     
     public void actualizatCantidadZapatoVendido (int idZapato, int cantidadVendidad) throws Exception;
+    
+    public List<zapato> obtenerZapatosSinStock() throws Exception ;
+    
+    
 }

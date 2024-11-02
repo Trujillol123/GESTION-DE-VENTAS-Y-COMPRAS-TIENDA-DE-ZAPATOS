@@ -7,6 +7,8 @@ import javax.swing.table.DefaultTableModel;
 import TiendaZapatos.DAOFacturaCompraImpl;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import models.facturacompra;
 /**
@@ -296,7 +298,7 @@ public class Compras extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDetallesActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        filtrarPorFechas();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
@@ -351,13 +353,49 @@ public class Compras extends javax.swing.JPanel {
         }
         return null; 
     }
-    
-    
-     
-     
-   
 
-  
+       private void filtrarPorFechas() {
+                    
+            java.util.Date fechaInicioUtil = jDateChooser5.getDate(); // Fecha de inicio (java.util.Date)
+            java.util.Date fechaFinUtil = jDateChooser4.getDate(); // Fecha de fin (java.util.Date)
+
+            // Convertir java.util.Date a java.sql.Date
+            java.sql.Date fechaInicio = new java.sql.Date(fechaInicioUtil.getTime());
+            java.sql.Date fechaFin = new java.sql.Date(fechaFinUtil.getTime());
+
+            DAOFacturaCompraImpl daoFacturaCompra = new DAOFacturaCompraImpl();
+
+            try {
+                // Llamar al método de búsqueda de facturas entre fechas con java.sql.Date
+                List<facturacompra> facturas = daoFacturaCompra.buscarFacturaPorFechas(fechaInicio, fechaFin);
+
+                // Limpiar la tabla antes de mostrar los resultados
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setRowCount(0);
+
+                // Agregar los resultados a la tabla
+                for (facturacompra factura : facturas) {
+                    model.addRow(new Object[]{
+                        factura.getId_facturacompra(),
+                        factura.getNombre_proveedor(),
+                        factura.getCantidad(),
+                        factura.getFecha(),
+                        factura.getTotal()
+                    });
+                }
+
+                System.out.println("Resultados de la búsqueda por fechas mostrados.");
+            } catch (Exception e) {
+                System.out.println("Error al buscar facturas por fechas: " + e.getMessage());
+            }
+}
+
+
+
+
+
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private TiendaZapatos.PanelRound Background;
     private javax.swing.JLabel Titulo;

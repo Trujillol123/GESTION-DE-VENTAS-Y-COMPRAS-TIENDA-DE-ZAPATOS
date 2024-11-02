@@ -308,7 +308,7 @@ public class Ventas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        filtrarPorFechas();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesActionPerformed
@@ -351,6 +351,51 @@ public class Ventas extends javax.swing.JPanel {
            }
            return null; 
        }
+    
+     private void filtrarPorFechas() {
+                    
+            java.util.Date fechaInicioUtil = jDateChooser5.getDate(); // Fecha de inicio (java.util.Date)
+            java.util.Date fechaFinUtil = jDateChooser4.getDate(); // Fecha de fin (java.util.Date)
+
+            // Convertir java.util.Date a java.sql.Date
+            java.sql.Date fechaInicio = new java.sql.Date(fechaInicioUtil.getTime());
+            java.sql.Date fechaFin = new java.sql.Date(fechaFinUtil.getTime());
+
+            DAOFacutraVentaImpl daoFacturaVenta = new DAOFacutraVentaImpl();
+
+            try {
+                // Llamar al método de búsqueda de facturas entre fechas con java.sql.Date
+                List<facturaventa> facturas = daoFacturaVenta.buscarVentaPorFechas(fechaInicio, fechaFin);
+
+                // Limpiar la tabla antes de mostrar los resultados
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setRowCount(0);
+
+                // Agregar los resultados a la tabla
+                
+                
+                   for (facturaventa factura : facturas) {
+                     model.addRow(new Object[]{
+                    
+                    factura.getId_facturaventa(),
+                    factura.getNombre_cliente(),
+                    factura.getNombre_metodopago(),
+                    factura.getCantidad(),
+                    factura.getFecha(),
+                    factura.getCantidad_pagada()
+                
+             
+                    });
+                }
+
+                System.out.println("Resultados de la búsqueda por fechas mostrados.");
+            } catch (Exception e) {
+                System.out.println("Error al buscar facturas por fechas: " + e.getMessage());
+            }
+}
+
+
+    
     
     
     
