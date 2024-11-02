@@ -385,7 +385,7 @@ public class NewCompra extends javax.swing.JPanel {
                     int idZapato = daoZapato.obtenerIdPorNombre(nombreZapato); // Obtiene el ID del zapato
                     int idColor = daoColor.obtenerIdPorNombre(nombreColor); // Obtiene el ID del color
                     int idTalla = daoTalla.obtenerIdPorNumero(numeroTalla); // Obtiene el ID de la talla
-                    int idZapatoColor = daoZapatoColor.obtenerIdporcantidad(cantidad);
+                  
                     
                     if (idZapato != -1) { // Verifica que el zapato exista
                         // Obtener el precio del zapato
@@ -427,6 +427,13 @@ public class NewCompra extends javax.swing.JPanel {
                 date.setDate(null); 
                 txtTotal.setText("0"); 
                 txtPrecioU.setText("0");
+                
+                
+                
+                 // Volver a habilitar el comboMetodosde pago
+                comboproveedores.setEnabled(true);
+              
+                date.setEnabled(true);
                 
                 
                 JOptionPane.showMessageDialog(this, "Registro completado exitosamente.");
@@ -501,6 +508,16 @@ public class NewCompra extends javax.swing.JPanel {
     
      // Actualizar el total
     actualizarTotal();
+    
+     
+        // Deshabilitar el ComboBox de metodo de pago si es el primer producto agregado
+        if (jTable1.getRowCount() == 1) {
+            comboproveedores.setEnabled(false);
+           
+            date.setEnabled(false);
+        }
+    
+    
     
     }//GEN-LAST:event_btnAgregarPrdocutoActionPerformed
     

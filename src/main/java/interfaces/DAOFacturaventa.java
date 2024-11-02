@@ -4,7 +4,10 @@
  */
 package interfaces;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
+import models.facturacompra;
 import models.facturaventa;
 
 /**
@@ -13,7 +16,7 @@ import models.facturaventa;
  */
 public interface DAOFacturaventa {
 
-    public void create(facturaventa facturaventa)throws Exception;
+    public int create(facturaventa facturaventa)throws Exception;
 
     public List<facturaventa> read()throws Exception;
 
@@ -22,4 +25,14 @@ public interface DAOFacturaventa {
     public void update(facturaventa facturaventa)throws Exception;
 
     public void delete(int id)throws Exception;
+    
+     public void actualizarTotal(int idFacturaVenta, float cantidad_pagada, int totalCantidad) throws Exception ;
+     
+     public List<facturaventa> ReadNames() throws Exception; 
+     
+     public List<facturaventa> buscarVenta (String query) throws Exception;
+     
+     public Map<Date, Float> getVentasPorFecha() throws Exception;
+     
+     
 }

@@ -20,8 +20,8 @@ import models.zapatocolor_talla;
  */
 public class DAOZapatoColorTallaImpl extends Database implements DAOZapatoColorTalla  {
 
-        @Override
-        public void actualizarCantidadTalla(int id_zapato,  int idTalla,int idColor, int cantidad) throws Exception {
+    @Override
+    public void actualizarCantidadTalla(int id_zapato,  int idTalla,int idColor, int cantidad) throws Exception {
            DAOZapatoColorImpl daoZapatoColor = new DAOZapatoColorImpl();
 
            // Obtén o crea el idZapatoColor con base en idZapato e idColor
@@ -192,4 +192,45 @@ public class DAOZapatoColorTallaImpl extends Database implements DAOZapatoColorT
     // Imprimir cantidad para verificar el resultado
     System.out.println("Cantidad disponible: " + cantidad);
     return cantidad;
-}}
+}
+
+    @Override
+    public void actualizarCantidadTallaVenida(int id_zapato, int idTalla, int idColor, int cantidad) throws Exception {
+        
+         DAOZapatoColorImpl daoZapatoColor = new DAOZapatoColorImpl();
+
+           // Obtén o crea el idZapatoColor con base en idZapato e idColor
+           int idZapatoColor = daoZapatoColor.obtenerIdZapatoColor(id_zapato, idColor);
+
+           String selectSQL = "SELECT cantidad FROM zapatocolor_talla WHERE id_zapatocolor = ? AND id_talla = ?";
+           String updateSQL = "UPDATE zapatocolor_talla SET cantidad = cantidad - ? WHERE id_zapatocolor = ? AND id_talla = ?";
+
+           try {
+               this.Conectar();
+
+               // Verificar si ya existe el registro
+               PreparedStatement selectStmt = this.conexion.prepareStatement(selectSQL);
+               selectStmt.setInt(1, idZapatoColor);
+               selectStmt.setInt(2, idTalla);
+               ResultSet rs = selectStmt.executeQuery();
+
+               if (rs.next()) {
+                   // Si existe, actualiza la cantidad
+                   PreparedStatement updateStmt = this.conexion.prepareStatement(updateSQL);
+                   updateStmt.setInt(1, cantidad);
+                   updateStmt.setInt(2, idZapatoColor);
+                   updateStmt.setInt(3, idTalla);
+                   updateStmt.executeUpdate();
+               } 
+               
+
+               rs.close();
+               selectStmt.close();
+           } catch (SQLException e) {
+               throw new SQLException("Error al actualizar o insertar en zapatoColortalla: " + e.getMessage(), e);
+           } finally {
+               this.Cerrar();
+           }
+
+    }
+}

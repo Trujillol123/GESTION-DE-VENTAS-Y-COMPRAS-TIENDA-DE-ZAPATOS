@@ -5,7 +5,7 @@
 package interfaces;
 
 import java.util.List;
-import models.detalleventa;
+import models.ventazapato;
 
 /**
  *
@@ -15,11 +15,16 @@ public interface DAODetalleVenta {
     
 
     // Método para registrar
-    public void create(detalleventa compraZapato)throws Exception;
+    public void create(ventazapato compraZapato)throws Exception;
 
     // Método para obtener una lista 
-    public List<detalleventa> read()throws Exception;
+    public List<ventazapato> read()throws Exception;
     
     // Método para obtener  por su ID
-    public detalleventa readById(int id)throws Exception;
+    public ventazapato readById(int id)throws Exception;
+    
+     public void actualizarCantidadZapatoColor(int idZapato, int idColor, int cantidad) throws Exception ;
+     
+     public List<ventazapato> getDetallesPorFactura(int idFacturaVenta) throws Exception;
+     
 }

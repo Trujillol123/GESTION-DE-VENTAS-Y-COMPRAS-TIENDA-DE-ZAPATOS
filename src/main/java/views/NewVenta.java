@@ -5,13 +5,21 @@
 package views;
 
 import TiendaZapatos.DAOClienteImpl;
+import TiendaZapatos.DAOColoresImpl;
+import TiendaZapatos.DAOFacturaCompraImpl;
+import TiendaZapatos.DAOFacutraVentaImpl;
+
 import TiendaZapatos.DAOGestionProductosImpl;
+import TiendaZapatos.DAOMetodoPagoImpl;
+import TiendaZapatos.DAOTallaImpl;
+import TiendaZapatos.DAOVentaZapatoImpl;
 import TiendaZapatos.DAOZapatoColorImpl;
 import TiendaZapatos.DAOZapatoColorTallaImpl;
 import TiendaZapatos.dashboard;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -22,6 +30,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import models.cliente;
 import models.colores;
+import models.ventazapato;
+import models.facturaventa;
+import models.metodopago;
 import models.talla;
 import models.zapato;
 import models.zapato_color;
@@ -31,14 +42,21 @@ import models.zapatocolor_talla;
 
 public class NewVenta extends javax.swing.JPanel {
 
-    /**
-     * Creates new form NuevaVenta
-     */
+    private DAOFacutraVentaImpl daoFacturaVenta = new DAOFacutraVentaImpl();
+    private DAOGestionProductosImpl daoZapato = new DAOGestionProductosImpl();
+    private DAOClienteImpl daoCliente = new DAOClienteImpl();
+    private DAOVentaZapatoImpl dAOVentaZapatoImpl = new DAOVentaZapatoImpl();
+    private DAOColoresImpl daoColor = new DAOColoresImpl();
+    private DAOTallaImpl daoTalla = new DAOTallaImpl(); 
+    private DAOZapatoColorTallaImpl daoZapatoColorTalla = new DAOZapatoColorTallaImpl  ();
+        
     public NewVenta() {
         initComponents();
         initStyles ();
         cargarClientes();
         cargarZapatos();
+        cargarMetodosPago();
+      
     }
 
     /**
@@ -68,7 +86,7 @@ public class NewVenta extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         txtTotal = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         comboColor = new javax.swing.JComboBox<>();
@@ -76,6 +94,8 @@ public class NewVenta extends javax.swing.JPanel {
         comboTalla = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         txtDisponobles = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        comboMetodosPago = new javax.swing.JComboBox<>();
 
         BackGround.setBackground(new java.awt.Color(255, 153, 153));
 
@@ -122,11 +142,11 @@ public class NewVenta extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Producto", "Cantidad", "Precio Unitario", "Fecha Venta", "Subtotal"
+                "Producto", "Cantidad", "Color", "Talla", "Fecha Venta", "Precio Unitario", "Subtotal"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -148,10 +168,10 @@ public class NewVenta extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("REGISTAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrar.setText("REGISTAR");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnRegistrarActionPerformed(evt);
             }
         });
 
@@ -175,6 +195,14 @@ public class NewVenta extends javax.swing.JPanel {
 
         jLabel1.setText("Disponibles : ");
 
+        jLabel10.setText("Metodo Pago");
+
+        comboMetodosPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboMetodosPagoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout BackGroundLayout = new javax.swing.GroupLayout(BackGround);
         BackGround.setLayout(BackGroundLayout);
         BackGroundLayout.setHorizontalGroup(
@@ -186,13 +214,16 @@ public class NewVenta extends javax.swing.JPanel {
                         .addComponent(jLabel4)
                         .addGap(12, 12, 12)
                         .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 594, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
-                    .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1051, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
+                    .addGroup(BackGroundLayout.createSequentialGroup()
+                        .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1051, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
                     .addGroup(BackGroundLayout.createSequentialGroup()
                         .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(BackGroundLayout.createSequentialGroup()
@@ -209,13 +240,15 @@ public class NewVenta extends javax.swing.JPanel {
                                 .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(BackGroundLayout.createSequentialGroup()
+                            .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BackGroundLayout.createSequentialGroup()
                                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(txtPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnAgregarPrdocuto, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(comboMetodosPago, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(BackGroundLayout.createSequentialGroup()
                                     .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(25, 25, 25)
@@ -230,11 +263,16 @@ public class NewVenta extends javax.swing.JPanel {
                                 .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboTalla, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDisponobles, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
+                        .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(BackGroundLayout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDisponobles, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackGroundLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAgregarPrdocuto, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32))))))
         );
         BackGroundLayout.setVerticalGroup(
             BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,13 +310,15 @@ public class NewVenta extends javax.swing.JPanel {
                         .addComponent(txtCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtPrecioU, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAgregarPrdocuto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAgregarPrdocuto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboMetodosPago, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BackGroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(BackGroundLayout.createSequentialGroup()
@@ -303,7 +343,10 @@ public class NewVenta extends javax.swing.JPanel {
                 .addComponent(BackGround, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    
+   
+    
      private void initStyles () {
         Titulo.putClientProperty( "FlatLaf.styleClass" , "h3" );
        txtCantidad.putClientProperty("JTextField.placeholderText", "Cantidad Vendida.");
@@ -325,13 +368,98 @@ public class NewVenta extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+    try {
+                int idCliente = comboCliente.getSelectedIndex();
+                
+                 java.sql.Date fecha = obtenerFechaSQL(date);
+                
+               
+
+                // Obtener el ID correcto del método de pago
+                int idMetodoPago   = comboMetodosPago.getSelectedIndex();
+              
+
+                // mensaje de depuracion porque esta mi@$#da sigue dando error 
+                
+                System.out.println("ID Método de Pago a enviar: " + idMetodoPago);
+
+                // Crear el objeto facturaventa con el ID de metodo de pago correcto 
+                // Aca estaba el put0 error
+                facturaventa factura = new facturaventa(idCliente, 0, idMetodoPago, fecha);
+
+                // Confirmar que se asigno correctamente en facturaventa
+                System.out.println("ID Método de Pago en facturaventa: " + factura.getId_metodopago());
+
+                // Procedo a la creacion 
+                int idFacturaVenta = daoFacturaVenta.create(factura);
+
+
+                 double totalFactura = 0;
+                 int totalCantidad = 0;
+
+                 for (int i = 0; i < jTable1.getRowCount(); i++) {
+                     String nombreZapato = jTable1.getValueAt(i, 0).toString();
+                     int cantidad = (int) jTable1.getValueAt(i, 1);
+                     String nombreColor = jTable1.getValueAt(i, 2).toString();
+                     String numeroTalla = jTable1.getValueAt(i, 3).toString();
+
+                     int idZapato = daoZapato.obtenerIdPorNombre(nombreZapato);
+                     int idColor = daoColor.obtenerIdPorNombre(nombreColor);
+                     int idTalla = daoTalla.obtenerIdPorNumero(numeroTalla);
+
+                     if (idZapato != -1) {
+                         double precioZapato = daoZapato.getPrecioVentaPorZapato(idZapato);
+                         totalFactura += precioZapato * cantidad;
+                         totalCantidad += cantidad;
+
+                       
+                         ventazapato ventazapato = new ventazapato(idZapato, idFacturaVenta, cantidad, idColor, idTalla);
+                         
+                         dAOVentaZapatoImpl.create(ventazapato);
+                         
+                         daoZapato.actualizatCantidadZapatoVendido(idZapato, cantidad);
+                         
+                         dAOVentaZapatoImpl.actualizarCantidadZapatoColor(idZapato, idColor, cantidad);
+                         
+                         daoZapatoColorTalla.actualizarCantidadTallaVenida(idZapato, idTalla, idColor, cantidad);
+                         
+                         
+                     } else {
+                         System.out.println("Zapato no encontrado: " + nombreZapato);
+                     }
+                 }
+
+                 daoFacturaVenta.actualizarTotal(idFacturaVenta, (float) totalFactura, totalCantidad);
+              
+                 JOptionPane.showMessageDialog(this, "Registro completado exitosamente.");
+                 
+                 
+                 // liampiar todo
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                model.setRowCount(0); 
+
+               
+                comboCliente.setSelectedIndex(0);
+             
+                date.setDate(null);             
+                txtTotal.setText(""); 
+               
+                
+                // Volver a habilitar el comboMetodosde pago
+                comboMetodosPago.setEnabled(true);
+                comboCliente.setEnabled(true);
+                date.setEnabled(true);
+                
+             } catch (Exception ex) {
+                 ex.printStackTrace();
+                 JOptionPane.showMessageDialog(this, "Error al registrar la compra: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+             }
+         
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void comboClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboClienteActionPerformed
-
-      
+  
         
         
     }//GEN-LAST:event_comboClienteActionPerformed
@@ -339,125 +467,134 @@ public class NewVenta extends javax.swing.JPanel {
     private void comboZapatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboZapatoActionPerformed
           zapato zapatoSeleccionado = (zapato) comboZapato.getSelectedItem();
 
-if (zapatoSeleccionado != null) {
-    System.out.println("Zapato seleccionado: " + zapatoSeleccionado.getDescripcion());
+        if (zapatoSeleccionado != null) {
+            System.out.println("Zapato seleccionado: " + zapatoSeleccionado.getDescripcion());
 
-    try {
-        // Obtener el precio de venta del zapato seleccionado
-        float precioVenta = obtenerPrecioVenta(zapatoSeleccionado.getId_zapato());
-        txtPrecioU.setText(String.format("%.2f", precioVenta));
-        txtPrecioU.setEditable(false);
+            try {
+                // Obtener el precio de venta del zapato seleccionado
+                float precioVenta = obtenerPrecioVenta(zapatoSeleccionado.getId_zapato());
+                txtPrecioU.setText(String.format("%.2f", precioVenta));
+                txtPrecioU.setEditable(false);
 
-        // Limpiar el comboColor antes de llenarlo
-        comboColor.removeAllItems();
-        comboTalla.removeAllItems(); // Limpiar el comboTalla también
-        txtDisponobles.setText(""); // Limpiar el campo de cantidad disponible
+                // Limpiar el comboColor antes de llenarlo
+                comboColor.removeAllItems();
+                comboTalla.removeAllItems(); // Limpiar el comboTalla también
+                txtDisponobles.setText(""); // Limpiar el campo de cantidad disponible
 
-        List<zapato_color> coloresDisponibles = obtenerColoresDisponibles(zapatoSeleccionado.getId_zapato());
+                List<zapato_color> coloresDisponibles = obtenerColoresDisponibles(zapatoSeleccionado.getId_zapato());
 
-        // Agregar colores disponibles al comboColor
-        for (zapato_color color : coloresDisponibles) {
-            comboColor.addItem(color); // Agregar el objeto zapato_color al comboBox
-        }
-
-        // Si hay colores disponibles, seleccionar el primero y llenar las tallas
-        if (!coloresDisponibles.isEmpty()) {
-            comboColor.setSelectedIndex(0); // Seleccionar el primer color
-
-            // Llenar las tallas para el primer color seleccionado
-            zapato_color colorSeleccionado = (zapato_color) comboColor.getSelectedItem();
-            if (colorSeleccionado != null) {
-                List<zapatocolor_talla> tallasDisponibles = cargarTallasPorZapatoColor(colorSeleccionado.getId_zapatocolor());
-                comboTalla.removeAllItems(); // Limpiar el comboTalla
-
-                for (zapatocolor_talla talla : tallasDisponibles) {
-                    comboTalla.addItem(talla); // Agregar tallas al comboTalla
+                // Agregar colores disponibles al comboColor
+                for (zapato_color color : coloresDisponibles) {
+                    comboColor.addItem(color); // Agregar el objeto zapato_color al comboBox
                 }
 
-                // Verificar si hay tallas disponibles
-                if (!tallasDisponibles.isEmpty()) {
-                    comboTalla.setSelectedIndex(0); // Seleccionar la primera talla
-                    // Mostrar la cantidad disponible en el textField
-                    txtDisponobles.setText(String.valueOf(tallasDisponibles.get(0).getCantidad()));
+                // Si hay colores disponibles, seleccionar el primero y llenar las tallas
+                if (!coloresDisponibles.isEmpty()) {
+                    comboColor.setSelectedIndex(0); // Seleccionar el primer color
+
+                    // Llenar las tallas para el primer color seleccionado
+                    zapato_color colorSeleccionado = (zapato_color) comboColor.getSelectedItem();
+                    if (colorSeleccionado != null) {
+                        List<zapatocolor_talla> tallasDisponibles = cargarTallasPorZapatoColor(colorSeleccionado.getId_zapatocolor());
+                        comboTalla.removeAllItems(); // Limpiar el comboTalla
+
+                        for (zapatocolor_talla talla : tallasDisponibles) {
+                            comboTalla.addItem(talla); // Agregar tallas al comboTalla
+                        }
+
+                        // Verificar si hay tallas disponibles
+                        if (!tallasDisponibles.isEmpty()) {
+                            comboTalla.setSelectedIndex(0); // Seleccionar la primera talla
+                            // Mostrar la cantidad disponible en el textField
+                            txtDisponobles.setText(String.valueOf(tallasDisponibles.get(0).getCantidad()));
+                        } else {
+                            txtDisponobles.setText("0"); // Si no hay tallas, mostrar 0
+                        }
+                    }
                 } else {
-                    txtDisponobles.setText("0"); // Si no hay tallas, mostrar 0
+                    txtDisponobles.setText("0"); // Si no hay colores, mostrar 0
                 }
-            }
-        } else {
-            txtDisponobles.setText("0"); // Si no hay colores, mostrar 0
-        }
 
-    } catch (Exception e) {
-        e.printStackTrace();
-        System.out.println("Error al obtener el precio de venta o colores disponibles del zapato.");
-    }}
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error al obtener el precio de venta o colores disponibles del zapato.");
+            }}
     }//GEN-LAST:event_comboZapatoActionPerformed
 
     private void btnAgregarPrdocutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPrdocutoActionPerformed
-                 
+       
+        // Obtener el cliente seleccionado
+        cliente clienteSeleccionado = (cliente) comboCliente.getSelectedItem();
 
+        // Obtener el zapato seleccionado
+        zapato zapatoSeleccionado = (zapato) comboZapato.getSelectedItem();
+
+        // Verificar que txtCantidad no esté vacío
+        if (txtCantidad.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingresa una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verificar que date no esté vacío
+        if (date.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una fecha.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verificar que el zapato no esté en blanco
+        if (zapatoSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona un zapato.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verificar que los ComboBox de color y talla tengan una selección
+        if (comboColor.getItemCount() == 0 || comboTalla.getItemCount() == 0) {
+            JOptionPane.showMessageDialog(this, "No hay opciones de color o talla para este producto.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Obtener la cantidad
+        int cantidad = Integer.parseInt(txtCantidad.getText());
+
+        // Manejo del precio con formato adecuado
+        float precioVenta = 0;
+        try {
+            NumberFormat format = NumberFormat.getInstance();
+            precioVenta = format.parse(txtPrecioU.getText()).floatValue();
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(this, "Formato de precio no válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Obtener la fecha desde el JDateChooser
+        java.sql.Date fechaProducto = obtenerFechaSQL(date);
+
+        // Obtener la descripción del zapato, color y talla seleccionados
+        String descripcion = zapatoSeleccionado.getDescripcion();
+        String colorSeleccionado = comboColor.getSelectedItem() != null ? comboColor.getSelectedItem().toString() : "";
+        String tallaSeleccionada = comboTalla.getSelectedItem() != null ? comboTalla.getSelectedItem().toString() : "";
+
+        // Agregar la fila a la tabla
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        Object[] rowData = { descripcion, cantidad, colorSeleccionado, tallaSeleccionada, fechaProducto, precioVenta, precioVenta * cantidad };
+        model.addRow(rowData);
+
+        // Limpiar los campos del formulario
+        txtCantidad.setText("");
+        txtPrecioU.setText("");
         
-              cliente clienteSeleccionado = (cliente) comboCliente.getSelectedItem();
-              
-                // Obtener los datos del formulario
-              zapato zapatoSeleccionado = (zapato) comboZapato.getSelectedItem();
+        comboColor.setSelectedIndex(-1); // Dejar en blanco los ComboBox de color y talla para la proxima seleccion
+        comboTalla.setSelectedIndex(-1);
 
-              // Verificar que txtCantidad no esté vacío
-            if (txtCantidad.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor, ingresa una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salir del método si la cantidad es inválida
-            }
-
-              // Verificar que date no esté vacío
-            if (date.getDate() == null) {
-                JOptionPane.showMessageDialog(this, "Por favor, selecciona una fecha.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Salir del método si la fecha no está seleccionada
-            }
-              
-              int cantidad = Integer.parseInt(txtCantidad.getText());
-
-              // Manejo del precio con formato adecuado
-              float precioVenta = 0;
-              try {
-                  NumberFormat format = NumberFormat.getInstance();
-                  precioVenta = format.parse(txtPrecioU.getText()).floatValue();
-              } catch (ParseException e) {
-                  // Manejar el error de formato
-                  JOptionPane.showMessageDialog(this, "Formato de precio no válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                  return; // Salir del método si el formato es incorrecto
-              }
-
-              // Obtener la fecha desde el JDateChooser
-              java.sql.Date fechaProducto = obtenerFechaSQL(date);
-
-              // Aseggurarse que el zapato no este en blanco
-              if (zapatoSeleccionado == null) {
-                  JOptionPane.showMessageDialog(this, "Por favor, selecciona un zapato.", "Error", JOptionPane.ERROR_MESSAGE);
-                  return;
-              }
-
-             
-              String cliente = clienteSeleccionado.getNombre();
-              String descripcion = zapatoSeleccionado.getDescripcion();
-
-
-              // Agregar la fila a la tabla
-              DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); 
-              Object[] rowData = { descripcion, cantidad, fechaProducto, precioVenta * cantidad}; 
-              model.addRow(rowData);
-
-
-
-              // Limpiar los campos del formulario
-              txtCantidad.setText("");
-              txtPrecioU.setText("");
-             comboZapato.setSelectedIndex(0); // Resetea los Combobox
-             
-             
-
-               // Actualizar el total
-              actualizarTotal();
-
+        // Actualizar el total
+        actualizarTotal();
+        
+        // Deshabilitar el ComboBox de metodo de pago si es el primer producto agregado
+        if (jTable1.getRowCount() == 1) {
+            comboMetodosPago.setEnabled(false);
+            comboCliente.setEnabled(false);
+            date.setEnabled(false);
+        }
     }//GEN-LAST:event_btnAgregarPrdocutoActionPerformed
 
     private void comboColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColorActionPerformed
@@ -550,6 +687,10 @@ if (zapatoSeleccionado != null) {
 });
     }//GEN-LAST:event_comboTallaActionPerformed
 
+    private void comboMetodosPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboMetodosPagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboMetodosPagoActionPerformed
+
     
    
     
@@ -562,7 +703,7 @@ if (zapatoSeleccionado != null) {
 
           // Sumar todos los valores de la columna "subtotal" y contar la cantidad de productos
           for (int i = 0; i < rowCount; i++) {
-              total += (float) model.getValueAt(i, 4); //  "subtotal" está en la columna 6
+              total += (float) model.getValueAt(i, 6); //  "subtotal" está en la columna 6
               totalProductos += (int) model.getValueAt(i, 1); // "cantidad" está en la columna 1
           }
 
@@ -619,6 +760,28 @@ if (zapatoSeleccionado != null) {
     }
 }
     
+    public List<metodopago> ObtenerMetodosPago() {
+     DAOMetodoPagoImpl daoMetodoPago = new DAOMetodoPagoImpl();
+    List<metodopago> metodosPago = new ArrayList<>();
+
+    try {
+        metodosPago = daoMetodoPago.read(); // Método que obtiene todos los métodos de pago
+    } catch (Exception e) {
+        Logger.getLogger(NewVenta.class.getName()).log(Level.SEVERE, null, e);
+        javax.swing.JOptionPane.showMessageDialog(this, "Error al obtener los métodos de pago", "AVISO", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+
+    return metodosPago; // Retornar la lista de métodos de pago
+}
+    
+    private void cargarMetodosPago() {
+    
+
+    List<metodopago> listaMetodosPago = ObtenerMetodosPago(); // Método que obtiene los métodos de pago
+    for (metodopago mp : listaMetodosPago) {
+        comboMetodosPago.addItem(mp); // Agregar cada método de pago al JComboBox
+    }
+}
     
     public List<zapato_color> obtenerColoresDisponibles(int idZapato) {
         
@@ -668,14 +831,16 @@ if (zapatoSeleccionado != null) {
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnAgregarPrdocuto;
     private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JComboBox<cliente> comboCliente;
     private javax.swing.JComboBox<zapato_color> comboColor;
+    private javax.swing.JComboBox<metodopago> comboMetodosPago;
     private javax.swing.JComboBox<zapatocolor_talla> comboTalla;
     private javax.swing.JComboBox<zapato> comboZapato;
     private com.toedter.calendar.JDateChooser date;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

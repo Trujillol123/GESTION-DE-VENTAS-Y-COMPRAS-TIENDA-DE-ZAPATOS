@@ -5,6 +5,7 @@
     <artifactId>ZapatosStyle</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+   
     <properties>
         
 
@@ -13,7 +14,25 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.utcompany.zapatosstyle.TiendaZapatos</exec.mainClass>
     </properties>
+    
+      <repositories>
+        <repository>
+            <id>jfree</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+    </repositories>
+    
     <dependencies>
+        <dependency>
+        <groupId>org.jfree</groupId>
+        <artifactId>jcommon</artifactId>
+        <version>1.0.23</version>
+        </dependency>
+        <dependency>
+    <groupId>org.jfree</groupId>
+        <artifactId>jfreechart</artifactId>
+        <version>1.0.19</version>
+    </dependency>
         <dependency>
         <groupId>org.apache.xmlgraphics</groupId>
         <artifactId>batik-svggen</artifactId>

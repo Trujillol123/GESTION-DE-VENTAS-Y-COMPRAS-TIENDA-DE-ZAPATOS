@@ -1,4 +1,5 @@
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOColores.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOFacutraVentaImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\zapato_color.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOFacturaventa.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOZapatoColorTalla.java
@@ -24,13 +25,14 @@ C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\i
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOFacturacompra.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\NewCompra.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\facturacompra.java
-C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\detalleventa.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\PanelRound.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\DetalleNewCompra.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOZapatoColorTallaImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\marca.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\ventazapato.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOVentaZapatoImpl.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\DetalleNewVenta.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\proveedor.java
-C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\DetalleVenta.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\DetalleProductos.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOCompraZapatoImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\models\facturaventa.java
@@ -45,6 +47,7 @@ C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\T
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\NewCliente.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\interfaces\DAOCliente.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\CustomComponents\RoundedTextField.java
+C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOMetodoPagoImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\Proveedores.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\TiendaZapatos\DAOTallaImpl.java
 C:\Users\cland\OneDrive\Documentos\NetBeansProjects\ZapatosStyle\src\main\java\views\Compras.java

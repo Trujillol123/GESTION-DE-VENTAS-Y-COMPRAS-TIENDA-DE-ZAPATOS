@@ -18,14 +18,6 @@ public class comprazapato {
   
     private int id_comprazapato;
     private int id_proveedor;
-
-    public int getId_proveedor() {
-        return id_proveedor;
-    }
-
-    public void setId_proveedor(int id_proveedor) {
-        this.id_proveedor = id_proveedor;
-    }
     private int id_zapato;
     private int id_facturacompra;
     private int id_color;
@@ -37,6 +29,17 @@ public class comprazapato {
     private Date Fecha;
     private Double SubTotal;
     private int id_zapatocolor;
+    private String numero_talla;
+    
+    
+    
+    public int getId_proveedor() {
+        return id_proveedor;
+    }
+
+    public void setId_proveedor(int id_proveedor) {
+        this.id_proveedor = id_proveedor;
+    }
 
     public int getId_zapatocolor() {
         return id_zapatocolor;
@@ -79,7 +82,7 @@ public class comprazapato {
     public void setNumero_talla(String numero_talla) {
         this.numero_talla = numero_talla;
     }
-    private String numero_talla;
+    
     
 
     public float getPrecio_compra() {

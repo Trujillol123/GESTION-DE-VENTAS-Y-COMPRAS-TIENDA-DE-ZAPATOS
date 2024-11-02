@@ -5,6 +5,8 @@ import TiendaZapatos.dashboard;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import TiendaZapatos.DAOFacturaCompraImpl;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import models.facturacompra;
 /**
@@ -114,10 +116,7 @@ public class Compras extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID Factura Compra", "Proveedor", "Cantidad", "Fecha", "Total"
@@ -248,7 +247,18 @@ public class Compras extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     private void initStyles () {
         Titulo.putClientProperty( "FlatLaf.styleClass" , "h3" );
-        txtbuscar.putClientProperty("JTextField.placeholderText", "Ingrese el ID de compra a buscar.");
+        txtbuscar.putClientProperty("JTextField.placeholderText", "Ingrese cualquier dato relevante de la factura de compra a buscar.");
+        
+            // Agregar KeyListener al JTextField txtbuscar
+            txtbuscar.addKeyListener(new KeyAdapter() {
+           @Override
+           public void keyPressed(KeyEvent e) {
+               if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                   btnbuscarActionPerformed(null); // Llamar al metodo de buscar del boton de busqueda
+               }
+           }
+       });
+        
     }
      
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -276,7 +286,7 @@ public class Compras extends javax.swing.JPanel {
         String nombreProveedor = (String) facturaSeleccionada[1]; // El segundo elemento ya es un String
 
         
-        DetalleNewCompra detalleNewCompra = new DetalleNewCompra(idFactura, nombreProveedor); // Usa el constructor ya hehco
+        DetalleNewCompra detalleNewCompra = new DetalleNewCompra(idFactura, nombreProveedor); 
 
        
         dashboard.getInstance().showJpanel(detalleNewCompra);
@@ -327,7 +337,7 @@ public class Compras extends javax.swing.JPanel {
     int filaSeleccionada = jTable1.getSelectedRow();
     if (filaSeleccionada != -1) {
         idFacturaSeleccionada = Integer.parseInt(jTable1.getValueAt(filaSeleccionada, 0).toString());
-        String Proveedor = jTable1.getValueAt(filaSeleccionada, 1).toString(); // Suponiendo que el nombre del proveedor está en la segunda columna
+        String Proveedor = jTable1.getValueAt(filaSeleccionada, 1).toString(); 
 
     }
     }//GEN-LAST:event_jTable1MouseClicked

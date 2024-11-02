@@ -428,4 +428,25 @@ import models.zapato_color;
 
 
         }
+
+    @Override
+    public void actualizatCantidadZapatoVendido(int idZapato, int cantidadVendidad) throws Exception {
+
+        try {
+                this.Conectar();
+                PreparedStatement st = this.conexion.prepareStatement(
+                    "UPDATE zapato SET cantidad = cantidad - ? WHERE id_zapato = ?"
+                );
+                st.setInt(1, cantidadVendidad);
+                st.setInt(2, idZapato);
+                st.executeUpdate();
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw e;
+            } finally {
+                this.Cerrar();
+            }    
+        
+        
+    }
     }

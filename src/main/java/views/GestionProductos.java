@@ -4,6 +4,8 @@ package views;
 import TiendaZapatos.DAOGestionProductosImpl;
 import TiendaZapatos.dashboard;
 import interfaces.DAOZapato;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -206,6 +208,18 @@ public class GestionProductos extends javax.swing.JPanel {
         Titulo.putClientProperty("FlatLaf.styleClass", "h3");    
         txtBuscar.putClientProperty("JTextField.placeholderText", "Ingrese algun dato revelevante del producto a buscar."); 
       
+        // Agregar KeyListener al JTextField txtbuscar
+            txtBuscar.addKeyListener(new KeyAdapter() {
+           @Override
+           public void keyPressed(KeyEvent e) {
+               if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                   btnBuscarActionPerformed(null); // Llamar al metodo de buscar del boton de busqueda
+               }
+           }
+       });
+        
+        
+        
          }
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed

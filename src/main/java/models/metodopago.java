@@ -13,6 +13,20 @@ public class metodopago {
     private int id_metodopago;
     private String nombre_metodopago;
 
+    
+    
+      public metodopago(int id_metodopago, String nombre_metodopago) {
+        this.id_metodopago = id_metodopago;
+        this.nombre_metodopago = nombre_metodopago;
+    }
+    
+    
+       @Override
+    public String toString() {
+        return nombre_metodopago; // Para que se muestre el nombre en el JComboBox
+    }
+      
+    
     public int getId_metodopago() {
         return id_metodopago;
     }

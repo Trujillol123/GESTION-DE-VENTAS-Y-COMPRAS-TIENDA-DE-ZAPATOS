@@ -26,5 +26,7 @@ public interface DAOZapatoColorTalla {
      public List<zapatocolor_talla> getTallasPorZapatoColor(int idZapatoColor) throws Exception ;
      
       public int getCantidadDisponible(int id_zapatocolortalla) throws Exception ;
+      
+      public void actualizarCantidadTallaVenida (int id_zapato,  int idTalla,int idColor, int cantidad) throws Exception;
     
 }

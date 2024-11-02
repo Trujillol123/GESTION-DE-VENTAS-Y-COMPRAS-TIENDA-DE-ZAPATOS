@@ -31,6 +31,8 @@ public class DetalleNewCompra extends javax.swing.JPanel {
         initStyles();
     }
 
+   
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,9 +134,10 @@ public class DetalleNewCompra extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 226, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -176,17 +179,17 @@ public class DetalleNewCompra extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtProveedorActionPerformed
 
-// Método para cargar los detalles de compra en la tabla
+// Metodo para cargar los detalles de compra en la tabla
     private void cargarDetallesCompra(int idFactura) {
     try {
-        // Crear instancia de DAOCompraZapatoImpl para acceder a los detalles de compra
+        // Se cera la  instancia de DAOCompraZapatoImpl para acceder a los detalles de compra
         DAOCompraZapatoImpl daoCompraZapato = new DAOCompraZapatoImpl();
         
         // Obtener el modelo de la tabla y limpiar cualquier fila anterior
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         
-        // Obtener los detalles de la compra
+        // Obtengo los detalles de la compra
         List<comprazapato> detalles = daoCompraZapato.getDetallesPorFactura(idFactura);
         
          double totalCompra = 0.0; 
@@ -224,14 +227,7 @@ public class DetalleNewCompra extends javax.swing.JPanel {
     }    
     
     
-    private void llenarTabla(Object[][] datos) {
-    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-    modelo.setRowCount(0); // Limpiar la tabla actual
-    for (Object[] fila : datos) {
-        modelo.addRow(fila);
-    }
-}
-          // Método para configurar el JTextField
+    
     private void configurarTextField(int idFactura) {
     
         txtProveedor.setText(nombreProveedor);
